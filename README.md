@@ -1,9 +1,9 @@
 # blog
-日本マイクロソフト Azure Identity サポート チームのブログです。
+日本マイクロソフト Intune サポート チームのブログです。
 
-チームの担当製品である Azure Active Directory、Azure AD Connect、AD FS の情報を中心にお届けします。その他の Azure 関連サポートチームのブログへのリンクもありますのでぜひご確認ください。
+チームの担当製品である Intune の情報を中心にお届けします。その他の Intune 関連サポートチームのブログへのリンクもありますのでぜひご確認ください。
 
-[全記事一覧](https://jpazureid.github.io/blog/archives/)
+[全記事一覧](https://jpintune.github.io/blog/archives/)
 
 ## Azure Active Directory
 
