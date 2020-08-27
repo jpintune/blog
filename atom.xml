@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Japan Microsoft Intune Support Blog</title>
+  
+  <subtitle>日本マイクロソフトの Microsoft Intune に関するサポート情報のブログです。</subtitle>
+  <link href="/blog/atom.xml" rel="self"/>
+  
+  <link href="https://jpintune.github.io/blog/"/>
+  <updated>2020-08-27T11:57:21.112Z</updated>
+  <id>https://jpintune.github.io/blog/</id>
+  
+  <author>
+    <name>Microsoft Intune Support Japan</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>TEST</title>
+    <link href="https://jpintune.github.io/blog/test/test/"/>
+    <id>https://jpintune.github.io/blog/test/test/</id>
+    <published>2020-08-26T15:00:00.000Z</published>
+    <updated>2020-08-27T11:57:21.112Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>本記事は、 テスト記事になります。</p></blockquote><p>皆さんこんにちは。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;本記事は、 テスト記事になります。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;皆さんこんにちは。&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+    
+    
+      <category term="Intune" scheme="https://jpintune.github.io/blog/tags/Intune/"/>
+    
+  </entry>
+  
+</feed>
