@@ -3,7 +3,7 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # ブログのタイトル
-title: Japan Microsoft Intune Support Blog 
+title: Japan Microsoft Intune Support Team Blog 
 
 # サブタイトル
 subtitle: 日本マイクロソフトの Microsoft Intune に関するサポート情報のブログです。
@@ -11,7 +11,7 @@ description: 日本マイクロソフトの Microsoft Intune に関するサポ�
 keywords:
   - Intune
 
-author: Microsoft Intune Support Japan
+author: Japan Microsoft Intune Support Team
 
 root_tag_generator:
   root_tag_names:
