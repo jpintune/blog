@@ -1,6 +1,11 @@
 {
     "recommendations": [
+        "ms-azuretools.vscode-docker",
+        "mushan.vscode-paste-image",
+        "watahani.markdown-image-paste-for-remote",
         "DavidAnson.vscode-markdownlint",
-        "taichi.vscode-textlint"
+        "taichi.vscode-textlint",
+        "yzhang.markdown-all-in-one",
+        "GitHub.vscode-pull-request-github"
     ]
 }

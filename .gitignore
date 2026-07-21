@@ -6,3 +6,10 @@ node_modules/
 public/
 .deploy*/
 source/_posts/
+
+# for devcontainers (supplied by ghcr.io/cssjpn/blog-build-tools image via postCreateCommand.sh)
+package.json
+package-lock.json
+yarn.lock
+gulpfile.js
+lib
