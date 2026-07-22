@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>ご起票時に事前採取可能なモバイルデバイス情報の採取手順 | Japan Microsoft Intune Support Team Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="こんにちは! Microsoft Intune サポートチームの Ishikawa です。皆様、平素より弊社 Intune をご利用いただきまして誠にありがとうございます。 本投稿では弊社 Microsoft の Intune サポートチームへお問い合わせをご起票いただく際にお客様側で事前に採取可能なモバイルデバイスの情報についてお纏めいたします。 下記内容及び、画面ショットは 2022&amp;#x2F">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ご起票時に事前採取可能なモバイルデバイス情報の採取手順">
+<meta property="og:url" content="https://jpintune.github.io/blog/intune/20220913_02/index.html">
+<meta property="og:site_name" content="Japan Microsoft Intune Support Team Blog">
+<meta property="og:description" content="こんにちは! Microsoft Intune サポートチームの Ishikawa です。皆様、平素より弊社 Intune をご利用いただきまして誠にありがとうございます。 本投稿では弊社 Microsoft の Intune サポートチームへお問い合わせをご起票いただく際にお客様側で事前に採取可能なモバイルデバイスの情報についてお纏めいたします。 下記内容及び、画面ショットは 2022&amp;#x2F">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpintune.github.io/blog/intune/20220913_02/ios_01_f.PNG">
+<meta property="og:image" content="https://jpintune.github.io/blog/intune/20220913_02/ios_02_f.PNG">
+<meta property="og:image" content="https://jpintune.github.io/blog/intune/20220913_02/ios_03_f.PNG">
+<meta property="og:image" content="https://jpintune.github.io/blog/intune/20220913_02/ios_04_f.PNG">
+<meta property="og:image" content="https://jpintune.github.io/blog/intune/20220913_02/and_00_f.png">
+<meta property="og:image" content="https://jpintune.github.io/blog/intune/20220913_02/and_02_f.png">
+<meta property="og:image" content="https://jpintune.github.io/blog/intune/20220913_02/and_03_f.png">
+<meta property="og:image" content="https://jpintune.github.io/blog/intune/20220913_02/and_04_f.png">
+<meta property="og:image" content="https://jpintune.github.io/blog/intune/20220913_02/and_05_f.png">
+<meta property="og:image" content="https://jpintune.github.io/blog/intune/20220913_02/and_01_f.png">
+<meta property="og:image" content="https://jpintune.github.io/blog/intune/20220913_02/IMG_7358_f.PNG">
+<meta property="og:image" content="https://jpintune.github.io/blog/intune/20220913_02/IMG_7360_f.PNG">
+<meta property="og:image" content="https://jpintune.github.io/blog/intune/20220913_02/IMG_7364_f.PNG">
+<meta property="og:image" content="https://jpintune.github.io/blog/intune/20220913_02/IMG_7363_f.PNG">
+<meta property="article:published_time" content="2022-09-27T15:00:00.000Z">
+<meta property="article:modified_time" content="2026-07-22T01:27:18.069Z">
+<meta property="article:author" content="Japan Microsoft Intune Support Team">
+<meta property="article:tag" content="Intune">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpintune.github.io/blog/intune/20220913_02/ios_01_f.PNG">
+  
+    <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Intune Support Team Blog" type="application/atom+xml">
+  
+
+  <link rel="icon" href="./favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <div id="ms-logo"></div>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+        <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../blog/atom.xml" title="RSSフィード"></a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.bing.com/search" method="get" accept-charset="UTF-8" name="bing-search" onsubmit="var f=this;if(f['q'].value){var searchUrl =  'https://www.bing.com/search?q=' +  encodeURIComponent(f['q'].value + ' site:' + f['sitesearch'].value) ;window.open(searchUrl, 'blank') };return false;" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="検索"><button type="submit" id="nav-search-btn" class="search-form-submit"></button><input type="hidden" name="sitesearch" value="https://jpintune.github.io/blog"></form>
+      </div>
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Intune Support Team Blog</a>
+      </h1>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-intune/20220913_02" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ご起票時に事前採取可能なモバイルデバイス情報の採取手順
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="" class="article-date-single">
+  <time datetime="2022-09-27T15:00:00.000Z" itemprop="datePublished">2022-09-28</time>
+</a>
+        
+        
+        <a href="https://github.com/jpintune/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+dd4a59b8-7380-5e23-9052-ad1f9a65fcc5%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5B%E3%81%94%E8%B5%B7%E7%A5%A8%E6%99%82%E3%81%AB%E4%BA%8B%E5%89%8D%E6%8E%A1%E5%8F%96%E5%8F%AF%E8%83%BD%E3%81%AA%E3%83%A2%E3%83%90%E3%82%A4%E3%83%AB%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9%E6%83%85%E5%A0%B1%E3%81%AE%E6%8E%A1%E5%8F%96%E6%89%8B%E9%A0%86%5D%28https%3A%2F%2Fjpintune.github.io%2Fblog%2Fintune%2F20220913_02%2F%29%0A*+Content+Source%3A+%5Barticles%2Fintune%2F20220913_02.md%5D%28https%3A%2F%2Fgithub.com%2Fjpintune%2Fblog%2Fblob%2Fmaster%2Farticles%2Fintune%2F20220913_02.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        
+        <a data-url="https://jpintune.github.io/blog/intune/20220913_02/" data-id="cuid6DBB358t60Ni30aRufCSw" class="article-share-link">共有</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>こんにちは! Microsoft Intune サポートチームの Ishikawa です。<br>皆様、平素より弊社 Intune をご利用いただきまして誠にありがとうございます。</p>
+<p>本投稿では弊社 Microsoft の Intune サポートチームへお問い合わせをご起票いただく際にお客様側で事前に採取可能な<strong>モバイルデバイスの情報</strong>についてお纏めいたします。</p>
+<p>下記内容及び、画面ショットは 2022&#x2F;9&#x2F;28 時点での仕様についての記載となっております。<br>弊社ではお客様のご意見を頂戴し、日々、品質向上に努めております。その為、製品アップデートが頻繁に行われており、お客様の手元環境とは表示等が異なる可能性がございますことを、予めご承知おきくださいますようお願い致します。</p>
+<h1 id="モバイルデバイスの情報"><a href="#モバイルデバイスの情報" class="headerlink" title="モバイルデバイスの情報"></a>モバイルデバイスの情報</h1><p>今回ご案内をするのは Intune チームからお客様にご案内をすることがあるモバイルデバイスの情報採取手順になります。</p>
+<p><strong>ご案内する情報採取手順</strong></p>
+<ul>
+<li>Intune ポータルサイトアプリのインシデント ID</li>
+<li>MAM (Mobile Application Management) ログ</li>
+</ul>
+<p>iOS 端末、Android 端末のそれぞれついてご案内いたします。</p>
+<h2 id="1-Intune-ポータルサイトアプリのインシデント-ID"><a href="#1-Intune-ポータルサイトアプリのインシデント-ID" class="headerlink" title="1. Intune ポータルサイトアプリのインシデント ID"></a>1. Intune ポータルサイトアプリのインシデント ID</h2><p>Intune ポータルサイトアプリのインシデント ID とは Intune ポータルサイトアプリに紐づけられた ID です。<br><strong>この情報は、モバイル端末を Intune に登録できない場合などに事前採取をお願いしたい内容になります。</strong></p>
+<p>以下の手順で事象発生デバイスのインシデント ID を採取してご提供ください。iOS 端末と Android 端末では採取の手順が異なります。</p>
+<h3 id="iOS-端末"><a href="#iOS-端末" class="headerlink" title="[iOS 端末]"></a>[iOS 端末]</h3><p><strong>1. iOS のポータルタイトアプリを起動する</strong></p>
+<p><img src="/blog/intune/20220913_02/ios_01_f.PNG"></p>
+<p><strong>2. 右下の[… その他] &gt; [<font color="DeepSkyBlue"> ヘルプ </font>] をタップする</strong></p>
+<p><img src="/blog/intune/20220913_02/ios_02_f.PNG"></p>
+<p><img src="/blog/intune/20220913_02/ios_03_f.PNG"></p>
+<p><strong>3. [ヘルプの取得] 画面にて使用しているインシデント ID を確認する</strong></p>
+<p><img src="/blog/intune/20220913_02/ios_04_f.PNG"></p>
+<p><strong>4. 採取したインシデント ID を Microsoft 社への起票時に添付する</strong></p>
+<h3 id="Android-端末"><a href="#Android-端末" class="headerlink" title="[Android 端末]"></a>[Android 端末]</h3><p><strong>1. Android のポータルサイトアプリを起動する</strong></p>
+<p><img src="/blog/intune/20220913_02/and_00_f.png"></p>
+<p><strong>2. 左上の [三] &gt; [ヘルプ] をタップする</strong></p>
+<p><img src="/blog/intune/20220913_02/and_02_f.png"></p>
+<p><img src="/blog/intune/20220913_02/and_03_f.png"></p>
+<p><strong>3. [ログの送信] をタップする</strong></p>
+<p><img src="/blog/intune/20220913_02/and_04_f.png"></p>
+<p><strong>4. [ログのみ送信] をタップし、インシデント ID を確認する</strong></p>
+<p><img src="/blog/intune/20220913_02/and_05_f.png"></p>
+<p><img src="/blog/intune/20220913_02/and_01_f.png"></p>
+<p>&lt;参考&gt;<br>Android アプリ ログを Microsoft に送信する &lt; <a href="https://docs.microsoft.com/ja-jp/mem/intune/user-help/send-logs-to-microsoft-android?source=recommendations#send-logs">https://docs.microsoft.com/ja-jp/mem/intune/user-help/send-logs-to-microsoft-android?source=recommendations#send-logs</a> &gt;</p>
+<p><strong>5. 採取したインシデント ID を Microsoft 社への起票時に添付する</strong></p>
+<h2 id="2-MAM-Mobile-Application-Management"><a href="#2-MAM-Mobile-Application-Management" class="headerlink" title="2. MAM (Mobile Application Management)"></a>2. MAM (Mobile Application Management)</h2><p>MAM (Mobile Application Management) ログとはモバイルアプリ管理に関する操作情報の記録です。<br><strong>この情報は、アプリ保護ポリシーが適用できない場合などに事前採取をお願いしたい内容になります。</strong></p>
+<p><strong>Android 端末の場合、MAM ログと Intune ポータルサイトアプリのインシデント ID は同一となりますので、インシデント ID を弊社にご送信いただけますと、MAM ログも弊社にて確認が取れる状態となります。</strong></p>
+<p>以下の手順で事象発生デバイスの MAM ログを採取してご提供ください。</p>
+<h3 id="iOS端末"><a href="#iOS端末" class="headerlink" title="[iOS端末]"></a>[iOS端末]</h3><p><strong>1. iOS の Microsoft Edge アプリを起動する</strong></p>
+<p><img src="/blog/intune/20220913_02/IMG_7358_f.PNG"></p>
+<p><strong>2. [検索またはWebアドレスを入力] タブにて、”about:intunehelp” と入力する</strong></p>
+<p><img src="/blog/intune/20220913_02/IMG_7360_f.PNG"></p>
+<p><strong>3. [Intune 診断] 画面にて、[開始する] をクリックする</strong></p>
+<p><img src="/blog/intune/20220913_02/IMG_7364_f.PNG"></p>
+<p><strong>4. [Intune診断の収集] 画面にて、MAM ログ (参照 ID) を確認する</strong></p>
+<p><img src="/blog/intune/20220913_02/IMG_7363_f.PNG"></p>
+<p><strong>5. 採取した MAM ログを Microsoft 社への起票時に添付する</strong></p>
+<p>※ Microsoft 製品以外のアプリの場合、アプリごとにログが出力される可能性がございますので、各ベンダー様に確認いただく場合がございます。</p>
+<p>&lt;参考&gt;<br>iOS と Android に Edge を使用してマネージド アプリ ログにアクセスする &lt; <a href="https://docs.microsoft.com/ja-jp/mem/intune/apps/manage-microsoft-edge#use-edge-for-ios-and-android-to-access-managed-app-logs">https://docs.microsoft.com/ja-jp/mem/intune/apps/manage-microsoft-edge#use-edge-for-ios-and-android-to-access-managed-app-logs</a> &gt;</p>
+<h3 id="最後に"><a href="#最後に" class="headerlink" title="最後に"></a>最後に</h3><p>日々弊社の Intune をご利用頂きありがとうございます。<br>本記事、または Intune に関しましてご不明点等ございましたら、Service Request（お問い合わせ）にて Intune サポートチームの担当者にお気兼ねなくご相談ください。</p>
+<p>本記事でのご案内事項は以上となります。少しでもお役に立つ情報であれば幸いです。<br>最後までお読みいただき、ありがとうございました !</p>
+
+      
+      
+        <div class="article-disclaimer">
+        
+          <p>※本情報の内容（添付文書、リンク先などを含む）は、作成日時点でのものであり、予告なく変更される場合があります。</p>
+        
+        </div>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li></ul>
+
+        
+        <a href="https://github.com/jpintune/blog/edit/master/articles/intune/20220913_02.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="../20220913_01/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">次の記事</strong>
+      <div class="article-nav-title">
+        
+          ご起票時に事前採取可能な基本情報の採取手順
+        
+      </div>
+    </a>
+  
+  
+    <a href="../20220913_03/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">ご起票時に事前採取可能な Autopilot ログの採取手順</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="../20220913_00/">知ってよかった！3 分でわかる！Microsoft Intuneチームが綴る、問題解決の時間短縮術</a>
+          </li>
+        
+          <li>
+            <a href="../20220913_01/">ご起票時に事前採取可能な基本情報の採取手順</a>
+          </li>
+        
+          <li>
+            <a href="">ご起票時に事前採取可能なモバイルデバイス情報の採取手順</a>
+          </li>
+        
+          <li>
+            <a href="../20220913_03/">ご起票時に事前採取可能な Autopilot ログの採取手順</a>
+          </li>
+        
+          <li>
+            <a href="../20180928_01/">デバイスに適用されないiOSやAndroidポリシーのトラブルシューティング</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <!-- <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li></ul>  -->
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/">Intune</a><span class="tag-list-count">6</span><ul></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2022/09/">2022 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2018/09/">2018 / 09</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="../../tags/Intune/" style="font-size: 10px;">Intune</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2026 Japan Microsoft Intune Support Team<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
