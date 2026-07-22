@@ -1,8 +1,8 @@
 https://jpintune.github.io/blog/intune/20220913_03/
 https://jpintune.github.io/blog/intune/20220913_02/
 https://jpintune.github.io/blog/intune/20180928_01/
-https://jpintune.github.io/blog/intune/20180926_01/
-https://jpintune.github.io/blog/intune/20220913_00/
 https://jpintune.github.io/blog/intune/20220913_01/
+https://jpintune.github.io/blog/intune/20220913_00/
+https://jpintune.github.io/blog/intune/20180926_01/
 https://jpintune.github.io/blog
 https://jpintune.github.io/blog/tags/Intune/
