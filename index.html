@@ -116,7 +116,58 @@
     </div>
 
     <footer class="article-footer">
-      <!--a data-url="https://jpintune.github.io/blog/intune/20260722_01/" data-id="cuidepx6_hITecDd3v1QoOBXV" class="article-share-link">共有</a-->
+      <!--a data-url="https://jpintune.github.io/blog/intune/20260722_01/" data-id="cuidcnty_OC74y_3XLgaFK4qo" class="article-share-link">共有</a-->
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Intune/" rel="tag">Intune</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-intune/20260722_02" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <div class="article-inner">
+    <!-- post date -->
+    <div class="article-meta">
+      <a href="intune/20260722_02/" class="article-date">
+  <time datetime="2026-07-21T15:00:00.000Z" itemprop="datePublished">2026-07-22</time>
+</a>
+      
+    </div>
+
+    
+    <!-- post title -->
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="intune/20260722_02/">Intune のトラブル解決が早くなる。知っておきたい Windows との &#34;役割分担&#34; - 基本編</a>
+    </h1>
+  
+
+      </header>
+    
+
+    <!-- post caption -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        みなさま、こんにちは。Intune サポート チームです。
+日々 Intune を活用してデバイス管理を進めていただき、ありがとうございます。今回は、Intune を運用されている皆さまにぜひ知っておいていただきたい「Intune と Windows の役割分担」についてご紹介します。
+一見すると地味なテーマに思えるかもしれませんが、この “境界” を理解しておくと、いざ問題が起きたときに「どこを確認すればよいか」がすぐに分かるようになり、原因の特定や解決までの時間を大きく短縮できます。運用のストレスを減らし、より快適に Intune をお使いいただくための第一歩として、ぜひ最後までお読みください。
+はじめに ― なぜ「切り分け」が大切なのかIntune の様々な機能は、その裏側で Windows OS が持つ多彩な機能を利用して動作しています。そのため、何か想定通りに動かない事象が起きた...
+        <p class="article-readmore">
+          <a href="intune/20260722_02/">Read more</a>
+        </p>
+      
+    </div>
+
+    <footer class="article-footer">
+      <!--a data-url="https://jpintune.github.io/blog/intune/20260722_02/" data-id="cuidGAplQha1n94Nl144V1fnJ" class="article-share-link">共有</a-->
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Intune/" rel="tag">Intune</a></li></ul>
@@ -143,6 +194,10 @@
             <a href="intune/20260722_01/">ブログ リニューアル準備中のお知らせ</a>
           </li>
         
+          <li>
+            <a href="intune/20260722_02/">Intune のトラブル解決が早くなる。知っておきたい Windows との &#34;役割分担&#34; - 基本編</a>
+          </li>
+        
       </ul>
     </div>
   </div>
@@ -153,7 +208,7 @@
     <h3 class="widget-title">タグ</h3>
     <div class="widget">
       <!-- <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="tags/Intune/" rel="tag">Intune</a></li></ul>  -->
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="tags/Intune/">Intune</a><span class="tag-list-count">1</span><ul></ul></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="tags/Intune/">Intune</a><span class="tag-list-count">2</span><ul></ul></li></ul>
     </div>
   </div>
 
@@ -209,5 +264,43 @@
 
 
   </div>
-</body>
+<!-- hexo injector body_end start -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script>
+(function () {
+  var KEYS = /^(flowchart|graph|sequenceDiagram|classDiagram|stateDiagram(-v2)?|erDiagram|gantt|pie|journey|gitGraph|mindmap|timeline|quadrantChart|requirementDiagram|C4Context|xychart-beta|sankey-beta)\b/;
+  function render() {
+    var blocks = document.querySelectorAll('figure.highlight, pre > code');
+    var targets = [];
+    blocks.forEach(function (el) {
+      var fig = el.closest('figure.highlight') || el;
+      if (fig.dataset && fig.dataset.mermaidDone) return;
+      var codeCell = fig.querySelector('.code') || fig;
+      var lines = codeCell.querySelectorAll('.line');
+      var text = lines.length
+        ? Array.prototype.map.call(lines, function (s) { return s.textContent; }).join('\n')
+        : codeCell.textContent;
+      if (!KEYS.test(text.trim())) return;
+      var pre = document.createElement('pre');
+      pre.className = 'mermaid';
+      pre.textContent = text;
+      fig.parentNode.replaceChild(pre, fig);
+      targets.push(pre);
+    });
+    if (targets.length && window.mermaid) {
+      window.mermaid.initialize({ startOnLoad: false, securityLevel: 'loose', theme: 'default' });
+      window.mermaid.run({ nodes: targets });
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', render);
+  } else {
+    render();
+  }
+})();
+</script>
+<style>
+pre.mermaid { background: none; border: none; text-align: center; overflow-x: auto; }
+</style>
+<!-- hexo injector body_end end --></body>
 </html>
