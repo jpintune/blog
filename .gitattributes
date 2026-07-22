@@ -1,0 +1,2 @@
+# Keep shell scripts LF so they run correctly inside the Linux build container
+*.sh text eol=lf

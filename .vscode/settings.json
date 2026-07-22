@@ -11,6 +11,10 @@
         // image caption
         "MD045": false,
     },
+    // Paste Image
+    "pasteImage.path": "${currentFileDir}/${currentFileNameWithoutExt}",
+    "pasteImage.insertPattern": "${imageSyntaxPrefix}./${imageFilePath}${imageSyntaxSuffix}",
+    "files.encoding": "utf8",
     "cSpell.words": [
         "AADCONNECT",
         "ADAL",
@@ -57,5 +61,25 @@
         "systemprofile",
         "textlint",
         "winhttp"
-    ]
+    ],
+    "workbench.colorCustomizations": {
+        "activityBar.activeBackground": "#3ccd9d",
+        "activityBar.background": "#3ccd9d",
+        "activityBar.foreground": "#15202b",
+        "activityBar.inactiveForeground": "#15202b99",
+        "activityBarBadge.background": "#a64dd1",
+        "activityBarBadge.foreground": "#e7e7e7",
+        "commandCenter.border": "#e7e7e799",
+        "sash.hoverBorder": "#3ccd9d",
+        "statusBar.background": "#2caa80",
+        "statusBar.foreground": "#e7e7e7",
+        "statusBarItem.hoverBackground": "#3ccd9d",
+        "statusBarItem.remoteBackground": "#2caa80",
+        "statusBarItem.remoteForeground": "#e7e7e7",
+        "titleBar.activeBackground": "#2caa80",
+        "titleBar.activeForeground": "#e7e7e7",
+        "titleBar.inactiveBackground": "#2caa8099",
+        "titleBar.inactiveForeground": "#e7e7e799"
+    },
+    "peacock.color": "#2caa80"
 }
