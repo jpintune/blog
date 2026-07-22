@@ -13,5 +13,6 @@ services:
       - "./source:/blog/source"
       - "./themes:/blog/themes"
       - "./_config.yml:/blog/_config.yml"
+      - "./_config.jpazure.yml:/blog/_config.jpazure.yml"
       - "./github-issue-template.md:/blog/github-issue-template.md"
       - "./.textlintrc:/blog/.textlintrc"

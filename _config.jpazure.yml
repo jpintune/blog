@@ -1,0 +1,5 @@
+# Alternate theme config for the "jpazure" theme (merged over themes/jpazure/_config.yml).
+# Lets us customize the shared theme submodule without modifying it.
+
+# Sub title shown under the blog title in the header
+subtitle: 日本マイクロソフトの Microsoft Intune に関するサポート情報のブログです。
