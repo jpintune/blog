@@ -10,25 +10,7 @@
   <rights>All rights reserved 2026, Japan Microsoft Intune Support Team</rights>
   <subtitle>日本マイクロソフトの Microsoft Intune に関するサポート情報のブログです。</subtitle>
   <title>Japan Microsoft Intune Support Team Blog</title>
-  <updated>2026-07-22T07:05:36.575Z</updated>
-  <entry>
-    <author>
-      <name>Japan Microsoft Intune Support Team</name>
-    </author>
-    <category term="Intune" scheme="https://jpintune.github.io/blog/tags/Intune/"/>
-    <content>
-      <![CDATA[<p>平素より Japan Microsoft Intune Support Team Blog をご覧いただき、誠にありがとうございます。</p><p>現在、掲載記事の見直しを行っておりますので、今しばらくお待ちくださいますようお願い申し上げます。</p>]]>
-    </content>
-    <id>https://jpintune.github.io/blog/intune/20260722_01/</id>
-    <link href="https://jpintune.github.io/blog/intune/20260722_01/"/>
-    <published>2026-07-21T15:00:00.000Z</published>
-    <summary>
-      <![CDATA[<p>平素より Japan Microsoft Intune Support Team Blog をご覧いただき、誠にありがとうございます。</p>
-<p>現在、掲載記事の見直しを行っておりますので、今しばらくお待ちくださいますようお願い申し上げます。</p>]]>
-    </summary>
-    <title>ブログ リニューアル準備中のお知らせ</title>
-    <updated>2026-07-22T07:05:36.575Z</updated>
-  </entry>
+  <updated>2026-07-22T07:19:40.249Z</updated>
   <entry>
     <author>
       <name>Japan Microsoft Intune Support Team</name>
@@ -45,6 +27,6 @@
 <p>日々 Intune を活用してデバイス管理を進めていただき、ありがとうございます。今回は、Intune を運用されている皆さまにぜひ知っておいていただきたい「Intune と Windows の役割分]]>
     </summary>
     <title>Intune のトラブル解決が早くなる。知っておきたい Windows との &quot;役割分担&quot; - 基本編</title>
-    <updated>2026-07-22T07:05:36.575Z</updated>
+    <updated>2026-07-22T07:19:40.249Z</updated>
   </entry>
 </feed>
