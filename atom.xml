@@ -10,114 +10,23 @@
   <rights>All rights reserved 2026, Japan Microsoft Intune Support Team</rights>
   <subtitle>日本マイクロソフトの Microsoft Intune に関するサポート情報のブログです。</subtitle>
   <title>Japan Microsoft Intune Support Team Blog</title>
-  <updated>2026-07-22T02:50:57.490Z</updated>
+  <updated>2026-07-22T03:02:54.345Z</updated>
   <entry>
     <author>
       <name>Japan Microsoft Intune Support Team</name>
     </author>
     <category term="Intune" scheme="https://jpintune.github.io/blog/tags/Intune/"/>
     <content>
-      <![CDATA[<p>こんにちは! Microsoft Intune サポートチームのIshikawaです。<br>皆様、平素より弊社 Intune をご利用いただきまして誠にありがとうございます。</p><p>本投稿では弊社 Microsoft の Intune サポート チームへお問い合わせをご起票いただく際にお客様側で<strong>事前に採取可能な情報</strong>についてお纏めいたします。</p><p><strong>皆様の問題解決を、少しでもスムーズに支援することが可能になるためです。</strong></p><p>多くのお問い合わせにおいては、調査開始にあたり事象発生デバイスの情報が必要となります。</p><p>その場合、必要な情報の採取をお客様に依頼させていただきますが、依頼後に情報を採取いただき、私共にて受領するまでに平均 <strong>”1日~2日”</strong> を要しているのが実状です。</p><p>お問い合わせの起票前に情報を採取いただき、その情報とともにお問い合わせの起票をいただきますと、調査開始までの時間を現状より早められ、問題解決のためのご支援をよりスムーズに行える可能性がございます。</p><h1 id="どんな情報採取が効果的か"><a href="#どんな情報採取が効果的か" class="headerlink" title="どんな情報採取が効果的か"></a>どんな情報採取が効果的か</h1><p><strong>シナリオによって様々に異なります。</strong></p><p><strong>事前に「この情報だけ採取しておけばすべての調査が可能」という情報採取方法はございません。</strong><br>お問い合わせ内容、お客様の環境で起きている事象に応じて情報採取の内容や方法も変わってまいります。事象によっては、採取情報で判明した内容を元に、問題解決に向けて更なる情報採取をお願いさせていただくこともございます。</p><p>そのため必ず効果を得られるというものではありませんが、一方で、ある程度パターン化できるものがあり、その部分を事前に私共から皆様にお知らせすることで、よりスムーズな問題解決支援が可能となるのではないか、という思いから本投稿を記載しております。</p><h1 id="お客様に採取をお願いしたい情報"><a href="#お客様に採取をお願いしたい情報" class="headerlink" title="お客様に採取をお願いしたい情報"></a>お客様に採取をお願いしたい情報</h1><p>今回ご案内いたしますのは、Intune チームからお客様に依頼させていただくことがある情報採取の中で、最も基本的なものです。「最も基本的」とは、もし採取可能な状況であれば、お問い合わせ起票に先立ち、どのようなシナリオにおいても可能な限り準備いただきたい情報であることを意味します。</p><p>以下、後述 URL の Intune チームブログにて詳しい情報採取手順をご紹介しております。手順に沿って情報を採取いただき、お問い合わせの起票時にご提供いただけますと幸いです。</p><h2 id="どのような事象発生時にも採取をお願いしたい情報"><a href="#どのような事象発生時にも採取をお願いしたい情報" class="headerlink" title="どのような事象発生時にも採取をお願いしたい情報"></a>どのような事象発生時にも採取をお願いしたい情報</h2><ul><li>UPN</li><li>Intune デバイス ID</li><li>AAD デバイス ID</li><li>シリアル番号</li></ul><p>ご起票時に事前採取可能な基本情報の採取手順 &lt; <a href="https://jpmem.github.io/blog/intune/20220913_01/">https://jpmem.github.io/blog/intune/20220913_01/</a> &gt;</p><h2 id="モバイル端末を-Intune-に登録できない場合などに事前採取をお願いしたい情報"><a href="#モバイル端末を-Intune-に登録できない場合などに事前採取をお願いしたい情報" class="headerlink" title="モバイル端末を Intune に登録できない場合などに事前採取をお願いしたい情報"></a>モバイル端末を Intune に登録できない場合などに事前採取をお願いしたい情報</h2><ul><li>Intune ポータルサイトアプリのインシデント ID (iOS and Android)</li><li>MAM ログ</li></ul><p>ご起票時に事前採取可能なモバイルデバイス情報の採取手順 &lt; <a href="https://jpmem.github.io/blog/intune/20220913_02/">https://jpmem.github.io/blog/intune/20220913_02/</a> &gt;</p><h2 id="Autopilot-が失敗している場合に事前採取をお願いしたい情報"><a href="#Autopilot-が失敗している場合に事前採取をお願いしたい情報" class="headerlink" title="Autopilot が失敗している場合に事前採取をお願いしたい情報"></a>Autopilot が失敗している場合に事前採取をお願いしたい情報</h2><ul><li>Autopilot のログ</li></ul><p>ご起票時に事前採取可能な Autopilot ログの採取手順 &lt; <a href="https://jpmem.github.io/blog/intune/20220913_03/">https://jpmem.github.io/blog/intune/20220913_03/</a> &gt;</p><h3 id="最後に"><a href="#最後に" class="headerlink" title="最後に"></a>最後に</h3><p>日々弊社の Intune をご利用頂きありがとうございます。</p><p>本記事でのご案内事項は以上となります。少しでもお役に立つ情報であれば幸いです。<br>最後までお読みいただき、ありがとうございました !</p>]]>
+      <![CDATA[<p>平素より Japan Microsoft Intune Support Team Blog をご覧いただき、誠にありがとうございます。</p><p>現在、掲載記事の見直しを行っておりますので、今しばらくお待ちくださいますようお願い申し上げます。</p>]]>
     </content>
-    <id>https://jpintune.github.io/blog/intune/20220913_00/</id>
-    <link href="https://jpintune.github.io/blog/intune/20220913_00/"/>
-    <published>2022-09-29T15:00:00.000Z</published>
+    <id>https://jpintune.github.io/blog/intune/20260722_01/</id>
+    <link href="https://jpintune.github.io/blog/intune/20260722_01/"/>
+    <published>2026-07-21T15:00:00.000Z</published>
     <summary>
-      <![CDATA[<p>こんにちは! Microsoft Intune サポートチームのIshikawaです。<br>皆様、平素より弊社 Intune をご利用いただきまして誠にありがとうございます。</p>
-<p>本投稿では弊社 Microsoft の Intune サポート チームへお問い合わ]]>
+      <![CDATA[<p>平素より Japan Microsoft Intune Support Team Blog をご覧いただき、誠にありがとうございます。</p>
+<p>現在、掲載記事の見直しを行っておりますので、今しばらくお待ちくださいますようお願い申し上げます。</p>]]>
     </summary>
-    <title>知ってよかった！3 分でわかる！Microsoft Intuneチームが綴る、問題解決の時間短縮術</title>
-    <updated>2026-07-22T02:50:57.490Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Japan Microsoft Intune Support Team</name>
-    </author>
-    <category term="Intune" scheme="https://jpintune.github.io/blog/tags/Intune/"/>
-    <content>
-      <![CDATA[<p>こんにちは! Microsoft Intune サポートチームの Ishikawa です。<br>皆様、平素より弊社 Intune をご利用いただきまして誠にありがとうございます。</p><p>本投稿では弊社 Microsoft の Intune サポートチームへお問い合わせをご起票いただく際にお客様側で事前に採取可能な<strong>基本情報</strong>についてお纏めいたします。</p><p>下記内容及び、画面ショットは 2022&#x2F;9&#x2F;28 時点での仕様についての記載となっております。<br>弊社ではお客様のご意見を頂戴し、日々、品質向上に努めております。その為、製品アップデートが頻繁に行われており、お客様の手元環境とは表示等が異なる可能性がございますことを、予めご承知おきくださいますようお願い致します。</p><h1 id="基本情報"><a href="#基本情報" class="headerlink" title="基本情報"></a>基本情報</h1><p>今回ご案内をする情報採取手順は Intune チームからお客様にご案内をすることがある情報採取の中で最も基本的なものになります。<br><strong>この情報は、どのような事象発生時にも事前採取をお願いしたい内容になります。</strong></p><p><strong>ご案内する情報採取手順</strong></p><ul><li>UPN</li><li>Intune デバイス ID</li><li>AAD (Azure AD) デバイス ID</li><li>シリアル番号</li></ul><p>以下、情報採取手順をご説明いたします。</p><h2 id="1-事象発生デバイスの特定"><a href="#1-事象発生デバイスの特定" class="headerlink" title="1. 事象発生デバイスの特定"></a>1. 事象発生デバイスの特定</h2><p>弊社への問い合わせの際に、同一デバイス名で登録されている別デバイスの情報提供をいただくケースが少なくなく、その場合、いただいた情報からは調査が進められず、適切な調査対象デバイスにて改めて情報採取いただく必要がございます。これを避ける為、以下の手順でまずは事象発生デバイスの特定をお願いいたします。</p><p><strong>1. Microsoft Endpoint Manager admin center &lt; <a href="https://endpoint.microsoft.com/">https://endpoint.microsoft.com/</a> &gt; へログインする</strong></p><p><strong>2. 左側タブ内の [デバイス] &gt; [すべてのデバイス] の画面にて [デバイス名]、[OS]、[OSのバージョン]、[プライマリ ユーザーのUPN] を確認の上、事象発生デバイスの特定をする</strong></p><p><img src="/blog/intune/20220913_01/basic_01.png"></p><p>※ 同一デバイス名 (例 : iPhone) で複数デバイスが登録されている場合がございますので、事象発生デバイスのご確認をお願いします。</p><p>&lt;参考&gt;<br>UPN とはユーザーオブジェクトにユニークに付与されているメールアドレス形式の文字列です。<br>例) <a href="mailto:&#x73;&#x61;&#109;&#112;&#x6c;&#x65;&#64;&#x69;&#110;&#116;&#x75;&#110;&#x65;&#46;&#x6f;&#x6e;&#x6d;&#x69;&#x63;&#114;&#x6f;&#x73;&#x6f;&#x66;&#116;&#x2e;&#x63;&#111;&#109;">sample@intune.onmicrosoft.com</a></p><p>User Principal Nameとは &lt; <a href="https://docs.microsoft.com/ja-jp/azure/active-directory/hybrid/plan-connect-userprincipalname#what-is-userprincipalname">https://docs.microsoft.com/ja-jp/azure/active-directory/hybrid/plan-connect-userprincipalname#what-is-userprincipalname</a> &gt;</p><h2 id="2-事象発生デバイスの情報採取"><a href="#2-事象発生デバイスの情報採取" class="headerlink" title="2. 事象発生デバイスの情報採取"></a>2. 事象発生デバイスの情報採取</h2><!-- 前項の **1.事象発生デバイスの特定** をご確認いただきましたお客様につきましては、項目 3 以降の手順に従って事象発生デバイスの Intune デバイス ID、AAD (Azure AD) デバイス ID、シリアル番号をご確認いただけます。**1. Microsoft Endpoint Manager admin center < https://endpoint.microsoft.com/ > へログインする** --><p><strong>1. 特定した事象発生デバイスの [プライマリ ユーザーのUPN] を確認する</strong></p><p><img src="/blog/intune/20220913_01/basic_04.png"></p><p><strong>2. 事象発生デバイスのデバイス名を選択し、左側タブ内の [ハードウェア] を選択する</strong></p><p><img src="/blog/intune/20220913_01/basic_02.png"></p><p><strong>3. 表示される [Intune デバイス ID]、[Azure AD デバイス ID]、[シリアル番号] を確認する</strong></p><p><img src="/blog/intune/20220913_01/basic_03.png"></p><p><strong>4. 採取した UPN、Intune デバイス ID、Azure AD デバイス ID、シリアル番号を Microsoft 社への起票時に添付する</strong></p><p>※ 2022 年 9 月現在、Android 12 以降を実行している Android の個人所有の作業プロファイル デバイスのシリアル番号は表示されません。&lt; <a href="https://docs.microsoft.com/ja-jp/mem/intune/remote-actions/device-inventory#hardware-device-details">https://docs.microsoft.com/ja-jp/mem/intune/remote-actions/device-inventory#hardware-device-details</a> &gt;</p><h3 id="最後に"><a href="#最後に" class="headerlink" title="最後に"></a>最後に</h3><p>日々弊社の Intune をご利用頂きありがとうございます。<br>本記事、または Intune に関しましてご不明点等ございましたら、Service Request（お問い合わせ）にて Intune サポートチームの担当者にお気兼ねなくご相談ください。</p><p>本記事でのご案内事項は以上となります。少しでもお役に立つ情報であれば幸いです。<br>最後までお読みいただき、ありがとうございました !</p>]]>
-    </content>
-    <id>https://jpintune.github.io/blog/intune/20220913_01/</id>
-    <link href="https://jpintune.github.io/blog/intune/20220913_01/"/>
-    <published>2022-09-27T15:00:00.000Z</published>
-    <summary>
-      <![CDATA[<p>こんにちは! Microsoft Intune サポートチームの Ishikawa です。<br>皆様、平素より弊社 Intune をご利用いただきまして誠にありがとうございます。</p>
-<p>本投稿では弊社 Microsoft の Intune サポートチームへお問い合]]>
-    </summary>
-    <title>ご起票時に事前採取可能な基本情報の採取手順</title>
-    <updated>2026-07-22T02:50:57.490Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Japan Microsoft Intune Support Team</name>
-    </author>
-    <category term="Intune" scheme="https://jpintune.github.io/blog/tags/Intune/"/>
-    <content>
-      <![CDATA[<p>こんにちは! Microsoft Intune サポートチームの Ishikawa です。<br>皆様、平素より弊社 Intune をご利用いただきまして誠にありがとうございます。</p><p>本投稿では弊社 Microsoft の Intune サポートチームへお問い合わせをご起票いただく際にお客様側で事前に採取可能な<strong>モバイルデバイスの情報</strong>についてお纏めいたします。</p><p>下記内容及び、画面ショットは 2022&#x2F;9&#x2F;28 時点での仕様についての記載となっております。<br>弊社ではお客様のご意見を頂戴し、日々、品質向上に努めております。その為、製品アップデートが頻繁に行われており、お客様の手元環境とは表示等が異なる可能性がございますことを、予めご承知おきくださいますようお願い致します。</p><h1 id="モバイルデバイスの情報"><a href="#モバイルデバイスの情報" class="headerlink" title="モバイルデバイスの情報"></a>モバイルデバイスの情報</h1><p>今回ご案内をするのは Intune チームからお客様にご案内をすることがあるモバイルデバイスの情報採取手順になります。</p><p><strong>ご案内する情報採取手順</strong></p><ul><li>Intune ポータルサイトアプリのインシデント ID</li><li>MAM (Mobile Application Management) ログ</li></ul><p>iOS 端末、Android 端末のそれぞれついてご案内いたします。</p><h2 id="1-Intune-ポータルサイトアプリのインシデント-ID"><a href="#1-Intune-ポータルサイトアプリのインシデント-ID" class="headerlink" title="1. Intune ポータルサイトアプリのインシデント ID"></a>1. Intune ポータルサイトアプリのインシデント ID</h2><p>Intune ポータルサイトアプリのインシデント ID とは Intune ポータルサイトアプリに紐づけられた ID です。<br><strong>この情報は、モバイル端末を Intune に登録できない場合などに事前採取をお願いしたい内容になります。</strong></p><p>以下の手順で事象発生デバイスのインシデント ID を採取してご提供ください。iOS 端末と Android 端末では採取の手順が異なります。</p><h3 id="iOS-端末"><a href="#iOS-端末" class="headerlink" title="[iOS 端末]"></a>[iOS 端末]</h3><p><strong>1. iOS のポータルタイトアプリを起動する</strong></p><p><img src="/blog/intune/20220913_02/ios_01_f.PNG"></p><p><strong>2. 右下の[… その他] &gt; [<font color="DeepSkyBlue"> ヘルプ </font>] をタップする</strong></p><p><img src="/blog/intune/20220913_02/ios_02_f.PNG"></p><p><img src="/blog/intune/20220913_02/ios_03_f.PNG"></p><p><strong>3. [ヘルプの取得] 画面にて使用しているインシデント ID を確認する</strong></p><p><img src="/blog/intune/20220913_02/ios_04_f.PNG"></p><p><strong>4. 採取したインシデント ID を Microsoft 社への起票時に添付する</strong></p><h3 id="Android-端末"><a href="#Android-端末" class="headerlink" title="[Android 端末]"></a>[Android 端末]</h3><p><strong>1. Android のポータルサイトアプリを起動する</strong></p><p><img src="/blog/intune/20220913_02/and_00_f.png"></p><p><strong>2. 左上の [三] &gt; [ヘルプ] をタップする</strong></p><p><img src="/blog/intune/20220913_02/and_02_f.png"></p><p><img src="/blog/intune/20220913_02/and_03_f.png"></p><p><strong>3. [ログの送信] をタップする</strong></p><p><img src="/blog/intune/20220913_02/and_04_f.png"></p><p><strong>4. [ログのみ送信] をタップし、インシデント ID を確認する</strong></p><p><img src="/blog/intune/20220913_02/and_05_f.png"></p><p><img src="/blog/intune/20220913_02/and_01_f.png"></p><p>&lt;参考&gt;<br>Android アプリ ログを Microsoft に送信する &lt; <a href="https://docs.microsoft.com/ja-jp/mem/intune/user-help/send-logs-to-microsoft-android?source=recommendations#send-logs">https://docs.microsoft.com/ja-jp/mem/intune/user-help/send-logs-to-microsoft-android?source=recommendations#send-logs</a> &gt;</p><p><strong>5. 採取したインシデント ID を Microsoft 社への起票時に添付する</strong></p><h2 id="2-MAM-Mobile-Application-Management"><a href="#2-MAM-Mobile-Application-Management" class="headerlink" title="2. MAM (Mobile Application Management)"></a>2. MAM (Mobile Application Management)</h2><p>MAM (Mobile Application Management) ログとはモバイルアプリ管理に関する操作情報の記録です。<br><strong>この情報は、アプリ保護ポリシーが適用できない場合などに事前採取をお願いしたい内容になります。</strong></p><p><strong>Android 端末の場合、MAM ログと Intune ポータルサイトアプリのインシデント ID は同一となりますので、インシデント ID を弊社にご送信いただけますと、MAM ログも弊社にて確認が取れる状態となります。</strong></p><p>以下の手順で事象発生デバイスの MAM ログを採取してご提供ください。</p><h3 id="iOS端末"><a href="#iOS端末" class="headerlink" title="[iOS端末]"></a>[iOS端末]</h3><p><strong>1. iOS の Microsoft Edge アプリを起動する</strong></p><p><img src="/blog/intune/20220913_02/IMG_7358_f.PNG"></p><p><strong>2. [検索またはWebアドレスを入力] タブにて、”about:intunehelp” と入力する</strong></p><p><img src="/blog/intune/20220913_02/IMG_7360_f.PNG"></p><p><strong>3. [Intune 診断] 画面にて、[開始する] をクリックする</strong></p><p><img src="/blog/intune/20220913_02/IMG_7364_f.PNG"></p><p><strong>4. [Intune診断の収集] 画面にて、MAM ログ (参照 ID) を確認する</strong></p><p><img src="/blog/intune/20220913_02/IMG_7363_f.PNG"></p><p><strong>5. 採取した MAM ログを Microsoft 社への起票時に添付する</strong></p><p>※ Microsoft 製品以外のアプリの場合、アプリごとにログが出力される可能性がございますので、各ベンダー様に確認いただく場合がございます。</p><p>&lt;参考&gt;<br>iOS と Android に Edge を使用してマネージド アプリ ログにアクセスする &lt; <a href="https://docs.microsoft.com/ja-jp/mem/intune/apps/manage-microsoft-edge#use-edge-for-ios-and-android-to-access-managed-app-logs">https://docs.microsoft.com/ja-jp/mem/intune/apps/manage-microsoft-edge#use-edge-for-ios-and-android-to-access-managed-app-logs</a> &gt;</p><h3 id="最後に"><a href="#最後に" class="headerlink" title="最後に"></a>最後に</h3><p>日々弊社の Intune をご利用頂きありがとうございます。<br>本記事、または Intune に関しましてご不明点等ございましたら、Service Request（お問い合わせ）にて Intune サポートチームの担当者にお気兼ねなくご相談ください。</p><p>本記事でのご案内事項は以上となります。少しでもお役に立つ情報であれば幸いです。<br>最後までお読みいただき、ありがとうございました !</p>]]>
-    </content>
-    <id>https://jpintune.github.io/blog/intune/20220913_02/</id>
-    <link href="https://jpintune.github.io/blog/intune/20220913_02/"/>
-    <published>2022-09-27T15:00:00.000Z</published>
-    <summary>
-      <![CDATA[<p>こんにちは! Microsoft Intune サポートチームの Ishikawa です。<br>皆様、平素より弊社 Intune をご利用いただきまして誠にありがとうございます。</p>
-<p>本投稿では弊社 Microsoft の Intune サポートチームへお問い合]]>
-    </summary>
-    <title>ご起票時に事前採取可能なモバイルデバイス情報の採取手順</title>
-    <updated>2026-07-22T02:50:57.495Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Japan Microsoft Intune Support Team</name>
-    </author>
-    <category term="Intune" scheme="https://jpintune.github.io/blog/tags/Intune/"/>
-    <content>
-      <![CDATA[<p>こんにちは! Microsoft Intune サポートチームの Ishikawa です。<br>皆様、平素より弊社 Intune をご利用いただきまして誠にありがとうございます。</p><p>本投稿では弊社 Microsoft の Intune サポート チームへお問い合わせをご起票いただく際にお客様側で事前に採取可能な <strong>Autopilot ログ</strong>についてお纏めいたします。</p><p>下記内容及び、画面ショットは 2022&#x2F;9&#x2F;28 時点での仕様についての記載となっております。<br>弊社ではお客様のご意見を頂戴し、日々、品質向上に努めております。その為、製品アップデートが頻繁に行われており、お客様の手元環境とは表示等が異なる可能性がございますことを、予めご承知おきくださいますようお願い致します。</p><h2 id="Autopilot-ログ"><a href="#Autopilot-ログ" class="headerlink" title="Autopilot ログ"></a>Autopilot ログ</h2><p>今回ご案内をするのは Intune チームからお客様にご案内をすることがある Autopilot ログの情報採取手順になります。<br><strong>このログ情報は、Autopilot が失敗している場合に事前採取をお願いしたい内容になります。</strong></p><p>以下の手順で事象発生デバイスの Autopilot ログを採取してご提供ください。</p><h3 id="Intune-へ登録できていない場合"><a href="#Intune-へ登録できていない場合" class="headerlink" title="[Intune へ登録できていない場合]"></a>[Intune へ登録できていない場合]</h3><p><strong>1. 該当デバイスにてエラーメッセージが表示されている画面上で Shift + F10 キーを押してコマンドプロンプトを開く</strong></p><p><img src="/blog/intune/20220913_03/autopilot_03.png"></p><p><strong>2. コマンドプロンプトから下記のコマンドを実行し、autopilot 関連の情報を採取する</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mdmdiagnosticstool.exe -area Autopilot;TPM -cab C:\Temp\autopilot.cab</span><br></pre></td></tr></table></figure><p>※ 手順 2 において、コマンドが失敗する場合は</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mdmdiagnosticstool.exe -area Autopilot -cab C:\Temp\autopilot.cab</span><br></pre></td></tr></table></figure><p>を実行ください。</p><p><strong>3. C:\Temp に格納されている autopilot.cab を Microsoft 社への起票時に添付する</strong></p><h3 id="Intune-へ登録できている場合"><a href="#Intune-へ登録できている場合" class="headerlink" title="[Intune へ登録できている場合]"></a>[Intune へ登録できている場合]</h3><p><strong>1. Microsoft Endpoint Manager admin center &lt; <a href="https://endpoint.microsoft.com/">https://endpoint.microsoft.com/</a> &gt; へログインし、[デバイス] &gt;  Windows] にて対象のデバイスを選択する</strong></p><p><strong>2. デバイスの [概要] ページ上部の [診断の収集] &gt; [はい] を選択すると、デバイスの [概要] ページに保留中の通知が表示される</strong></p><p><img src="/blog/intune/20220913_03/autopilot_01.png"></p><p>※ 上部に [診断の収集] が表示されていない場合は、[…] &gt; [診断の収集] のように選択ください。</p><p><strong>3. 左側の [モニター] 配下の [デバイス診断] を選択し、[ダウンロード] &gt; [はい] をクリックする</strong></p><p><img src="/blog/intune/20220913_03/autopilot_02.png"></p><p><strong>4. 採取した診断ログを Microsoft 社への起票時に添付する</strong></p><h3 id="最後に"><a href="#最後に" class="headerlink" title="最後に"></a>最後に</h3><p>日々弊社の Intune をご利用頂きありがとうございます。<br>本記事、または Intune に関しましてご不明点等ございましたら、Service Request（お問い合わせ）にて Intune サポートチームの担当者にお気兼ねなくご相談ください。</p><p>本記事でのご案内事項は以上となります。少しでもお役に立つ情報であれば幸いです。<br>最後までお読みいただき、ありがとうございました !</p>]]>
-    </content>
-    <id>https://jpintune.github.io/blog/intune/20220913_03/</id>
-    <link href="https://jpintune.github.io/blog/intune/20220913_03/"/>
-    <published>2022-09-27T15:00:00.000Z</published>
-    <summary>
-      <![CDATA[<p>こんにちは! Microsoft Intune サポートチームの Ishikawa です。<br>皆様、平素より弊社 Intune をご利用いただきまして誠にありがとうございます。</p>
-<p>本投稿では弊社 Microsoft の Intune サポート チームへお問い]]>
-    </summary>
-    <title>ご起票時に事前採取可能な Autopilot ログの採取手順</title>
-    <updated>2026-07-22T02:50:57.537Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Japan Microsoft Intune Support Team</name>
-    </author>
-    <category term="Intune" scheme="https://jpintune.github.io/blog/tags/Intune/"/>
-    <content>
-      <![CDATA[<p>こんにちは。Microsoft Intune サポートチームの中村です。</p><p>ユーザーが、iOS や Android のポリシーをデバイスに展開したのに、デバイスに適用されないという問題を抱えているのを見かけます。 しかしそれは、ポリシーが OS のバージョンとデバイスの種類と互換性がないか、ポリシーがユーザーまたはデバイスに対して誤ってターゲット設定されているという単純な原因によるものかもしれません。 これを解決する別の方法は、以下に記載したトラブルシューティングの手順に従うことです。</p><ol><li><p>ユーザーを選択したら、Intune ライセンスとアカウント状態が緑色のチェックで表示されていることを確認します。</p></li><li><p>同じページのデバイスで、トラブルシューティングするデバイスを探し、管理者に MDM または EAS&#x2F;MDM が表示されていることを確認します。 もしこれらの項目が表示されない場合、そのデバイスは登録されていません。 登録されるまでコンプラインアンスポリシーまたはデバイス構成プロファイルを受信しないでしょう。 アプリ保護ポリシー ( MAM ポリシーとしても知られています ) では、登録は必要ありません。</p></li><li><p>Azure AD の結合の種類がワークプレースを表示していることを確認します。もし未登録と表示されているようでしたら、登録中に問題を発生している可能性があります。デバイスの登録を解除して再登録すると、この問題が解決されます。</p></li><li><p>Intune に準拠していると Azure AD に準拠しているが、はいと表示されていることを確認します。 いずれかの項目にいいえと表示されている場合は、以下の問題の 1 つを示唆している可能性があります。</p></li></ol><ul><li>デバイスが、組織のコンプライアンスポリシーで定義された要求を満たしていない。</li><li>デバイスが Intune サービスに接続されていない。</li></ul><ol start="5"><li><p>最後のチェックインに、最近の日時が表示されていることを確認します。デバイスは少なくとも 8 時間ごとに Intune で確認します。もし最後のチェックインから 24 時間以上経過していたら、デバイスに問題が生じている可能性があります。チェックインできないデバイスは、 Intune からポリシーを受信することが出来ません。デバイスを強制的にチェックインさせるためには、デバイスの OS に一致する以下の一連の手順に従ってください。これらのステップはどのデバイスからも実行可能です。</p></li><li></li></ol><p>a. Android に対しては Company Portal app を開いて、デバイスを選択する &gt; リストから問題のデバイス &gt; デバイス設定の確認<br>b. iOS に対しては Company Portal app を開いて、デバイスを選択する &gt; リストから問題のデバイス &gt; 設定の確認<br>c. Windows に対してはデバイスの設定を開き、アカウントを選択する &gt; 職場または学校にアクセス &gt; 該当する接続 &gt; 情報 &gt; 同期</p><p>7  デバイスのポリシーの詳細を見るためにデバイスを選択します。</p><ol start="8"><li><p>デバイス &gt; 管理で、デバイスの準拠とデバイス構成の両方に移動し、割り当てようとしているデバイスポリシーが一覧表示されていることを確認します。</p></li><li></li></ol><p>a. もしポリシーが一覧表示されている場合はその状態を確認します。</p><ul><li>該当なし - このポリシーはこのプラットフォームでサポートされていません。例えば、iOS のポリシーは Android 端末では機能しません。 Samsung の KNOX ポリシーは、 Samsung 以外の KNOX 端末では機能しません。</li><li>競合 - Intune がオーバーライドできないデバイス上の既存の設定があります。</li><li>保留中 - デバイスは Intune にチェックインして、ポリシーを取得していません。</li><li>エラー - Intune documentation で考えられるエラーの一覧を確認します。</li></ul><p>b. もしポリシーが一覧表示されていない場合、ポリシーは正しく割り当てられていません。ポリシーの作成に戻り、ユーザーデバイスにポリシーを割り当てます。</p><p>これにより iOS や Android のポリシーがデバイスに適用されない理由を絞り込むことが出来ます。</p>]]>
-    </content>
-    <id>https://jpintune.github.io/blog/intune/20180928_01/</id>
-    <link href="https://jpintune.github.io/blog/intune/20180928_01/"/>
-    <published>2018-09-27T15:00:00.000Z</published>
-    <summary>
-      <![CDATA[<p>こんにちは。Microsoft Intune サポートチームの中村です。</p>
-<p>ユーザーが、iOS や Android のポリシーをデバイスに展開したのに、デバイスに適用されないという問題を抱えているのを見かけます。 しかしそれは、ポリシーが OS のバージョンとデ]]>
-    </summary>
-    <title>デバイスに適用されないiOSやAndroidポリシーのトラブルシューティング</title>
-    <updated>2026-07-22T02:50:57.490Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>Japan Microsoft Intune Support Team</name>
-    </author>
-    <category term="Intune" scheme="https://jpintune.github.io/blog/tags/Intune/"/>
-    <content>
-      <![CDATA[<p>※ 2018&#x2F;9&#x2F;26 追記</p><p>「制限付きアプリ」機能がコンプライアンス ポリシーの機能として復活し、利用できるようになりました。(iOS と Android Enterprise)</p><p>これにより、指定したアプリがインストールされている端末を「非準拠」と見なすことができます。</p><p><img src="/blog/intune/20180926_01/1_MicrosoftIntune_constraintedapp_and_displayfunction.png"></p><p>こんにちは。Microsoft Intune サポート チームです。<br>iOS を利用するユーザーから「端末で使用を許可／禁止するアプリを指定したい」という要望が多くあがります。<br>今回はそのための機能について説明します。  </p><p>iOS 用のデバイス制限プロファイルでは、一見類似する 2 つの設定項目があります。<br>それが「制限付きアプリ」と「アプリの表示&#x2F;非表示」機能です。<br>このうち「制限付きアプリ」機能は現在利用されておらず、「アプリの表示&#x2F;非表示」機能を利用する必要があります。</p><h2 id="■-アプリの表示-非表示機能"><a href="#■-アプリの表示-非表示機能" class="headerlink" title="■ アプリの表示&#x2F;非表示機能"></a>■ アプリの表示&#x2F;非表示機能</h2><p>「アプリの表示&#x2F;非表示」機能は、iOS 端末上に表示されるアプリを制限する機能です。<br>※ この機能を利用するには、iOS 端末を「<a href="https://support.apple.com/ja-jp/HT202837">監視モード</a>」に設定する必要があります。<br>ホワイトリスト形式で、指定したアプリだけが表示されるようにしたり、ブラックリスト形式で指定したアプリを非表示にすることができます。<br>この機能で非表示状態になったアプリは、iOS 画面にアプリのアイコンが表示されないだけでなく、実際にそのアプリを使用することができません。<br>例えば、Word アプリを非表示にした場合、Outlook アプリに添付された Word ファイルを Word アプリで開くことができなくなります。</p><p>「アプリの表示&#x2F;非表示」の設定画面はこのようになっています。</p><p><img src="/blog/intune/20180926_01/1_MicrosoftIntune_constraintedapp_and_displayfunction.png"></p><p>[アプリ URL] または [アプリ バンドル ID] でアプリを特定していますので、この 2 つのいずれかを正確に入力します。</p><ul><li>App Store に公開されているアプリであれば、[アプリ URL] で指定できます。</li><li>iOS にビルトインされているアプリの場合は [アプリ バンドル ID] で指定できます。<a href="https://docs.microsoft.com/ja-jp/mem/intune/configuration/device-restrictions-ios#bundle-id-reference-for-built-in-ios-apps">組み込みアプリのバンドル ID 一覧</a><br>指定するアプリの数が多く、手動での登録がお手間になる場合は、アプリ一覧をインポート・エクスポートする機能もあります。</li></ul><p>注意点としては、複数の「アプリの表示&#x2F;非表示」プロファイルを同一の端末に展開するとエラーになる点です。<br>これは Apple Configurator のカスタム プロファイルを使用した場合も同様です。<br>「アプリの表示&#x2F;非表示」設定は、1 デバイスに 1 プロファイルだけが割り当てられるようにしてください。</p><h2 id="■-制限付きアプリ機能について"><a href="#■-制限付きアプリ機能について" class="headerlink" title="■ 制限付きアプリ機能について"></a>■ 制限付きアプリ機能について</h2><p>※ 2018&#x2F;9&#x2F;26 追記</p><p>「制限付きアプリ」機能がコンプライアンス ポリシーの機能として復活し、利用できるようになりました。(iOS と Android Enterprise)</p><p>これにより、指定したアプリがインストールされている端末を「非準拠」と見なすことができます。</p><p>「制限付きアプリ」機能は元々 Intune のクラシック コンソール時代に利用されていた機能です。<br>Silverlight で動作する、以前のコンソールを覚えている方もいらっしゃるでしょう。<br>この機能では、「アプリの表示&#x2F;非表示」のようにアプリの利用を禁止する直接的な効力はありませんでした。<br>管理者が指定したアプリが端末にインストールされているか、いないかという情報を端末側で監査し、クラシック コンソールのレポートで確認する機能でした。<br>Intune が Azure 管理ポータルに移行するにあたり、クラシック コンソールでの MDM 管理機能やレポート機能が廃止されております。</p><p>※移行はテナントごとに行われ、2017 年 10 月 ～ 2018 年 6 月頃には、実質的に「制限付きアプリ」機能は利用できない状態になっています。</p><p>一方で、デバイスからはインベントリとしてアプリの情報が収集されていますので、この情報を基に監査を行うことができます。<br>Azure ポータルの [Intune] - [モバイル アプリ] - [検出されたアプリ] には、インベントリされた全アプリの一覧が表示されます。<br>この情報をエクスポートして、監査に利用することができます。<br>企業所有端末からはインストールされた全アプリ情報が、個人所有端末からは Intune で管理されたアプリの情報のみが収集されます。</p><p>「制限付きアプリ」機能では、実質的に BYOD 端末について、ユーザーのアプリの情報を監査できるというプライバシー上の課題がありましたが、インベントリ機能ではこの課題は解消されています。</p><p>このように、「アプリの表示&#x2F;非表示」機能を上手く活用することで、組織のアプリ使用を制限可能です。</p><p>また、インベントリ情報を活用することで、社給端末で利用されているアプリ情報を取得可能です。</p>]]>
-    </content>
-    <id>https://jpintune.github.io/blog/intune/20180926_01/</id>
-    <link href="https://jpintune.github.io/blog/intune/20180926_01/"/>
-    <published>2018-09-25T15:00:00.000Z</published>
-    <summary>
-      <![CDATA[<p>※ 2018&#x2F;9&#x2F;26 追記</p>
-<p>「制限付きアプリ」機能がコンプライアンス ポリシーの機能として復活し、利用できるようになりました。(iOS と Android Enterprise)</p>
-<p>これにより、指定したアプリがインストールされ]]>
-    </summary>
-    <title>Microsoft Intune の「制限付きアプリ」と「アプリの表示/非表示」機能について</title>
-    <updated>2026-07-22T02:50:57.489Z</updated>
+    <title>ブログ リニューアル準備中のお知らせ</title>
+    <updated>2026-07-22T03:02:54.345Z</updated>
   </entry>
 </feed>
