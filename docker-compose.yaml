@@ -11,6 +11,7 @@ services:
       - "./articles:/blog/articles"
       - "./scaffolds:/blog/scaffolds"
       - "./source:/blog/source"
+      - "./scripts:/blog/scripts"
       - "./themes:/blog/themes"
       - "./_config.yml:/blog/_config.yml"
       - "./_config.jpazure.yml:/blog/_config.jpazure.yml"
