@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>意外と見落としがち？Intune で Win32 アプリを配布する前に確認しておきたいポイント | Japan Microsoft Intune Support Team Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="みなさま、こんにちは。Intune サポート チームです。 Intune を使うことで、社内の業務アプリや作成したスクリプト等を Win32 アプリとして、各デバイスへ配信することが出来ます。一方で、いざ配布を始めてみると「手元では問題なくインストールできたのに、Intune から配布するとなぜかうまくいかない…」なんてこともありますよね。実はちょっとしたコツを知っているだけで、このような問題をす">
+<meta property="og:type" content="article">
+<meta property="og:title" content="意外と見落としがち？Intune で Win32 アプリを配布する前に確認しておきたいポイント">
+<meta property="og:url" content="https://jpintune.github.io/blog/intune/20260728_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Intune Support Team Blog">
+<meta property="og:description" content="みなさま、こんにちは。Intune サポート チームです。 Intune を使うことで、社内の業務アプリや作成したスクリプト等を Win32 アプリとして、各デバイスへ配信することが出来ます。一方で、いざ配布を始めてみると「手元では問題なくインストールできたのに、Intune から配布するとなぜかうまくいかない…」なんてこともありますよね。実はちょっとしたコツを知っているだけで、このような問題をす">
+<meta property="og:locale" content="ja_JP">
+<meta property="article:published_time" content="2026-07-27T15:00:00.000Z">
+<meta property="article:modified_time" content="2026-07-28T00:36:30.348Z">
+<meta property="article:author" content="Japan Microsoft Intune Support Team">
+<meta property="article:tag" content="Intune">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Intune Support Team Blog" type="application/atom+xml">
+  
+
+  <link rel="icon" href="./favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<!-- hexo injector head_end start --><script>(function(){var r="/blog/";document.querySelectorAll("link[rel~=\"icon\"],link[rel=\"apple-touch-icon\"],link[rel=\"apple-touch-icon-precomposed\"],link[rel=\"mask-icon\"],link[rel=\"manifest\"]").forEach(function(l){var h=l.getAttribute("href");if(h&&h.indexOf("./")===0){l.setAttribute("href",r+h.slice(2));}});})();</script><style>#site-header-blog-wrapper{background-color:#484644;}</style><style>.article-github-issue-link,.article-github-edit-link{display:none !important;}</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <div id="ms-logo"></div>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+        <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../blog/atom.xml" title="RSSフィード"></a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.bing.com/search" method="get" accept-charset="UTF-8" name="bing-search" onsubmit="var f=this;if(f['q'].value){var searchUrl =  'https://www.bing.com/search?q=' +  encodeURIComponent(f['q'].value + ' site:' + f['sitesearch'].value) ;window.open(searchUrl, 'blank') };return false;" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="検索"><button type="submit" id="nav-search-btn" class="search-form-submit"></button><input type="hidden" name="sitesearch" value="https://jpintune.github.io/blog"></form>
+      </div>
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Intune Support Team Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフトの Microsoft Intune に関するサポート情報のブログです。</a>
+        </h2>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-intune/20260728_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      意外と見落としがち？Intune で Win32 アプリを配布する前に確認しておきたいポイント
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="" class="article-date-single">
+  <time datetime="2026-07-27T15:00:00.000Z" itemprop="datePublished">2026-07-28</time>
+</a>
+        
+        
+        <a href="https://github.com/jpintune/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+572b025a-733e-5f6d-a79b-2985bf14b8dc%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5B%E6%84%8F%E5%A4%96%E3%81%A8%E8%A6%8B%E8%90%BD%E3%81%A8%E3%81%97%E3%81%8C%E3%81%A1%EF%BC%9FIntune+%E3%81%A7+Win32+%E3%82%A2%E3%83%97%E3%83%AA%E3%82%92%E9%85%8D%E5%B8%83%E3%81%99%E3%82%8B%E5%89%8D%E3%81%AB%E7%A2%BA%E8%AA%8D%E3%81%97%E3%81%A6%E3%81%8A%E3%81%8D%E3%81%9F%E3%81%84%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88%5D%28https%3A%2F%2Fjpintune.github.io%2Fblog%2Fintune%2F20260728_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fintune%2F20260728_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpintune%2Fblog%2Fblob%2Fmaster%2Farticles%2Fintune%2F20260728_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        
+        <a data-url="https://jpintune.github.io/blog/intune/20260728_01/" data-id="cuidD7-r92UV9DSdO_Izw4-WT" class="article-share-link">共有</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>みなさま、こんにちは。Intune サポート チームです。</p>
+<p>Intune を使うことで、社内の業務アプリや作成したスクリプト等を Win32 アプリとして、各デバイスへ配信することが出来ます。一方で、いざ配布を始めてみると「手元では問題なくインストールできたのに、Intune から配布するとなぜかうまくいかない…」なんてこともありますよね。実はちょっとしたコツを知っているだけで、このような問題をすんなり解決できてしまうケースが多いのです。</p>
+<p>そこで今回は、Win32 アプリを本格的に展開する前に「これだけ押さえておけば安心！」という 3 つのポイントを、ご紹介していきます。事前にサクッと確認しておくことで、配布後の問題を減らし、気持ちよくアプリ展開を進めていきましょう。</p>
+<p>そのカギとなるのが、Intune からの Win32 アプリの配信の流れを知っておくことです。Intune はアプリを「配布して起動する」ところまでを担当し、起動された後のインストール処理そのものはアプリのインストーラーにバトンタッチされます。このバトンの受け渡しをイメージしておくと、後の内容もスッと入ってきますので、ぜひ頭の片隅に置いておいてください。</p>
+<h2 id="①-インストール-コマンドの動作を事前に確認しておく"><a href="#①-インストール-コマンドの動作を事前に確認しておく" class="headerlink" title="① インストール コマンドの動作を事前に確認しておく"></a>① インストール コマンドの動作を事前に確認しておく</h2><p>「そんなの当たり前でしょ？」と思われるかもしれませんが、Intune ならではの動作の特性を知らずに進めると、意外なところでつまずくことがあります。逆に言えば、ここさえ押さえておけば安心。特に見落とされやすい 3 つの観点を見ていきましょう。</p>
+<h3 id="32-ビット-64-ビットのどちらで実行されるか意識しておく"><a href="#32-ビット-64-ビットのどちらで実行されるか意識しておく" class="headerlink" title="32 ビット &#x2F; 64 ビットのどちらで実行されるか意識しておく"></a>32 ビット &#x2F; 64 ビットのどちらで実行されるか意識しておく</h3><p>まず知っておきたいのが、Intune は既定では 32 ビット プロセスとしてインストール コマンドを実行するという点です。ですので、事前に動作を確認するときは、32 ビット版のコマンド プロンプト (<code>C:\Windows\SysWOW64\cmd.exe</code>) から実行して、無事に完了するか見ておくのが良いです。</p>
+<p>ここでちょっとした落とし穴が一つあります。スタート メニューから起動するコマンド プロンプトは、実は 64 ビット版 (<code>C:\Windows\System32\cmd.exe</code>) なんです。何気なく開いたコマンド プロンプトで確認すると、Intune が実際に動く環境とは違う条件でテストしてしまうことになります。ここを合わせておくだけで、確認の精度が上がります。</p>
+<p>一方で、Intune から 64 ビット プロセスとしてインストール コマンドを実行させたい場合には、インストール コマンドを記載したバッチ ファイル等を用意しておき、Win32 アプリのインストール コマンドを設定する際に、次のように <code>Sysnative</code> 配下のコマンド プロンプトからバッチ ファイルを起動するようにすると、64 ビット プロセスとしてインストール コマンドを実行させることが可能です。</p>
+<p>インストール コマンドの例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%systemroot%\Sysnative\cmd.exe /c &lt;インストールに利用するバッチ ファイル&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>Sysnative</code> は、32 ビット プロセスから 64 ビット プロセスを呼び出すための特別なエイリアスです。エクスプローラー等で <code>%systemroot%\Sysnative\</code> を参照しても見つかりませんが、これは問題ありませんのでご安心ください。<code>Sysnative</code> 配下のコマンド プロンプトから起動したバッチ ファイルの動作を確認したい場合は、64 ビット版のコマンド プロンプトを利用して確認していただければ問題ありません。</p>
+<h4 id="補足-なぜ-System32-ではなく-Sysnative-を使う必要があるの？"><a href="#補足-なぜ-System32-ではなく-Sysnative-を使う必要があるの？" class="headerlink" title="補足: なぜ System32 ではなく Sysnative を使う必要があるの？"></a>補足: なぜ <code>System32</code> ではなく <code>Sysnative</code> を使う必要があるの？</h4><p>32 ビット プロセスが <code>C:\Windows\System32</code> を参照しようとしても、WOW64 のファイル システム リダイレクトによって <code>C:\Windows\SysWOW64</code> (32 ビット側) に自動的に飛ばされてしまいます。そのため、インストール コマンドで  <code>C:\Windows\System32</code> 配下の <code>cmd.exe</code> を指定しても、実際には <code>C:\Windows\SysWOW64</code> 配下の cmd.exe が起動されてしまいます。32 ビット プロセスから本来の 64 ビット側の System32 を指し示すには、リダイレクトされない特別なエイリアスである <code>Sysnative</code> を利用する必要があります。</p>
+<p>さらに、32 ビットと 64 ビットのどちらのプロセスで実行するかによって、コマンド内で参照されるパスやレジストリの解決先も変わる点に注意が必要です。<code>Sysnative</code> 経由で 64 ビット プロセスとして実行した場合は、<code>%ProgramFiles%</code> は <code>C:\Program Files</code> (64 ビット側) を指し、レジストリも <code>WOW6432Node</code> を経由しない native 側を参照します。一方、既定の 32 ビット プロセスのまま実行した場合は、<code>%ProgramFiles%</code> は <code>C:\Program Files (x86)</code> にリダイレクトされ、レジストリも <code>WOW6432Node</code> 配下を参照することになります。そのため、レジストリを設定するだけのちょっとしたスクリプトであっても、こういった点は注意しないと、意図した場所にレジストリが設定されなくなってしまいます。</p>
+<p>インストール コマンドが特定のパスやレジストリ キーを参照している場合、32 ビット &#x2F; 64 ビットのどちらで動くかで結果が変わってきます。この違いをちょっと意識しておくと、後で「あれ？」となることをうまく避けられます。</p>
+<h3 id="ユーザー-コンテキスト-システム-コンテキスト、どちらで実行するか事前に決めておく"><a href="#ユーザー-コンテキスト-システム-コンテキスト、どちらで実行するか事前に決めておく" class="headerlink" title="ユーザー コンテキスト &#x2F; システム コンテキスト、どちらで実行するか事前に決めておく"></a>ユーザー コンテキスト &#x2F; システム コンテキスト、どちらで実行するか事前に決めておく</h3><p>次のポイントは、インストール コマンドをユーザー コンテキストとシステム コンテキストのどちらで実行するか、という点です。</p>
+<p>ユーザー コンテキストで確認するなら、<code>cmd.exe</code> をダブル クリックして立ち上げれば OK です。一方、システム コンテキストで配布する予定なら、確認もシステム コンテキストで行うのがコツです。同じ条件でテストしておくことで、本番でも安心して展開できます。</p>
+<p>システム コンテキストでコマンド プロンプトを立ち上げる際は、<a href="https://learn.microsoft.com/ja-jp/sysinternals/downloads/psexec">PsExec</a> というツールを利用すると便利です。PsExec を利用して次のようなコマンドを実行することで、システム権限でコマンド プロンプトを立ち上げ、システム コンテキストでのインストール コマンドの動作確認を行うことができます。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 32 ビット版のコマンド プロンプトをシステム コンテキストで立ち上げ</span><br><span class="line">psexec -s -i C:\Windows\SysWOW64\cmd.exe</span><br><span class="line"></span><br><span class="line"># 64 ビット版のコマンド プロンプトをシステム コンテキストで立ち上げ</span><br><span class="line">psexec -s -i C:\Windows\System32\cmd.exe</span><br></pre></td></tr></table></figure>
+<p>※ 立ち上げたコマンド プロンプトで <code>whoami</code> コマンドを打つと、実際にシステム コンテキストで動作していることを確認できます。</p>
+<p>というのも、アプリによってはシステム コンテキストでのインストールを想定していないものもあるからです。「ユーザーに管理者権限がないから、とりあえずシステム コンテキストで」と選びたくなる場面もありますが、そんなときこそ事前の一手間が効いてきます。システム コンテキストで配布するなら、同じ条件でひと通り動かしておくと、より確実です。</p>
+<h3 id="サイレント-インストールが成功するか事前に確認しておく"><a href="#サイレント-インストールが成功するか事前に確認しておく" class="headerlink" title="サイレント インストールが成功するか事前に確認しておく"></a>サイレント インストールが成功するか事前に確認しておく</h3><p>3 つめは、ユーザーの操作なしで、サイレントにインストールが完了するかどうかです。</p>
+<p>Intune から配布する Win32 アプリは、基本的に「ユーザーは何もしなくてもインストールが進む」ことを前提にしています。もしインストール中にウィザードが立ち上がって入力を求められるようなら、サイレント インストール用のオプションが用意されていることが多いので、アプリの提供元のドキュメントやサポート窓口を利用してみてください。オプションの指定方法はインストーラーごとに個性があるので、ここはアプリの提供元を頼るのが確実です。</p>
+<h2 id="②-Win32-アプリの検出規則を決めておく"><a href="#②-Win32-アプリの検出規則を決めておく" class="headerlink" title="② Win32 アプリの検出規則を決めておく"></a>② Win32 アプリの検出規則を決めておく</h2><p>動作確認と並んで、確実に押さえておきたいのが「検出規則」です。ここを上手に設定できると、配布がぐっとスムーズになります。</p>
+<h3 id="そもそも検出規則とは？"><a href="#そもそも検出規則とは？" class="headerlink" title="そもそも検出規則とは？"></a>そもそも検出規則とは？</h3><p>検出規則とは、Intune が「このアプリ、デバイス上にインストール完了してるかな？」を判定するための目印のようなものです。ファイルやレジストリ、あるいは PowerShell スクリプト等を使って、「この条件を満たしていたらインストール完了」と細かく指定できます。</p>
+<p>この目印がうまく合っていないと、インストール自体は成功していても、Intune 側は「まだ完了していない？」と受け取ってしまうことがあります。実際、インストール コマンドが正常に終わっているのに検出規則が満たされていないと、Intune はエラー <code>0x87D1041C</code> (<code>-2016345060</code>) として扱います。逆に言えば、検出規則さえピタッと合わせておけば、こうしたすれ違いはしっかり防げます。</p>
+<h3 id="検出規則はいつ評価されるのか？"><a href="#検出規則はいつ評価されるのか？" class="headerlink" title="検出規則はいつ評価されるのか？"></a>検出規則はいつ評価されるのか？</h3><p>検出規則は、次のようなタイミングで評価されます。</p>
+<ul>
+<li>Win32 アプリの配信が開始される前</li>
+<li>Win32 アプリのインストール コマンドが実行された直後</li>
+<li>必須として割り当てている場合は、その後も定期的に</li>
+</ul>
+<p>ここでちょっと面白いのが、検出規則は配信の「前」にも評価されるという点。つまり、既に条件を満たしている（＝もうインストール済みの）デバイスには、Intune はわざわざ再配信をしません。</p>
+<p>もう一つのポイントは、判定がインストール完了の「直後」に行われること。ですので、「完了してからしばらく経たないと作られないファイル」や「一度アプリを起動しないと現れない値」や「利用中に変更されてしまう可能性がある値」を検出規則に選ぶのは避けるのがおすすめです。すぐに現れる、確実な検出規則を選んでおくと、判定がスムーズに決まります。</p>
+<p>また、インストール コマンドとしてバッチ ファイルやスクリプトを指定している場合には、インストール コマンド (バッチ ファイルやスクリプト) が終了したタイミングで検出規則の評価が行われるというのも注意が必要なポイントです。スクリプト内で呼び出した別のプロセスが完了する前に、スクリプト自体が先に終了してしまうと、実際のインストールがまだ途中であっても、その時点で検出規則が評価されてしまいます。すると、まだ目印となるファイルやレジストリ値が作られていないため、Intune は「インストールに失敗した」と判断してしまうことがあるのです。</p>
+<p>たとえば、バッチ ファイルの中から別のインストーラーを起動して、そのまますぐにバッチ ファイルが終了するようなケースが該当します。この場合、起動したインストーラーの処理が裏で続いていても、バッチ ファイルはその完了を待たずに終わってしまいます。このようなときは、<code>start /wait</code> を使って呼び出したプロセスの終了を待つようにしたり、PowerShell であれば <code>Start-Process -Wait</code> を利用したりして、実際のインストール処理が終わるまでスクリプトが終了しないように制御してあげると安心です。「スクリプトが終わる ＝ インストールが本当に終わっている」という状態をきちんと作っておくことが、すれ違いを防ぐコツです。</p>
+<p>検出規則として何を設定すべきか迷った場合は、アプリの提供元に、インストール完了時に作成されるファイルやレジストリ値を確認してみるとよいでしょう。提供元はそのアプリの内部の動作を最もよく把握しているため、適切な検出規則を選ぶうえで頼りになります。</p>
+<h2 id="③-いざというときのために、インストーラーのログの出どころを知っておく"><a href="#③-いざというときのために、インストーラーのログの出どころを知っておく" class="headerlink" title="③ いざというときのために、インストーラーのログの出どころを知っておく"></a>③ いざというときのために、インストーラーのログの出どころを知っておく</h2><p>最後は、もしもの時に慌てないための「ログ」のお話です。Intune から Win32 アプリを配布すると、Intune Management Extension がインストール コマンドを起動した後の処理は、次の図のように、インストーラーへ処理がバトンタッチされます。そのため、Intune Management Extension のログからわかるのは、プロセスのリターン コードまで、ということになります。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">flowchart TB</span><br><span class="line">    subgraph CLOUD[&quot; &quot;]</span><br><span class="line">        INTUNE[&quot;☁️ Microsoft Intune&lt;br/&gt;Win32 アプリ・スクリプトの配布&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph DEVICE[&quot;💻 デバイス上で動作&quot;]</span><br><span class="line">        direction TB</span><br><span class="line">        IME[&quot;🔷 Intune の機能&lt;br/&gt;（配布・起動まで）&lt;br/&gt;Intune Management Extension&quot;]</span><br><span class="line">        APPS[&quot;🔶 アプリ・スクリプト側&lt;br/&gt;（起動後の動作）&lt;br/&gt;Win32 アプリ / PowerShell スクリプト&quot;]</span><br><span class="line">        IME == &quot;起動&quot; ==&gt; APPS</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    INTUNE -- &quot;配布&quot; --&gt; IME</span><br><span class="line"></span><br><span class="line">    style CLOUD fill:transparent,stroke:transparent</span><br><span class="line">    style DEVICE fill:#f3f3f3,stroke:#5f5f5f,stroke-width:2px</span><br><span class="line">    style INTUNE fill:#e6f2ff,stroke:#0078d4,stroke-width:2px</span><br><span class="line">    style IME fill:#e6f2ff,stroke:#0078d4,stroke-width:2px</span><br><span class="line">    style APPS fill:#eaf7ea,stroke:#107c10,stroke-width:2px</span><br></pre></td></tr></table></figure>
+
+<p>ちなみに、このリターン コードは Intune が成否を見分ける手がかりにもなっています。既定では <code>0</code> と <code>1707</code> が成功、<code>3010</code>・<code>1641</code> は再起動をともなう成功として扱われます。また、リターン コードが成功でも、それだけで「完了」にはなりません。② のとおり最終判定は検出規則の役目なので、「成功コードは返っているのに検出規則が満たされず失敗扱い」というすれ違いも起こります。</p>
+<p>運用が始まると、時には想定外のできごとに出会うこともあります。そんなときに頼りになるのがアプリのインストーラーのログです。ログがどこに出力されるのか、またインストーラーのログの解析はどこにすればよいのかを配布前に確認しておくだけで、いざというときの安心感が大きく変わってきます。想定外のリターン コードが発生する場合や、検出規則が満たされない場合は、アプリのインストーラーのログから状況を見る必要があります。特にサードパーティー製のアプリの場合、インストール処理の内部の動作を最もよく把握しているのは提供元ですので、サポート窓口をあらかじめ確認しておくと良いでしょう。</p>
+<p>また、PowerShell スクリプト等を使う場合は、スクリプトの中にログ出力を組み込んでおくことをお勧めします。どの処理まで進んで、どこで問題が発生したかを把握しやすくなり、後々の調査に役立ちます。自作のスクリプトを利用する際は、ぜひ取り入れてみてください。</p>
+<h2 id="おわりに"><a href="#おわりに" class="headerlink" title="おわりに"></a>おわりに</h2><p>今回は、Win32 アプリを配布する前に押さえておきたい 3 つのポイント――インストール コマンドの動作確認、検出規則の設計、そしてインストーラーのログの出どころ――をご紹介しました。</p>
+<p>どれも、配布前のちょっとしたひと手間で、その後の展開がぐっとラクになるものばかりです。なかでも「Intune はアプリを起動するところまで、その先はアプリにバトンタッチ」という流れをイメージしておくと、いざというときも「まずはどこを見ればいいか」がスッとわかるようになります。</p>
+<p>この記事が、みなさまの Win32 アプリ展開を後押しできたらうれしいです。それでは、また次回の記事でお会いしましょう！</p>
+
+      
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li></ul>
+
+        
+        <a href="https://github.com/jpintune/blog/edit/master/articles/intune/20260728_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../20260722_02/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">Intune のトラブル解決が早くなる。知っておきたい Windows との &#34;役割分担&#34; - 基本編</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="">意外と見落としがち？Intune で Win32 アプリを配布する前に確認しておきたいポイント</a>
+          </li>
+        
+          <li>
+            <a href="../20260722_02/">Intune のトラブル解決が早くなる。知っておきたい Windows との &#34;役割分担&#34; - 基本編</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <!-- <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li></ul>  -->
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/">Intune</a><span class="tag-list-count">2</span><ul></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/07/">2026 / 07</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="../../tags/Intune/" style="font-size: 10px;">Intune</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2026 Japan Microsoft Intune Support Team<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+<!-- hexo injector body_end start -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script>
+(function () {
+  var KEYS = /^(flowchart|graph|sequenceDiagram|classDiagram|stateDiagram(-v2)?|erDiagram|gantt|pie|journey|gitGraph|mindmap|timeline|quadrantChart|requirementDiagram|C4Context|xychart-beta|sankey-beta)\b/;
+  function render() {
+    var blocks = document.querySelectorAll('figure.highlight, pre > code');
+    var targets = [];
+    blocks.forEach(function (el) {
+      var fig = el.closest('figure.highlight') || el;
+      if (fig.dataset && fig.dataset.mermaidDone) return;
+      var codeCell = fig.querySelector('.code') || fig;
+      var lines = codeCell.querySelectorAll('.line');
+      var text = lines.length
+        ? Array.prototype.map.call(lines, function (s) { return s.textContent; }).join('\n')
+        : codeCell.textContent;
+      if (!KEYS.test(text.trim())) return;
+      var pre = document.createElement('pre');
+      pre.className = 'mermaid';
+      pre.textContent = text;
+      fig.parentNode.replaceChild(pre, fig);
+      targets.push(pre);
+    });
+    if (targets.length && window.mermaid) {
+      window.mermaid.initialize({ startOnLoad: false, securityLevel: 'loose', theme: 'default' });
+      window.mermaid.run({ nodes: targets });
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', render);
+  } else {
+    render();
+  }
+})();
+</script>
+<style>
+pre.mermaid { background: none; border: none; text-align: center; overflow-x: auto; }
+</style>
+<!-- hexo injector body_end end --></body>
+</html>
