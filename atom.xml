@@ -10,7 +10,7 @@
   <rights>All rights reserved 2026, Japan Microsoft Intune Support Team</rights>
   <subtitle>日本マイクロソフトの Microsoft Intune に関するサポート情報のブログです。</subtitle>
   <title>Japan Microsoft Intune Support Team Blog</title>
-  <updated>2026-08-02T05:55:04.553Z</updated>
+  <updated>2026-08-02T06:13:13.408Z</updated>
   <entry>
     <author>
       <name>Japan Microsoft Intune Support Team</name>
@@ -27,7 +27,7 @@
 <p>これらのポイントを事前にご理解]]>
     </summary>
     <title>Android デバイスを Intune で管理する際に押さえておきたいポイント</title>
-    <updated>2026-08-02T05:55:04.553Z</updated>
+    <updated>2026-08-02T06:13:13.408Z</updated>
   </entry>
   <entry>
     <author>
@@ -45,7 +45,7 @@
 <p>Intune を使うことで、社内の業務アプリや作成したスクリプト等を Win32 アプリとして、各デバイスへ配信することが出来ます。一方で、いざ配布を始めてみると「手元では問題なくインストールできたの]]>
     </summary>
     <title>意外と見落としがち？Intune で Win32 アプリを配布する前に確認しておきたいポイント</title>
-    <updated>2026-08-02T05:55:04.553Z</updated>
+    <updated>2026-08-02T06:13:13.408Z</updated>
   </entry>
   <entry>
     <author>
@@ -63,6 +63,6 @@
 <p>日々 Intune を活用してデバイス管理を進めていただき、ありがとうございます。今回は、Intune を運用されている皆さまにぜひ知っておいていただきたい「Intune と Windows の役割分]]>
     </summary>
     <title>Intune のトラブル解決が早くなる。知っておきたい Windows との &quot;役割分担&quot; - 基本編</title>
-    <updated>2026-08-02T05:55:04.553Z</updated>
+    <updated>2026-08-02T06:13:13.407Z</updated>
   </entry>
 </feed>
