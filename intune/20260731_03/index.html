@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Android デバイスを Intune で管理する際に押さえておきたいポイント | Japan Microsoft Intune Support Team Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Microsoft Intune サポート チームです。本記事では、Android デバイスを Intune（MDM）で管理する際に、あらかじめご理解いただきたい Android プラットフォーム固有の仕様についてご案内します。 これらのポイントを事前にご理解いただくことで、お問い合わせ時の状況共有がスムーズになり、原因の切り分けや問題解決までの時間を短縮できます。「Intune 側の問題なのか」">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android デバイスを Intune で管理する際に押さえておきたいポイント">
+<meta property="og:url" content="https://jpintune.github.io/blog/intune/20260731_03/index.html">
+<meta property="og:site_name" content="Japan Microsoft Intune Support Team Blog">
+<meta property="og:description" content="Microsoft Intune サポート チームです。本記事では、Android デバイスを Intune（MDM）で管理する際に、あらかじめご理解いただきたい Android プラットフォーム固有の仕様についてご案内します。 これらのポイントを事前にご理解いただくことで、お問い合わせ時の状況共有がスムーズになり、原因の切り分けや問題解決までの時間を短縮できます。「Intune 側の問題なのか」">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpintune.github.io/blog/intune/20260731_03/2026073103/gms-flow.png">
+<meta property="article:published_time" content="2026-07-30T15:00:00.000Z">
+<meta property="article:modified_time" content="2026-08-02T05:37:59.836Z">
+<meta property="article:author" content="Japan Microsoft Intune Support Team">
+<meta property="article:tag" content="Intune">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpintune.github.io/blog/intune/20260731_03/2026073103/gms-flow.png">
+  
+    <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Intune Support Team Blog" type="application/atom+xml">
+  
+
+  <link rel="icon" href="./favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<!-- hexo injector head_end start --><script>(function(){var r="/blog/";document.querySelectorAll("link[rel~=\"icon\"],link[rel=\"apple-touch-icon\"],link[rel=\"apple-touch-icon-precomposed\"],link[rel=\"mask-icon\"],link[rel=\"manifest\"]").forEach(function(l){var h=l.getAttribute("href");if(h&&h.indexOf("./")===0){l.setAttribute("href",r+h.slice(2));}});})();</script><style>#site-header-blog-wrapper{background-color:#484644;}</style><style>.article-github-issue-link,.article-github-edit-link{display:none !important;}</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <div id="ms-logo"></div>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+        <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../blog/atom.xml" title="RSSフィード"></a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.bing.com/search" method="get" accept-charset="UTF-8" name="bing-search" onsubmit="var f=this;if(f['q'].value){var searchUrl =  'https://www.bing.com/search?q=' +  encodeURIComponent(f['q'].value + ' site:' + f['sitesearch'].value) ;window.open(searchUrl, 'blank') };return false;" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="検索"><button type="submit" id="nav-search-btn" class="search-form-submit"></button><input type="hidden" name="sitesearch" value="https://jpintune.github.io/blog"></form>
+      </div>
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Intune Support Team Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフトの Microsoft Intune に関するサポート情報のブログです。</a>
+        </h2>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-intune/20260731_03" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android デバイスを Intune で管理する際に押さえておきたいポイント
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="" class="article-date-single">
+  <time datetime="2026-07-30T15:00:00.000Z" itemprop="datePublished">2026-07-31</time>
+</a>
+        
+        
+        <a href="https://github.com/jpintune/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+1f827218-7921-5b4a-bd25-c15bf6302281%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BAndroid+%E3%83%87%E3%83%90%E3%82%A4%E3%82%B9%E3%82%92+Intune+%E3%81%A7%E7%AE%A1%E7%90%86%E3%81%99%E3%82%8B%E9%9A%9B%E3%81%AB%E6%8A%BC%E3%81%95%E3%81%88%E3%81%A6%E3%81%8A%E3%81%8D%E3%81%9F%E3%81%84%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88%5D%28https%3A%2F%2Fjpintune.github.io%2Fblog%2Fintune%2F20260731_03%2F%29%0A*+Content+Source%3A+%5Barticles%2Fintune%2F20260731_03.md%5D%28https%3A%2F%2Fgithub.com%2Fjpintune%2Fblog%2Fblob%2Fmaster%2Farticles%2Fintune%2F20260731_03.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        
+        <a data-url="https://jpintune.github.io/blog/intune/20260731_03/" data-id="cuidK6nYhNDGQ3cci8dTD0TP5" class="article-share-link">共有</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Microsoft Intune サポート チームです。本記事では、Android デバイスを Intune（MDM）で管理する際に、あらかじめご理解いただきたい Android プラットフォーム固有の仕様についてご案内します。</p>
+<p>これらのポイントを事前にご理解いただくことで、<strong>お問い合わせ時の状況共有がスムーズになり、原因の切り分けや問題解決までの時間を短縮できます。</strong>「Intune 側の問題なのか」「Android／ベンダー側の仕様なのか」「GMS（Google Mobile Services）経由の遅延なのか」を切り分ける観点をあらかじめ共有することが、早期解決の鍵となります。</p>
+<hr>
+<h2 id="なぜ事前理解が重要なのか（本記事の目的）"><a href="#なぜ事前理解が重要なのか（本記事の目的）" class="headerlink" title="なぜ事前理解が重要なのか（本記事の目的）"></a>なぜ事前理解が重要なのか（本記事の目的）</h2><p>Android の MDM 管理は、iOS&#x2F;iPadOS や Windows と異なり、<strong>Google のサービス（GMS）やデバイス ベンダーの実装に強く依存する</strong>という特徴があります。そのため、同じ操作でも動作結果がデバイスやメーカーによって変わることがあります。</p>
+<p>Intune はクラウド サービスとして「構成プロファイル（ポリシー）をデバイスへ配信し、適用状況を受け取る」までを担いますが、<strong>その先の実際の適用処理は Android OS／GMS 側で行われます。</strong> この役割分担を理解しておくと、以下のようなメリットがあります。</p>
+<ul>
+<li>お問い合わせ時に、切り分けに必要な情報（デバイス メーカー、モデル、Android バージョン、登録方式など）を最初から共有いただける</li>
+<li>「Intune 側で確認できる範囲」と「Android／ベンダー側の要因」を切り分けやすくなる</li>
+<li>不要な調査ステップを省け、結果として<strong>解決までの時間が短縮</strong>される</li>
+</ul>
+<hr>
+<h2 id="1-Android-の-MDM-登録は「Android-Enterprise」が前提"><a href="#1-Android-の-MDM-登録は「Android-Enterprise」が前提" class="headerlink" title="1. Android の MDM 登録は「Android Enterprise」が前提"></a>1. Android の MDM 登録は「Android Enterprise」が前提</h2><p>現在、Android デバイスを Intune で MDM 管理する場合、原則として <strong>Android Enterprise</strong> に対応したデバイスであることが前提となります。従来の Device Administrator（デバイス管理者）方式は Google により非推奨・機能縮小が進んでおり、新規の管理方式としては推奨されません。</p>
+<p>Android Enterprise では、主に以下の管理方式があります。</p>
+<ul>
+<li><strong>個人所有の仕事用プロファイル（Work Profile &#x2F; BYOD）</strong></li>
+<li><strong>完全管理対象デバイス（Fully Managed &#x2F; COBO）</strong></li>
+<li><strong>業務専用デバイス（Dedicated &#x2F; COSU、キオスク用途など）</strong></li>
+<li><strong>企業所有の仕事用プロファイル（COPE）</strong></li>
+</ul>
+<p>そのため、管理対象とする Android デバイスが <strong>Android Enterprise に対応しているか</strong>を、導入前に必ずご確認ください。</p>
+<h3 id="対応デバイスの公開情報"><a href="#対応デバイスの公開情報" class="headerlink" title="対応デバイスの公開情報"></a>対応デバイスの公開情報</h3><p>Android Enterprise の対応デバイスは、Google が公式に公開している以下のリストからご確認いただけます。お問い合わせ前に、対象デバイスがこのリストに含まれているかをご確認いただくと、切り分けがスムーズになります。</p>
+<ul>
+<li><strong>Android Enterprise Recommended（Google 公式・推奨デバイス一覧）</strong><br><a href="https://androidenterprisepartners.withgoogle.com/devices/">https://androidenterprisepartners.withgoogle.com/devices/</a></li>
+<li><strong>Android Enterprise 対応の要件・管理方式（Google 公式ドキュメント）</strong><br><a href="https://developers.google.com/android/work/requirements">https://developers.google.com/android/work/requirements</a></li>
+<li><strong>Intune における Android 登録方式のサポート情報（Microsoft Learn）</strong><br><a href="https://learn.microsoft.com/mem/intune/enrollment/android-enroll">https://learn.microsoft.com/mem/intune/enrollment/android-enroll</a></li>
+</ul>
+<blockquote>
+<p>※ Android Enterprise Recommended に掲載されているデバイスは、Google が定める品質・アップデート要件を満たしており、企業利用に適したデバイスとして推奨されます。</p>
+</blockquote>
+<hr>
+<h2 id="2-ベンダー（メーカー）ごとに仕様が異なる点にご注意ください"><a href="#2-ベンダー（メーカー）ごとに仕様が異なる点にご注意ください" class="headerlink" title="2. ベンダー（メーカー）ごとに仕様が異なる点にご注意ください"></a>2. ベンダー（メーカー）ごとに仕様が異なる点にご注意ください</h2><p>Android デバイスは Google が提供する OS をベースに、<strong>各デバイス メーカーが独自のカスタマイズを加えて出荷</strong>しています。このため、同じ Android バージョン・同じ Intune ポリシーであっても、<strong>メーカーによって MDM 制御の挙動が異なる</strong>場合があります。<br>特に、ソフトウェア アップデートに関しては、各メーカーごとに配布ポイントを保持しているため、設定アプリ経由ではなく、独自の管理アプリ経由で、配布される可能性があるため、メーカごとで挙動が変わる可能性が高い設定といえます。</p>
+<p>上記のソフトウェア アップデートに関わらず、特定メーカー・特定モデルでのみ発生する事象については、<strong>デバイス メーカー（ベンダー）へのご確認が必要</strong>となる場合があります。<br>このため、お問い合わせの際は、<strong>メーカー名・モデル名・Android バージョン</strong>をあわせてお知らせいただくと、この切り分けを迅速に行えます。</p>
+<hr>
+<h2 id="3-Intune-は「アプリ／設定を直接配布」しているわけではありません（GMS-経由）"><a href="#3-Intune-は「アプリ／設定を直接配布」しているわけではありません（GMS-経由）" class="headerlink" title="3. Intune は「アプリ／設定を直接配布」しているわけではありません（GMS 経由）"></a>3. Intune は「アプリ／設定を直接配布」しているわけではありません（GMS 経由）</h2><p>Android Enterprise デバイスでは、基本的には、Intune から<strong>直接的に</strong>アプリや設定をデバイスへ配布しているわけではなく、<strong>GMS（Google Mobile Services）を経由して</strong>処理が行われる仕組みになっています。</p>
+<p>そのため、Intune 側で確認できるのは、あくまで <strong>「構成プロファイル（ポリシー）の配信・適用が成功したこと」まで</strong>です。その後の実際のアプリ インストールや設定反映は、Google 側のサービスを通じて行われます。</p>
+<p>この仕組みを踏まえると、次の点をご理解いただくことが重要です。</p>
+<ul>
+<li>Intune の管理コンソール上で「適用成功」と表示されていても、それは<strong>ポリシーがデバイスへ正しく届き、適用処理が受理された</strong>ことを示します。</li>
+<li>実際のアプリ配布や設定の最終的な反映は <strong>GMS 側の処理</strong>に委ねられます。</li>
+</ul>
+<h3 id="図：Intune-から-Android-へアプリ／設定が届くまでの流れ（GMS-経由）"><a href="#図：Intune-から-Android-へアプリ／設定が届くまでの流れ（GMS-経由）" class="headerlink" title="図：Intune から Android へアプリ／設定が届くまでの流れ（GMS 経由）"></a>図：Intune から Android へアプリ／設定が届くまでの流れ（GMS 経由）</h3><p><img src="2026073103/gms-flow.png" alt="Intune から Android へアプリ／設定が届くまでの流れ（GMS 経由）"></p>
+<p><strong>図のポイント</strong></p>
+<ul>
+<li><strong>①：Intune が確認できる範囲</strong> — Intune は「ポリシー／アプリ配布を Google Management Service（GMS）へ引き渡し、受理された」ことまでを管理します。コンソール上の「適用成功」表示は、この段階までを示します。</li>
+<li><strong>②〜③：GMS／デバイス側で実処理が行われる範囲</strong> — GMS がデバイス上の Android Device Policy App へポリシー・アプリ配布をプッシュし、実際の適用が行われます。ここはネットワーク状況、電源・バッテリー最適化、GMS との同期タイミングなどの影響を受けます。</li>
+<li><strong>④：結果の連携</strong> — デバイス（Android Device Policy App）での処理結果が GMS を経由して Intune に返され、最終的なステータスが反映されます。</li>
+</ul>
+<hr>
+<h2 id="4-アプリやポリシー適用遅延について"><a href="#4-アプリやポリシー適用遅延について" class="headerlink" title="4. アプリやポリシー適用遅延について"></a>4. アプリやポリシー適用遅延について</h2><p>上記の仕組みにより、<strong>構成プロファイルの適用が Intune 上で正常に完了していても、GMS 経由の処理により、実際のデバイスへの反映にタイムラグ（遅延）が生じる</strong>ことがあります。</p>
+<p>そのため、適用直後に反映が確認できない場合でも、しばらく時間をおいてから再度ご確認いただくことで解消する可能性がございます。「Intune 上は成功しているのに反映されない」という事象は、この GMS 経由の遅延が原因であるケースが少なくありません。</p>
+<hr>
+<h2 id="5-アプリを-Intune-から配布するには「Managed-Google-Play」への登録が必要"><a href="#5-アプリを-Intune-から配布するには「Managed-Google-Play」への登録が必要" class="headerlink" title="5. アプリを Intune から配布するには「Managed Google Play」への登録が必要"></a>5. アプリを Intune から配布するには「Managed Google Play」への登録が必要</h2><p>Android Enterprise デバイスへ Intune 経由でアプリを配布するには、<strong>Managed Google Play（マネージド Google Play）</strong> の利用が前提となります。テナントを Managed Google Play に接続（バインド）することで、Intune の管理コンソールから承認済みアプリを配布・管理できるようになります。</p>
+<p>Android Enterprise では、アプリはすべて Managed Google Play を通じて配布されます。Intune 上で扱えるアプリの種類と、それぞれの配布方法は以下のとおりです。</p>
+<table>
+<thead>
+<tr>
+<th>アプリの種類</th>
+<th>概要</th>
+<th>配布の仕組み</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>ストア アプリ（Managed Google Play アプリ）</strong></td>
+<td>Google Play 上の一般公開アプリを承認して配布</td>
+<td>Managed Google Play で承認 → Intune で割り当て</td>
+</tr>
+<tr>
+<td><strong>ライン オブ ビジネス（LOB）／プライベート アプリ</strong></td>
+<td>自社開発などの独自 APK を、社内限定で配布</td>
+<td>Managed Google Play に非公開アプリとして登録 → Intune で割り当て</td>
+</tr>
+<tr>
+<td><strong>Web アプリ（Web リンク）</strong></td>
+<td>Web サイトへのショートカット</td>
+<td>Managed Google Play の Web アプリとして配信</td>
+</tr>
+<tr>
+<td><strong>システム アプリ（OEM プリインストール）</strong></td>
+<td>デバイスに組み込み済みのアプリを有効化</td>
+<td>Managed Google Play 経由で有効化</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>ポイント：<strong>LOB（社内アプリ）であっても、Android Enterprise では Managed Google Play への登録（非公開アプリとしての公開）が必要</strong>です。iOS のように APK を Intune へ直接アップロードして配布する方式ではありません。</p>
+</blockquote>
+<h3 id="参考：Intune-の公開情報（Microsoft-Learn）"><a href="#参考：Intune-の公開情報（Microsoft-Learn）" class="headerlink" title="参考：Intune の公開情報（Microsoft Learn）"></a>参考：Intune の公開情報（Microsoft Learn）</h3><ul>
+<li><strong>Intune を Managed Google Play に接続する</strong><br><a href="https://learn.microsoft.com/mem/intune/enrollment/connect-intune-android-enterprise">https://learn.microsoft.com/mem/intune/enrollment/connect-intune-android-enterprise</a></li>
+<li><strong>Managed Google Play アプリ（ストア アプリ）を Intune に追加する</strong><br><a href="https://learn.microsoft.com/mem/intune/apps/apps-add-android-for-work">https://learn.microsoft.com/mem/intune/apps/apps-add-android-for-work</a></li>
+<li><strong>Managed Google Play のプライベート（LOB）アプリを追加する</strong><br><a href="https://learn.microsoft.com/mem/intune/apps/apps-add-android-for-work#managed-google-play-private-apps">https://learn.microsoft.com/mem/intune/apps/apps-add-android-for-work#managed-google-play-private-apps</a></li>
+<li><strong>Managed Google Play の Web アプリ（Web リンク）を追加する</strong><br><a href="https://learn.microsoft.com/mem/intune/apps/web-app">https://learn.microsoft.com/mem/intune/apps/web-app</a></li>
+<li><strong>Android Enterprise 向けのアプリの管理（配布方法の全体像）</strong><br><a href="https://learn.microsoft.com/mem/intune/apps/apps-supported-intune-apps">https://learn.microsoft.com/mem/intune/apps/apps-supported-intune-apps</a></li>
+<li><strong>アプリの割り当てと配布の概要</strong><br><a href="https://learn.microsoft.com/mem/intune/apps/apps-deploy">https://learn.microsoft.com/mem/intune/apps/apps-deploy</a></li>
+</ul>
+<blockquote>
+<p>※ URL は掲載時点での代表的な参照先です。公開前に各ページが最新の掲載先を指しているか最終確認をおすすめします。</p>
+</blockquote>
+<p>Managed Google Play への接続が完了していない場合、上記いずれのアプリ配布機能もご利用いただけません。アプリ配布に関するお問い合わせの際は、<strong>Managed Google Play への接続が完了しているか</strong>を事前にご確認ください。</p>
+<hr>
+<h2 id="まとめ：スムーズなサポートのために"><a href="#まとめ：スムーズなサポートのために" class="headerlink" title="まとめ：スムーズなサポートのために"></a>まとめ：スムーズなサポートのために</h2><p>Android の MDM 管理は、<strong>Intune・Android OS・GMS・デバイス ベンダー</strong>という複数の要素が関わる仕組みです。以下の点をあらかじめご理解・ご確認いただくことで、切り分けが迅速になり、問題解決までの時間を短縮できます。</p>
+<table>
+<thead>
+<tr>
+<th>ポイント</th>
+<th>事前にご確認いただきたいこと</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>登録方式</td>
+<td>対象デバイスが Android Enterprise 対応か</td>
+</tr>
+<tr>
+<td>ベンダー依存</td>
+<td>メーカー名・モデル名・Android バージョン</td>
+</tr>
+<tr>
+<td>配布の仕組み</td>
+<td>事象が Intune 側か、GMS／ベンダー側か</td>
+</tr>
+<tr>
+<td>反映遅延</td>
+<td>適用成功後、時間をおいて再確認したか</td>
+</tr>
+<tr>
+<td>アプリ配布</td>
+<td>Managed Google Play に接続済みか</td>
+</tr>
+</tbody></table>
+<p>お問い合わせの際は、上記の情報をあわせてお知らせいただけますと、<strong>より迅速で的確なサポート</strong>を提供可能となるため、ご協力のほど、よろしくお願いいたします。</p>
+<p>この度は、最後までお読みくださりまして、誠にありがとうございました。次回の記事でもお会いできれば嬉しいです。</p>
+
+      
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li></ul>
+
+        
+        <a href="https://github.com/jpintune/blog/edit/master/articles/intune/20260731_03.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../20260728_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">意外と見落としがち？Intune で Win32 アプリを配布する前に確認しておきたいポイント</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="">Android デバイスを Intune で管理する際に押さえておきたいポイント</a>
+          </li>
+        
+          <li>
+            <a href="../20260728_01/">意外と見落としがち？Intune で Win32 アプリを配布する前に確認しておきたいポイント</a>
+          </li>
+        
+          <li>
+            <a href="../20260722_02/">Intune のトラブル解決が早くなる。知っておきたい Windows との &#34;役割分担&#34; - 基本編</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <!-- <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li></ul>  -->
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/">Intune</a><span class="tag-list-count">3</span><ul></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/07/">2026 / 07</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="../../tags/Intune/" style="font-size: 10px;">Intune</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2026 Japan Microsoft Intune Support Team<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+<!-- hexo injector body_end start -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script>
+(function () {
+  var KEYS = /^(flowchart|graph|sequenceDiagram|classDiagram|stateDiagram(-v2)?|erDiagram|gantt|pie|journey|gitGraph|mindmap|timeline|quadrantChart|requirementDiagram|C4Context|xychart-beta|sankey-beta)\b/;
+  function render() {
+    var blocks = document.querySelectorAll('figure.highlight, pre > code');
+    var targets = [];
+    blocks.forEach(function (el) {
+      var fig = el.closest('figure.highlight') || el;
+      if (fig.dataset && fig.dataset.mermaidDone) return;
+      var codeCell = fig.querySelector('.code') || fig;
+      var lines = codeCell.querySelectorAll('.line');
+      var text = lines.length
+        ? Array.prototype.map.call(lines, function (s) { return s.textContent; }).join('\n')
+        : codeCell.textContent;
+      if (!KEYS.test(text.trim())) return;
+      var pre = document.createElement('pre');
+      pre.className = 'mermaid';
+      pre.textContent = text;
+      fig.parentNode.replaceChild(pre, fig);
+      targets.push(pre);
+    });
+    if (targets.length && window.mermaid) {
+      window.mermaid.initialize({ startOnLoad: false, securityLevel: 'loose', theme: 'default' });
+      window.mermaid.run({ nodes: targets });
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', render);
+  } else {
+    render();
+  }
+})();
+</script>
+<style>
+pre.mermaid { background: none; border: none; text-align: center; overflow-x: auto; }
+</style>
+<!-- hexo injector body_end end --></body>
+</html>
