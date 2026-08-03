@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>グループ ポリシーに対応する Intune の設定を見つける方法 | Japan Microsoft Intune Support Team Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="みなさま、こんにちは。Intune サポート チームです。 オンプレミスの Active Directory を、これまで利用されてきた多くのお客様がまず直面されるのが「グループ ポリシー (GPO) での設定項目を、Intune ではどう設定すればよいのか？」という疑問ではないでしょうか。 グループ ポリシーで慣れ親しんだ設定を Intune でも同じように配布したいと思っても、Intune の">
+<meta property="og:type" content="article">
+<meta property="og:title" content="グループ ポリシーに対応する Intune の設定を見つける方法">
+<meta property="og:url" content="https://jpintune.github.io/blog/intune/20260803_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Intune Support Team Blog">
+<meta property="og:description" content="みなさま、こんにちは。Intune サポート チームです。 オンプレミスの Active Directory を、これまで利用されてきた多くのお客様がまず直面されるのが「グループ ポリシー (GPO) での設定項目を、Intune ではどう設定すればよいのか？」という疑問ではないでしょうか。 グループ ポリシーで慣れ親しんだ設定を Intune でも同じように配布したいと思っても、Intune の">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpintune.github.io/blog/intune/20260803_01/image-8.png">
+<meta property="og:image" content="https://jpintune.github.io/blog/intune/20260803_01/image-9.png">
+<meta property="og:image" content="https://jpintune.github.io/blog/intune/20260803_01/image-10.png">
+<meta property="og:image" content="https://jpintune.github.io/blog/intune/20260803_01/image-11.png">
+<meta property="og:image" content="https://jpintune.github.io/blog/intune/20260803_01/image-12.png">
+<meta property="og:image" content="https://jpintune.github.io/blog/intune/20260803_01/image-13.png">
+<meta property="article:published_time" content="2026-08-02T15:00:00.000Z">
+<meta property="article:modified_time" content="2026-08-03T05:36:41.432Z">
+<meta property="article:author" content="Japan Microsoft Intune Support Team">
+<meta property="article:tag" content="Intune">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpintune.github.io/blog/intune/20260803_01/image-8.png">
+  
+    <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Intune Support Team Blog" type="application/atom+xml">
+  
+
+  <link rel="icon" href="./favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<!-- hexo injector head_end start --><script>(function(){var r="/blog/";document.querySelectorAll("link[rel~=\"icon\"],link[rel=\"apple-touch-icon\"],link[rel=\"apple-touch-icon-precomposed\"],link[rel=\"mask-icon\"],link[rel=\"manifest\"]").forEach(function(l){var h=l.getAttribute("href");if(h&&h.indexOf("./")===0){l.setAttribute("href",r+h.slice(2));}});})();</script><style>#site-header-blog-wrapper{background-color:#484644;}</style><style>.article-github-issue-link,.article-github-edit-link{display:none !important;}</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <div id="ms-logo"></div>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+        <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../blog/atom.xml" title="RSSフィード"></a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.bing.com/search" method="get" accept-charset="UTF-8" name="bing-search" onsubmit="var f=this;if(f['q'].value){var searchUrl =  'https://www.bing.com/search?q=' +  encodeURIComponent(f['q'].value + ' site:' + f['sitesearch'].value) ;window.open(searchUrl, 'blank') };return false;" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="検索"><button type="submit" id="nav-search-btn" class="search-form-submit"></button><input type="hidden" name="sitesearch" value="https://jpintune.github.io/blog"></form>
+      </div>
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Intune Support Team Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフトの Microsoft Intune に関するサポート情報のブログです。</a>
+        </h2>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-intune/20260803_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      グループ ポリシーに対応する Intune の設定を見つける方法
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="" class="article-date-single">
+  <time datetime="2026-08-02T15:00:00.000Z" itemprop="datePublished">2026-08-03</time>
+</a>
+        
+        
+        <a href="https://github.com/jpintune/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+ca12dc60-2b83-5932-a786-738f33d0c85c%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5B%E3%82%B0%E3%83%AB%E3%83%BC%E3%83%97+%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%AB%E5%AF%BE%E5%BF%9C%E3%81%99%E3%82%8B+Intune+%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%8B%E6%96%B9%E6%B3%95%5D%28https%3A%2F%2Fjpintune.github.io%2Fblog%2Fintune%2F20260803_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fintune%2F20260803_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpintune%2Fblog%2Fblob%2Fmaster%2Farticles%2Fintune%2F20260803_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        
+        <a data-url="https://jpintune.github.io/blog/intune/20260803_01/" data-id="cuidOrHHrbTzIcogW-ANHo5S-" class="article-share-link">共有</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>みなさま、こんにちは。Intune サポート チームです。</p>
+<p>オンプレミスの Active Directory を、これまで利用されてきた多くのお客様がまず直面されるのが「グループ ポリシー (GPO) での設定項目を、Intune ではどう設定すればよいのか？」という疑問ではないでしょうか。</p>
+<p>グループ ポリシーで慣れ親しんだ設定を Intune でも同じように配布したいと思っても、Intune の管理センターには膨大な数の設定が存在するため、目的の設定を探し出すのは簡単ではありません。設定名の日本語訳が微妙に異なっていたり、そもそも設定カタログ上での呼び名が違っていたりして、なかなか目的の設定にたどり着けないという声もよくいただきます。</p>
+<h2 id="まずは「グループ-ポリシー分析」もご検討ください"><a href="#まずは「グループ-ポリシー分析」もご検討ください" class="headerlink" title="まずは「グループ ポリシー分析」もご検討ください"></a>まずは「グループ ポリシー分析」もご検討ください</h2><p>既存のグループ ポリシー (GPO) をまとめて Intune へ移行したい場合には、Intune の <strong>「グループ ポリシー分析 (Group Policy analytics)」</strong> という機能がとても便利です。この機能では、オンプレミスでエクスポートした GPO の XML を Intune にインポートすることで、<strong>各設定が Intune (MDM) に対応しているかどうかを自動で分析</strong> してくれます。さらに、対応している設定については、そのまま設定カタログのプロファイルとして移行することも可能です。</p>
+<ul>
+<li>Microsoft Intune を使用してグループ ポリシーをインポートおよび分析する - Microsoft Learn<br><a href="https://learn.microsoft.com/ja-jp/intune/device-configuration/import-group-policy-analytics">https://learn.microsoft.com/ja-jp/intune/device-configuration/import-group-policy-analytics</a></li>
+</ul>
+<p>多数のグループ ポリシーを一括で棚卸し・移行したい場合には、まずはこのグループ ポリシー分析を試していただくのがおすすめです。</p>
+<h2 id="移行の進め方全体を考えるうえで参考になる記事"><a href="#移行の進め方全体を考えるうえで参考になる記事" class="headerlink" title="移行の進め方全体を考えるうえで参考になる記事"></a>移行の進め方全体を考えるうえで参考になる記事</h2><p>また、グループ ポリシーから Intune への移行を「どういう順序・考え方で進めるか」という点については、下記の記事がとても参考になります。</p>
+<ul>
+<li>Group Policy Analytics Framework - Microsoft Community Hub<br><a href="https://techcommunity.microsoft.com/blog/coreinfrastructureandsecurityblog/group-policy-analytics-framework/3749480">https://techcommunity.microsoft.com/blog/coreinfrastructureandsecurityblog/group-policy-analytics-framework/3749480</a></li>
+</ul>
+<p>この記事では、移行を <strong>「Discover (洗い出し)」→「Assess (評価)」→「Migrate (移行)」</strong> の 3 つのフェーズに整理して考えることが提案されています。中でも特に重要なのが「Assess (評価)」のフェーズで、記事内では次のような問いかけが紹介されています。</p>
+<ul>
+<li>そもそも、その グループ ポリシー設定は今でも必要か？</li>
+<li>必要だとして、それを実現するためのよりモダンな (クラウド向けの) 手段が別に用意されていないか？</li>
+</ul>
+<p>グループ ポリシーは長年にわたって設定が積み重なっているケースが多く、中には設定された当時の背景がすでに失われているものや、現在では別の仕組みで実現した方が適切なものも含まれています。<strong>すべてのグループ ポリシーをそのまま Intune へ移行する必要はない</strong> という視点は、移行作業を進めるうえでとても大切なポイントです。移行の検討を始める前に、一度目を通しておくことをお勧めします。</p>
+<h2 id="今回の記事で扱う内容"><a href="#今回の記事で扱う内容" class="headerlink" title="今回の記事で扱う内容"></a>今回の記事で扱う内容</h2><p>一方で、上記のような評価を経て「この設定は Intune へ移行する」と判断した場合や、<strong>特定のグループ ポリシー設定だけをピンポイントで Intune に置き換えたい</strong> という場合には、対応する Intune 上の設定を手作業で特定する必要があります。</p>
+<p>そこで今回は、<strong>特定のグループ ポリシーに対応する Intune 上の設定を、ご自身で探し出すための手順</strong>をご紹介します。この流れを一度覚えていただくと、多くのグループ ポリシー設定について、対応する Intune の設定をご自分で特定できるようになりますので、ぜひ参考にしてみてください。</p>
+<h2 id="全体の流れ"><a href="#全体の流れ" class="headerlink" title="全体の流れ"></a>全体の流れ</h2><p>グループ ポリシーに対応する Intune の設定は、大きく次の 3 つのステップで特定していきます。</p>
+<ol>
+<li>グループ ポリシーの <strong>英語名</strong> を特定する</li>
+<li>英語名を元に、対応する <strong>CSP</strong> を特定する</li>
+<li>CSP を元に、<strong>設定カタログ</strong> 上で対応する設定を見つける</li>
+</ol>
+<p>今回は例として、下記のグループ ポリシー設定を Intune で配布したい場合を考えてみます。</p>
+<blockquote>
+<p>[コンピューターの構成] - [管理用テンプレート] - [Windows コンポーネント] - [配信の最適化] - [絶対最大キャッシュ サイズ (GB)]</p>
+</blockquote>
+<p><img src="/blog/intune/20260803_01/image-8.png" alt="alt text"></p>
+<p>それでは、順を追って見ていきましょう。</p>
+<h2 id="ステップ-1-グループ-ポリシーの英語名を特定する"><a href="#ステップ-1-グループ-ポリシーの英語名を特定する" class="headerlink" title="ステップ 1. グループ ポリシーの英語名を特定する"></a>ステップ 1. グループ ポリシーの英語名を特定する</h2><p>まずは、対象となるグループ ポリシーの <strong>英語名</strong> を特定します。</p>
+<p>「なぜわざわざ英語名を調べるの？」と思われるかもしれませんが、これには理由があります。日本語の設定名は翻訳のブレがあり、Intune の設定カタログ上の日本語名と、グループ ポリシー上の日本語名が微妙に異なっていることが少なくありません。そのため、英語名を基準に探した方が、確実に対応する設定を見つけることができます。</p>
+<p>グループ ポリシーの英語名を調べるには、下記の <strong>Group Policy Search (GPS)</strong> というサイトが便利です。設定のパスを辿っていく方法や、グループ ポリシーで設定されるレジストリ値で検索を行うことで、対応する英語名を確認することができます。</p>
+<ul>
+<li>Group Policy Search (GPS)<br><a href="https://gpsearch.azurewebsites.net/">https://gpsearch.azurewebsites.net/</a></li>
+</ul>
+<p><img src="/blog/intune/20260803_01/image-9.png" alt="alt text"></p>
+<p>今回の例では [Windows Components (Windows コンポーネント)] - [Delivery Optimization (配信の最適化)] のパスを辿っていくと、[絶対最大キャッシュ サイズ (GB)] に対応する英語名が <strong>Absolute Max Cache Size (in GB)</strong> であることが確認出来ます。</p>
+<h2 id="ステップ-2-英語名を元に対応する-CSP-を特定する"><a href="#ステップ-2-英語名を元に対応する-CSP-を特定する" class="headerlink" title="ステップ 2. 英語名を元に対応する CSP を特定する"></a>ステップ 2. 英語名を元に対応する CSP を特定する</h2><p>次に、特定した英語名を元に、対応する <strong>CSP (Configuration Service Provider)</strong> を探します。CSP とは、Windows OS に対して設定を反映するための仕組みで、Intune はこの CSP を通じて各種設定を配布しています。グループ ポリシーと Intune の設定を結びつける「橋渡し役」とイメージしていただくと分かりやすいかと思います。</p>
+<p>対応する CSP を探すには、<strong>「グループ ポリシーの英語名」と「CSP」</strong> をあわせて検索エンジンで検索してみてください。多くの場合、Microsoft の公式ドキュメントである Policy CSP のページが見つかります。</p>
+<p>このページには <strong>「Group policy mapping」</strong> という項目があり、その CSP がどのグループ ポリシーに対応しているかが記載されています。ここを確認することで、目的のグループ ポリシーに対応する CSP を正確に特定することができます。</p>
+<ul>
+<li>Policy CSP - DeliveryOptimization &#x2F; DOAbsoluteMaxCacheSize<br><a href="https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-deliveryoptimization#doabsolutemaxcachesize">https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-deliveryoptimization#doabsolutemaxcachesize</a></li>
+</ul>
+<p><img src="/blog/intune/20260803_01/image-10.png" alt="alt text"></p>
+<p>今回の例では、「絶対最大キャッシュ サイズ (GB)」に対応する CSP が <strong>DeliveryOptimization &#x2F; DOAbsoluteMaxCacheSize</strong> であることが分かります。</p>
+<h2 id="ステップ-3-CSP-を元に設定カタログ上で対応する設定を見つける"><a href="#ステップ-3-CSP-を元に設定カタログ上で対応する設定を見つける" class="headerlink" title="ステップ 3. CSP を元に設定カタログ上で対応する設定を見つける"></a>ステップ 3. CSP を元に設定カタログ上で対応する設定を見つける</h2><p>最後に、特定した CSP を元に、Intune の <strong>設定カタログ</strong> 上で対応する設定を見つけます。</p>
+<p>基本的には、<strong>CSP の名前がそのまま設定カタログ上の設定名として使われている</strong> ため、設定カタログ上でカテゴリとして “Delivery Optimization” を選択すると、目的の設定 “DO Absolute Max Cache Size” を見つけることができます。</p>
+<p><img src="/blog/intune/20260803_01/image-11.png" alt="alt text"></p>
+<h3 id="同じ名前の設定が-2-つ表示される場合"><a href="#同じ名前の設定が-2-つ表示される場合" class="headerlink" title="同じ名前の設定が 2 つ表示される場合"></a>同じ名前の設定が 2 つ表示される場合</h3><p>なお、下記のように同じ設定が 2 つ表示されることがあります。これは、その設定を <strong>ユーザー単位</strong> で反映するか、<strong>デバイス単位</strong> で反映するかの違いによるものです。</p>
+<p><img src="/blog/intune/20260803_01/image-12.png" alt="alt text"></p>
+<p>設定名の後ろに <strong>“(User)”</strong> と付いているものは、ユーザー単位で反映される設定です。グループ ポリシーを触ったことのある方であれば、<strong>「ユーザーの構成」と「コンピューターの構成」の違い</strong> と理解していただければ分かりやすいかと思います。「コンピューターの構成」配下のグループ ポリシーであれば、”(User)” の付いていないデバイス単位の設定を選択します。</p>
+<h2 id="対応する設定が見つからないときは"><a href="#対応する設定が見つからないときは" class="headerlink" title="対応する設定が見つからないときは"></a>対応する設定が見つからないときは</h2><p>上記の手順で多くの設定は見つけられますが、中には対応する設定がなかなか見つからないケースもあります。そのような場合に試していただきたいポイントを、いくつかご紹介します。</p>
+<h3 id="グループ-ポリシーの英語名で設定カタログを検索してみる"><a href="#グループ-ポリシーの英語名で設定カタログを検索してみる" class="headerlink" title="グループ ポリシーの英語名で設定カタログを検索してみる"></a>グループ ポリシーの英語名で設定カタログを検索してみる</h3><p>一部の設定は、CSP 名ではなく <strong>グループ ポリシーの英語名そのまま</strong> の名前で設定カタログ上に存在することがあります。CSP 名で見つからない場合は、ステップ 1 で特定した英語名で設定カタログを検索してみると、見つかることがあります。</p>
+<h3 id="古いグループ-ポリシーでないか確認してみる"><a href="#古いグループ-ポリシーでないか確認してみる" class="headerlink" title="古いグループ ポリシーでないか確認してみる"></a>古いグループ ポリシーでないか確認してみる</h3><p>グループ ポリシーには、過去のバージョンとの互換性を保つために、かなり古い設定が残されている場合があります。そうした古い設定は、CSP としては対応する設定が用意されていないこともあります。</p>
+<p>グループ ポリシーの <strong>「サポートされるバージョン」</strong> を確認し、そもそも現在ご利用の Windows のバージョンでサポートされている設定かどうかを確認してみてください。</p>
+<p><img src="/blog/intune/20260803_01/image-13.png" alt="alt text"></p>
+<h3 id="レジストリで代替できないか確認してみる"><a href="#レジストリで代替できないか確認してみる" class="headerlink" title="レジストリで代替できないか確認してみる"></a>レジストリで代替できないか確認してみる</h3><p>どうしても対応する設定が見つからない場合は、<strong>スクリプトを利用してグループ ポリシーに対応するレジストリ値を直接設定する</strong> ことで代替できる場合があります。</p>
+<p>グループ ポリシーが実際に書き込むレジストリ値は、ステップ 1 でご紹介した Group Policy Search (GPS) で確認することができます。ここで確認したレジストリ値を、Intune の PowerShell スクリプトや Win32 アプリなどを利用して直接設定することで、グループ ポリシーと同等の設定を実現できる場合があります。</p>
+<ul>
+<li>Group Policy Search (GPS)<br><a href="https://gpsearch.azurewebsites.net/">https://gpsearch.azurewebsites.net/</a></li>
+</ul>
+<p>レジストリ値を配布する具体的な手段としては、PowerShell スクリプト、修復スクリプト (Proactive Remediation)、Win32 アプリなどが挙げられます。それぞれの使い分けや実装例については、冒頭でご紹介した下記の記事の後半でも触れられていますので、あわせてご覧ください。</p>
+<ul>
+<li>Group Policy Analytics Framework - Microsoft Community Hub<br><a href="https://techcommunity.microsoft.com/blog/coreinfrastructureandsecurityblog/group-policy-analytics-framework/3749480">https://techcommunity.microsoft.com/blog/coreinfrastructureandsecurityblog/group-policy-analytics-framework/3749480</a></li>
+</ul>
+<p>なお、レジストリを直接設定する方法は、グループ ポリシーによる設定とは反映のされ方が異なる場合があります。適用前に、テスト環境で意図した通りに動作するかを十分にご確認いただくことをお勧めします。</p>
+<h2 id="おわりに"><a href="#おわりに" class="headerlink" title="おわりに"></a>おわりに</h2><p>今回は、グループ ポリシーに対応する Intune 上の設定を見つける方法として、次の 3 ステップをご紹介しました。</p>
+<ol>
+<li>グループ ポリシーの <strong>英語名</strong> を特定する</li>
+<li>英語名を元に、対応する <strong>CSP</strong> を特定する</li>
+<li>CSP を元に、<strong>設定カタログ</strong> 上で対応する設定を見つける</li>
+</ol>
+<p>この流れを覚えていただくと、多くのグループ ポリシー設定について、対応する Intune の設定をご自身で特定できるようになります。オンプレミスから Intune への移行を進める際や、既存のグループ ポリシーを Intune へ置き換える際に、ぜひ活用してみてください。</p>
+<p>それでは、また次回の記事でお会いしましょう。</p>
+
+      
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li></ul>
+
+        
+        <a href="https://github.com/jpintune/blog/edit/master/articles/intune/20260803_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../20260731_03/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">Android デバイスを Intune で管理する際に押さえておきたいポイント</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="">グループ ポリシーに対応する Intune の設定を見つける方法</a>
+          </li>
+        
+          <li>
+            <a href="../20260731_03/">Android デバイスを Intune で管理する際に押さえておきたいポイント</a>
+          </li>
+        
+          <li>
+            <a href="../20260728_01/">意外と見落としがち？Intune で Win32 アプリを配布する前に確認しておきたいポイント</a>
+          </li>
+        
+          <li>
+            <a href="../20260722_02/">Intune のトラブル解決が早くなる。知っておきたい Windows との &#34;役割分担&#34; - 基本編</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <!-- <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li></ul>  -->
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/">Intune</a><span class="tag-list-count">4</span><ul></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/08/">2026 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/07/">2026 / 07</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="../../tags/Intune/" style="font-size: 10px;">Intune</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2026 Japan Microsoft Intune Support Team<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+<!-- hexo injector body_end start -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script>
+(function () {
+  var KEYS = /^(flowchart|graph|sequenceDiagram|classDiagram|stateDiagram(-v2)?|erDiagram|gantt|pie|journey|gitGraph|mindmap|timeline|quadrantChart|requirementDiagram|C4Context|xychart-beta|sankey-beta)\b/;
+  function render() {
+    var blocks = document.querySelectorAll('figure.highlight, pre > code');
+    var targets = [];
+    blocks.forEach(function (el) {
+      var fig = el.closest('figure.highlight') || el;
+      if (fig.dataset && fig.dataset.mermaidDone) return;
+      var codeCell = fig.querySelector('.code') || fig;
+      var lines = codeCell.querySelectorAll('.line');
+      var text = lines.length
+        ? Array.prototype.map.call(lines, function (s) { return s.textContent; }).join('\n')
+        : codeCell.textContent;
+      if (!KEYS.test(text.trim())) return;
+      var pre = document.createElement('pre');
+      pre.className = 'mermaid';
+      pre.textContent = text;
+      fig.parentNode.replaceChild(pre, fig);
+      targets.push(pre);
+    });
+    if (targets.length && window.mermaid) {
+      window.mermaid.initialize({ startOnLoad: false, securityLevel: 'loose', theme: 'default' });
+      window.mermaid.run({ nodes: targets });
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', render);
+  } else {
+    render();
+  }
+})();
+</script>
+<style>
+pre.mermaid { background: none; border: none; text-align: center; overflow-x: auto; }
+</style>
+<!-- hexo injector body_end end --></body>
+</html>
