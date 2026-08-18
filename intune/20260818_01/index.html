@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Intune のトラブル解決が早くなる。知っておきたい &#34;役割分担&#34; - Win32 アプリ編 | Japan Microsoft Intune Support Team Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="みなさま、こんにちは。Intune サポート チームです。 以前の記事では、Intune と Windows の “役割分担” という視点から、設定 (CSP) の配布を例にトラブルシューティングの基本的な考え方をご紹介しました。今回はその Win32 アプリ編として、Intune から Win32 アプリを配布した “後” に、どこをどう確認していけばよいか を掘り下げてご紹介します。 なお、配">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Intune のトラブル解決が早くなる。知っておきたい &quot;役割分担&quot; - Win32 アプリ編">
+<meta property="og:url" content="https://jpintune.github.io/blog/intune/20260818_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Intune Support Team Blog">
+<meta property="og:description" content="みなさま、こんにちは。Intune サポート チームです。 以前の記事では、Intune と Windows の “役割分担” という視点から、設定 (CSP) の配布を例にトラブルシューティングの基本的な考え方をご紹介しました。今回はその Win32 アプリ編として、Intune から Win32 アプリを配布した “後” に、どこをどう確認していけばよいか を掘り下げてご紹介します。 なお、配">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpintune.github.io/blog/intune/20260818_01/image-14.png">
+<meta property="og:image" content="https://jpintune.github.io/blog/intune/20260818_01/image-15.png">
+<meta property="article:published_time" content="2026-08-17T15:00:00.000Z">
+<meta property="article:modified_time" content="2026-08-18T00:49:57.319Z">
+<meta property="article:author" content="Japan Microsoft Intune Support Team">
+<meta property="article:tag" content="Intune">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpintune.github.io/blog/intune/20260818_01/image-14.png">
+  
+    <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Intune Support Team Blog" type="application/atom+xml">
+  
+
+  <link rel="icon" href="./favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<!-- hexo injector head_end start --><script>(function(){var r="/blog/";document.querySelectorAll("link[rel~=\"icon\"],link[rel=\"apple-touch-icon\"],link[rel=\"apple-touch-icon-precomposed\"],link[rel=\"mask-icon\"],link[rel=\"manifest\"]").forEach(function(l){var h=l.getAttribute("href");if(h&&h.indexOf("./")===0){l.setAttribute("href",r+h.slice(2));}});})();</script><style>#site-header-blog-wrapper{background-color:#484644;}</style><style>.article-github-issue-link,.article-github-edit-link{display:none !important;}</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <div id="ms-logo"></div>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+        <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../blog/atom.xml" title="RSSフィード"></a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.bing.com/search" method="get" accept-charset="UTF-8" name="bing-search" onsubmit="var f=this;if(f['q'].value){var searchUrl =  'https://www.bing.com/search?q=' +  encodeURIComponent(f['q'].value + ' site:' + f['sitesearch'].value) ;window.open(searchUrl, 'blank') };return false;" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="検索"><button type="submit" id="nav-search-btn" class="search-form-submit"></button><input type="hidden" name="sitesearch" value="https://jpintune.github.io/blog"></form>
+      </div>
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Intune Support Team Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフトの Microsoft Intune に関するサポート情報のブログです。</a>
+        </h2>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-intune/20260818_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Intune のトラブル解決が早くなる。知っておきたい &#34;役割分担&#34; - Win32 アプリ編
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="" class="article-date-single">
+  <time datetime="2026-08-17T15:00:00.000Z" itemprop="datePublished">2026-08-18</time>
+</a>
+        
+        
+        <a href="https://github.com/jpintune/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+2c23a933-b5dd-52eb-b6a6-65e50781835f%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BIntune+%E3%81%AE%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E8%A7%A3%E6%B1%BA%E3%81%8C%E6%97%A9%E3%81%8F%E3%81%AA%E3%82%8B%E3%80%82%E7%9F%A5%E3%81%A3%E3%81%A6%E3%81%8A%E3%81%8D%E3%81%9F%E3%81%84+%22%E5%BD%B9%E5%89%B2%E5%88%86%E6%8B%85%22+-+Win32+%E3%82%A2%E3%83%97%E3%83%AA%E7%B7%A8%5D%28https%3A%2F%2Fjpintune.github.io%2Fblog%2Fintune%2F20260818_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fintune%2F20260818_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpintune%2Fblog%2Fblob%2Fmaster%2Farticles%2Fintune%2F20260818_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        
+        <a data-url="https://jpintune.github.io/blog/intune/20260818_01/" data-id="cuidlb9aqeCyLnqoxcYQ2gi9S" class="article-share-link">共有</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>みなさま、こんにちは。Intune サポート チームです。</p>
+<p>以前の記事では、Intune と Windows の “役割分担” という視点から、設定 (CSP) の配布を例にトラブルシューティングの基本的な考え方をご紹介しました。今回はその Win32 アプリ編として、<strong>Intune から Win32 アプリを配布した “後” に、どこをどう確認していけばよいか</strong> を掘り下げてご紹介します。</p>
+<p>なお、配布を始める “前” に押さえておきたいポイントについては、下記の記事にまとめています。あわせてご覧いただくと、より効果的に運用いただけます。</p>
+<ul>
+<li>意外と見落としがち？ Intune で Win32 アプリを配布する前に確認しておきたいポイント<br><a href="https://jpintune.github.io/blog/intune/20260728_01/">https://jpintune.github.io/blog/intune/20260728_01/</a></li>
+</ul>
+<p>上記の記事でも紹介している通り、配布後の切り分けに入る前に、まずは <strong>Intune が実際にインストール コマンドを実行するのと同じ条件で動作を確認しておく</strong> ことで、多くの問題は未然に防げます。システム コンテキスト &#x2F; ユーザー コンテキストのどちらで実行されるか、32 ビット &#x2F; 64 ビットのどちらのプロセスになるか。この条件がずれていると、手元では成功するのに Intune から配布すると失敗する、といったすれ違いが起きてしまいます。システム コンテキストで確認したい場合に便利な <a href="https://learn.microsoft.com/ja-jp/sysinternals/downloads/psexec">PsExec</a> の使い方も上記の記事でご紹介していますので、本記事を読み進める前に、ご自身のアプリがどちらの条件で実行されるのかを把握しておくとスムーズです。</p>
+<h2 id="はじめに-―-どこまで調べるかを決めておく"><a href="#はじめに-―-どこまで調べるかを決めておく" class="headerlink" title="はじめに ― どこまで調べるかを決めておく"></a>はじめに ― どこまで調べるかを決めておく</h2><p>トラブルシューティングを始める前に、ぜひ一度立ち止まって考えていただきたいことがあります。それは、<strong>どの程度の規模の問題に対して、詳細な調査を行うか</strong> をあらかじめ決めておく、という点です。</p>
+<p>Win32 アプリの配布では、クライアントごとに少しずつ環境が異なることから、一部のデバイスでのみ問題が発生することがあります。ログ調査は相応の時間と手間がかかるため、ごく少数のデバイスで起きる事象に対して、いきなり本格的な調査に踏み込むのは必ずしも得策ではありません。</p>
+<p>小規模な事象であれば、次のような対処で解決してしまうことも少なくありません。</p>
+<ul>
+<li>対象のデバイス上で、アプリのインストーラーを手動で実行してみる</li>
+<li>「必須」として割り当てているアプリであれば、24 時間に一度リトライが行われるため、少し時間を置いて状況を確認する</li>
+</ul>
+<p>Intune はクライアント デバイスを管理するという性質上、どうしても管理対象の台数が多くなります。だからこそ「そもそも細かくトラブルシューティングを行うべき事象なのか」という視点を持っておくと、運用全体の負荷をぐっと抑えられます。</p>
+<h3 id="なぜ「切り分け」が大切なのか"><a href="#なぜ「切り分け」が大切なのか" class="headerlink" title="なぜ「切り分け」が大切なのか"></a>なぜ「切り分け」が大切なのか</h3><p>そのうえで、実際に調査が必要となった場合に大きな武器になるのが「切り分け」です。</p>
+<p>Win32 アプリの配布は、Intune だけで完結しているわけではありません。Intune はアプリを <strong>「デバイスに届けて、インストール コマンドを起動する」</strong> ところまでを担当し、そこから先の実際のインストール処理は、<strong>アプリのインストーラー自身</strong> にバトンタッチされます。</p>
+<p>この役割分担を理解しておくと、次のようなメリットがあります。</p>
+<ul>
+<li>確認すべきログやポイントを最初から絞り込めるため、調査がスムーズに進む</li>
+<li>原因がアプリ側にあると早い段階で分かれば、アプリの提供元へ的確に相談できる</li>
+<li>ご自身で解決できるケースも多く、待ち時間なく対処できる</li>
+</ul>
+<p>「Intune の問題なのか、それともアプリのインストーラーの問題なのか」。この一点を見極められるようになるだけで、解決までの時間は大きく変わってきます。</p>
+<h2 id="Win32-アプリの配布の仕組み"><a href="#Win32-アプリの配布の仕組み" class="headerlink" title="Win32 アプリの配布の仕組み"></a>Win32 アプリの配布の仕組み</h2><p>まずは全体像を押さえておきましょう。Intune から Win32 アプリを配布したときの流れは、次の図のようになります。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">flowchart TB</span><br><span class="line">    subgraph CLOUD[&quot; &quot;]</span><br><span class="line">        INTUNE[&quot;☁️ Microsoft Intune&lt;br/&gt;Win32 アプリ・スクリプトの配布&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph DEVICE[&quot;💻 デバイス上で動作&quot;]</span><br><span class="line">        direction TB</span><br><span class="line">        IME[&quot;🔷 Intune の機能&lt;br/&gt;（配布・起動まで）&lt;br/&gt;Intune Management Extension&quot;]</span><br><span class="line">        APPS[&quot;🔶 アプリ・スクリプト側&lt;br/&gt;（起動後の動作）&lt;br/&gt;Win32 アプリ / PowerShell スクリプト&quot;]</span><br><span class="line">        IME == &quot;起動&quot; ==&gt; APPS</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    INTUNE -- &quot;配布&quot; --&gt; IME</span><br><span class="line"></span><br><span class="line">    style CLOUD fill:transparent,stroke:transparent</span><br><span class="line">    style DEVICE fill:#f3f3f3,stroke:#5f5f5f,stroke-width:2px</span><br><span class="line">    style INTUNE fill:#e6f2ff,stroke:#0078d4,stroke-width:2px</span><br><span class="line">    style IME fill:#e6f2ff,stroke:#0078d4,stroke-width:2px</span><br><span class="line">    style APPS fill:#eaf7ea,stroke:#107c10,stroke-width:2px</span><br></pre></td></tr></table></figure>
+
+<p>Intune がクラウドからアプリのコンテンツと設定を配布し、デバイス上の Intune Management Extension (以下、IME) がそれを受け取ってインストール コマンドを起動します。そして、起動された後のインストール処理そのものは、アプリのインストーラー側の担当範囲です。</p>
+<p>この IME は、Win32 アプリや PowerShell スクリプトの配布を担う Intune 専用のエージェントで、対象のデバイスへ自動的にインストールされます。インストールされる条件や前提となる要件については、下記の公開情報にまとめられていますので、一度目を通しておくと切り分けの際に役立ちます。</p>
+<ul>
+<li>Microsoft Intune 管理拡張機能について<br><a href="https://learn.microsoft.com/ja-jp/intune/device-management/tools/management-extension-windows">https://learn.microsoft.com/ja-jp/intune/device-management/tools/management-extension-windows</a></li>
+</ul>
+<p>したがって、IME のログから分かるのは、おおむね次の 2 点になります。</p>
+<ul>
+<li>インストール コマンドのプロセスを <strong>起動できたかどうか</strong></li>
+<li>そのプロセスが <strong>どのような終了コードを返したか</strong>、そして <strong>検出規則を満たしたかどうか</strong></li>
+</ul>
+<p>逆に言えば、「インストーラーが内部で何をして、なぜ失敗したのか」は Intune 側のログからは見えません。ここが、切り分けの大きな分岐点になります。</p>
+<h2 id="Win32-アプリが配布されているかを確認する方法"><a href="#Win32-アプリが配布されているかを確認する方法" class="headerlink" title="Win32 アプリが配布されているかを確認する方法"></a>Win32 アプリが配布されているかを確認する方法</h2><p>それでは、実際の確認方法を見ていきましょう。確認の入り口は大きく 2 つあります。</p>
+<h3 id="1-Intune-管理センターからの確認方法"><a href="#1-Intune-管理センターからの確認方法" class="headerlink" title="1. Intune 管理センターからの確認方法"></a>1. Intune 管理センターからの確認方法</h3><p>まずは Intune 管理センターです。下記の画面から、デバイスごとのアプリのインストール状況を確認できます。</p>
+<p><code>[デバイス]</code> - <code>[すべてのデバイス]</code> - <code>[&lt;確認対象のデバイス&gt;]</code> - <code>[すべてのアプリ]</code></p>
+<p><img src="/blog/intune/20260818_01/image-14.png" alt="alt text"></p>
+<p>ここで一点、注意していただきたいのが画面右上の <code>[ユーザーの選択]</code> です。アプリのインストール状況は <strong>ユーザーごとに評価</strong> が行われます。そのため、対象のデバイスに最近ログインしておらず、そのユーザーで評価が行われていないアプリを選択すると、次のように <code>[インストールの待機中]</code> と表示されることがあります。</p>
+<p><img src="/blog/intune/20260818_01/image-15.png" alt="alt text"></p>
+<p>「エラーは出ていないのに、いつまでも待機中のまま」という場合は、まず選択しているユーザーが適切かどうかを確認してみてください。</p>
+<h3 id="2-デバイス上のログからの確認方法"><a href="#2-デバイス上のログからの確認方法" class="headerlink" title="2. デバイス上のログからの確認方法"></a>2. デバイス上のログからの確認方法</h3><p>管理センター上でエラーが確認できた場合や、より詳しい状況を知りたい場合は、デバイス上のログを確認します。</p>
+<p>IME のログは、下記のフォルダー配下に出力されます。Win32 アプリの配布においては、特に <code>AppWorkload.log</code> が重要です。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\ProgramData\Microsoft\IntuneManagementExtension\Logs</span><br></pre></td></tr></table></figure>
+
+<p>これらのログは、Intune 管理センターからリモートで収集できる診断情報にも含まれています。手元にデバイスがない場合でも、デバイスと Intune の通信ができていれば、下記の方法で収集が可能です。</p>
+<ul>
+<li>デバイス アクション: 診断を収集する<br><a href="https://learn.microsoft.com/ja-jp/intune/device-management/actions/collect-diagnostics?tabs=reg&pivots=windows">https://learn.microsoft.com/ja-jp/intune/device-management/actions/collect-diagnostics?tabs=reg&amp;pivots=windows</a></li>
+</ul>
+<p>ここからは、切り分けに重要なポイントをログから確認する方法をご紹介します。</p>
+<h4 id="事前準備-Win32-アプリの-ID-を確認する"><a href="#事前準備-Win32-アプリの-ID-を確認する" class="headerlink" title="事前準備 : Win32 アプリの ID を確認する"></a>事前準備 : Win32 アプリの ID を確認する</h4><p>ログを見るときは、あらかじめ対象の Win32 アプリの ID を控えておくと格段に効率が上がります。<code>AppWorkload.log</code> には複数のアプリの処理が混在して出力されるため、この ID で絞り込むことで、目的のアプリのログだけを追えるようになります。</p>
+<p>Win32 アプリの ID は、Intune 管理センターで下記の画面を開いたときの URL から確認できます。</p>
+<p><code>[アプリ]</code> - <code>[すべてのアプリ]</code> - <code>[&lt;確認対象のアプリ&gt;]</code></p>
+<p>URL の末尾に GUID 形式で表示されているものが、対象の Win32 アプリの ID です。</p>
+<p>URL の例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://intune.microsoft.com/#view/Microsoft_Intune_Apps/SettingsMenu/~/0/appId/&lt;Win32 アプリの ID&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="インストール-コマンドが実際に-IME-から実行されているか確認する"><a href="#インストール-コマンドが実際に-IME-から実行されているか確認する" class="headerlink" title="インストール コマンドが実際に IME から実行されているか確認する"></a>インストール コマンドが実際に IME から実行されているか確認する</h4><p>まず確認したいのが、インストール コマンドのプロセスが IME から正しく起動されているかどうかです。<code>AppWorkload.log</code> には、次のようなログが出力されます。</p>
+<p>ログの出力例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;![LOG[[Win32App] ===Step=== InstallBehavior RegularWin32App, Intent 3, UninstallCommandLine &lt;アンインストール コマンド&gt;]LOG]!&gt;&lt;time=&quot;09:20:57.1814617&quot; date=&quot;7-20-2026&quot; component=&quot;AppWorkload&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;94&quot; file=&quot;&quot;&gt;</span><br><span class="line">&lt;![LOG[&lt;インストール コマンド&gt;]LOG]!&gt;&lt;time=&quot;09:20:57.2014614&quot; date=&quot;7-20-2026&quot; component=&quot;AppWorkload&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;94&quot; file=&quot;&quot;&gt;</span><br><span class="line">&lt;![LOG[[Win32App] SetCurrentDirectory: C:\WINDOWS\IMECache\&lt;Win32 アプリの ID&gt;_1]LOG]!&gt;&lt;time=&quot;09:20:57.2024637&quot; date=&quot;7-20-2026&quot; component=&quot;AppWorkload&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;94&quot; file=&quot;&quot;&gt;</span><br><span class="line">&lt;![LOG[[Win32App] Launch Win32AppInstaller in machine session]LOG]!&gt;&lt;time=&quot;09:20:57.2034684&quot; date=&quot;7-20-2026&quot; component=&quot;AppWorkload&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;94&quot; file=&quot;&quot;&gt;</span><br><span class="line">&lt;![LOG[[Win32App] lastWin32Error 0 after CreateProcess]LOG]!&gt;&lt;time=&quot;09:21:31.2586296&quot; date=&quot;7-20-2026&quot; component=&quot;AppWorkload&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;94&quot; file=&quot;&quot;&gt;</span><br><span class="line">&lt;![LOG[[Win32App] lastHResult -2147024896 after CreateProcess]LOG]!&gt;&lt;time=&quot;09:21:31.2596312&quot; date=&quot;7-20-2026&quot; component=&quot;AppWorkload&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;94&quot; file=&quot;&quot;&gt;</span><br><span class="line">&lt;![LOG[[Win32App] Create installer process successfully.]LOG]!&gt;&lt;time=&quot;09:21:31.2596312&quot; date=&quot;7-20-2026&quot; component=&quot;AppWorkload&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;94&quot; file=&quot;&quot;&gt;</span><br><span class="line">&lt;![LOG[[Win32App] process id = 8673]LOG]!&gt;&lt;time=&quot;09:21:31.2596312&quot; date=&quot;7-20-2026&quot; component=&quot;AppWorkload&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;94&quot; file=&quot;&quot;&gt;</span><br><span class="line">...</span><br><span class="line">&lt;![LOG[[Win32App] Installation is done, collecting result]LOG]!&gt;&lt;time=&quot;09:22:13.4593834&quot; date=&quot;7-20-2026&quot; component=&quot;AppWorkload&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;94&quot; file=&quot;&quot;&gt;</span><br><span class="line">&lt;![LOG[[Win32App] lpExitCode 0]LOG]!&gt;&lt;time=&quot;09:22:13.4603777&quot; date=&quot;7-20-2026&quot; component=&quot;AppWorkload&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;94&quot; file=&quot;&quot;&gt;</span><br><span class="line">&lt;![LOG[[Win32App] hResultFromWin32 0]LOG]!&gt;&lt;time=&quot;09:22:13.4613821&quot; date=&quot;7-20-2026&quot; component=&quot;AppWorkload&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;94&quot; file=&quot;&quot;&gt;</span><br><span class="line">&lt;![LOG[[Win32App] Set EnforcementStateMessage.ErrorCode 0]LOG]!&gt;&lt;time=&quot;09:22:13.4613821&quot; date=&quot;7-20-2026&quot; component=&quot;AppWorkload&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;94&quot; file=&quot;&quot;&gt;</span><br><span class="line">&lt;![LOG[[Win32App] lpExitCode is defined as Success]LOG]!&gt;&lt;time=&quot;09:22:13.4633813&quot; date=&quot;7-20-2026&quot; component=&quot;AppWorkload&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;94&quot; file=&quot;&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>ここでの確認ポイントは 2 つです。</p>
+<p><strong>1 つ目は、インストール コマンドのプロセスが IME から正常に起動されているか。</strong> 上記の例では <code>Create installer process successfully.</code> が出力されていることから、インストール コマンドのプロセスが IME から問題なく起動されたことが分かります。あわせて、その少し前に出力されているインストール コマンドの内容も確認しておくと、意図したコマンドが実行されているかを確かめられます。</p>
+<p><strong>2 つ目は、インストール コマンドが想定どおりの終了コード (<code>lpExitCode</code>) を返しているか。</strong> 上記の例では <code>lpExitCode 0</code> と出力されており、インストール コマンドから終了コードとして <code>0</code> が返されたことが分かります。続く <code>lpExitCode is defined as Success</code> から、その終了コードが成功として扱われたことも読み取れます。</p>
+<p>なお、<code>lpExitCode</code> に想定されない値 (<code>1</code> など) が返されている場合、<strong>Intune 側のログからこれ以上の詳細を確認することはできません。</strong> これは、Intune の役割がインストール コマンドを起動して結果を受け取るところまでであり、「なぜその終了コードになったのか」はインストーラー自身しか知り得ないためです。</p>
+<p>このようなときは、インストール コマンドの実行時に出力されるアプリのインストーラーのログを確認したり、アプリの提供元のサポート窓口へ、その終了コードの意味を確認してみるとよいでしょう。多くのインストーラーは、終了コードごとの意味をドキュメントで公開しています。</p>
+<h4 id="検出規則の判定状況を確認する"><a href="#検出規則の判定状況を確認する" class="headerlink" title="検出規則の判定状況を確認する"></a>検出規則の判定状況を確認する</h4><p>もう 1 つの重要な確認ポイントが、検出規則の判定状況です。検出規則の評価についても、次のようなログが出力されます。</p>
+<p>ログの出力例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;![LOG[[Win32App][DetectionActionHandler] Detection running for policy with id: &lt;Win32 アプリの ID&gt;.]LOG]!&gt;&lt;time=&quot;09:22:28.6546377&quot; date=&quot;7-20-2026&quot; component=&quot;AppWorkload&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;94&quot; file=&quot;&quot;&gt;</span><br><span class="line">...</span><br><span class="line">&lt;![LOG[[Win32App] Start detectionManager SideCarRegistryDetectionManager]LOG]!&gt;&lt;time=&quot;09:22:28.6576382&quot; date=&quot;7-20-2026&quot; component=&quot;AppWorkload&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;94&quot; file=&quot;&quot;&gt;</span><br><span class="line">&lt;![LOG[[Win32App]  Got reg value path: HKEY_LOCAL_MACHINE\SOFTWARE\Test\Agent, name: Installversion, value: 1.0.0]LOG]!&gt;&lt;time=&quot;09:22:28.6596374&quot; date=&quot;7-20-2026&quot; component=&quot;AppWorkload&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;94&quot; file=&quot;&quot;&gt;</span><br><span class="line">&lt;![LOG[[Win32App] Equal: actualValue: 1.0.0, DetectionValue: 1.0.0, applicationDetected: True]LOG]!&gt;&lt;time=&quot;09:22:28.6596374&quot; date=&quot;7-20-2026&quot; component=&quot;AppWorkload&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;94&quot; file=&quot;&quot;&gt;</span><br><span class="line">&lt;![LOG[[Win32App] Checked reg path: HKEY_LOCAL_MACHINE\SOFTWARE\Test\Agent, name: Installversion, operator: 1, type: 3, value: 1.0.0 , result of applicationDetected: True]LOG]!&gt;&lt;time=&quot;09:22:28.6610302&quot; date=&quot;7-20-2026&quot; component=&quot;AppWorkload&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;94&quot; file=&quot;&quot;&gt;</span><br><span class="line">&lt;![LOG[[Win32App] detectionManager SideCarRegistryDetectionManager got applicationDetectedByCurrentRule: True as system]LOG]!&gt;&lt;time=&quot;09:22:28.6615404&quot; date=&quot;7-20-2026&quot; component=&quot;AppWorkload&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;94&quot; file=&quot;&quot;&gt;</span><br><span class="line">&lt;![LOG[[Win32App] Completed detectionManager SideCarRegistryDetectionManager, applicationDetectedByCurrentRule: True]LOG]!&gt;&lt;time=&quot;09:22:28.6615404&quot; date=&quot;7-20-2026&quot; component=&quot;AppWorkload&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;94&quot; file=&quot;&quot;&gt;</span><br><span class="line">&lt;![LOG[[Win32App][ReportingManager] Detection state for app with id: &lt;Win32 アプリの ID&gt; has been updated. Report delta: &#123;&quot;DetectionState&quot;:&#123;&quot;OldValue&quot;:&quot;NotInstalled&quot;,&quot;NewValue&quot;:&quot;Installed&quot;&#125;&#125;]LOG]!&gt;&lt;time=&quot;09:22:28.6645546&quot; date=&quot;7-20-2026&quot; component=&quot;AppWorkload&quot; context=&quot;&quot; type=&quot;1&quot; thread=&quot;94&quot; file=&quot;&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>上記の例では、レジストリを利用した検出規則が評価されています。<code>Got reg value path:</code> の行で、IME が実際に読み取ったレジストリのパス・名前・値が出力され、続く <code>Equal: actualValue: 1.0.0, DetectionValue: 1.0.0, applicationDetected: True</code> の行で、検出規則に指定した値 (<code>DetectionValue</code>) と、デバイス上の実際の値 (<code>actualValue</code>) を比較した結果が確認できます。そして最後に、検出状態が <code>NotInstalled</code> から <code>Installed</code> に更新されたことが記録されています。</p>
+<p>このように、<strong>指定した検出規則によってアプリが検出されたのかどうか</strong> を、ログから追うことができます。</p>
+<p>検出規則が満たされなかった場合、Intune はインストール コマンドが正常に完了しなかったものとして、エラー <code>0x87D1041C</code> (<code>-2016345060</code>) と判定します。ここで大切なのは、<strong>終了コードが成功でも、検出規則が満たされなければアプリは「失敗」として扱われる</strong> という点です。</p>
+<p>検出規則が満たされていないことが分かった場合は、デバイス上で実際に検出規則に指定したレジストリやファイルなどを確認してみてください。現時点で検出規則が満たされているかを直接確かめられます。ログ上の判定結果と食い違う場合は、次のような点を疑ってみるとよいでしょう。</p>
+<ul>
+<li>パスや値の指定がわずかに間違っている (余分な空白、<code>WOW6432Node</code> 配下との取り違え など)</li>
+<li>タイミングの問題で、判定時点ではまだ目印が作られていない</li>
+</ul>
+<p>とくに後者は見落としがちなポイントです。検出規則の評価はインストール コマンドの <strong>完了直後</strong> に行われるため、「インストール完了からしばらく経たないと作成されないファイル」や「一度アプリを起動しないと現れない値」を目印にしていると、実際にはインストールが成功していても <code>0x87D1041C</code> (<code>-2016345060</code>) と判定されてしまいます。このような場合は、より適切な検出規則がないか、アプリの提供元に相談してみるのがおすすめです。提供元は、インストール完了時にどのファイルやレジストリ値が確実に作成されるかを最もよく把握しています。</p>
+<p>なお、<strong>インストール コマンドが実行されていない場合にも、検出規則の処理を確認してみるとヒントが隠れている</strong> ことがあります。Intune は、検出規則が既に満たされている環境に対してはアプリの配布を行いません。「いつまでもインストールが始まらない」という場合、実は既に検出規則が満たされていた、というのもよくあるパターンです。</p>
+<h2 id="Intune-から-Win32-アプリの配布が確認できないときの簡単な切り分け手順"><a href="#Intune-から-Win32-アプリの配布が確認できないときの簡単な切り分け手順" class="headerlink" title="Intune から Win32 アプリの配布が確認できないときの簡単な切り分け手順"></a>Intune から Win32 アプリの配布が確認できないときの簡単な切り分け手順</h2><p>ログを確認しても、そもそも対象のアプリに関する処理がまったく記録されていない。そんなときに試していただきたい、簡単な切り分け手順をご紹介します。</p>
+<h3 id="ネットワーク環境の確認"><a href="#ネットワーク環境の確認" class="headerlink" title="ネットワーク環境の確認"></a>ネットワーク環境の確認</h3><p>Intune および IME は、いくつかのエンドポイントと通信できることを前提に動作します。まずは、必要なエンドポイントとの通信が許可されているかを確認してみてください。</p>
+<ul>
+<li>Microsoft Intune のネットワーク エンドポイント<br><a href="https://learn.microsoft.com/ja-jp/intune/fundamentals/endpoints">https://learn.microsoft.com/ja-jp/intune/fundamentals/endpoints</a></li>
+</ul>
+<p>プロキシや VPN をご利用の場合は、一時的にそれらを経由しないネットワークに接続して事象が変わるかを確認したり、別のネットワークにつないで比較してみたりするのも有効な切り分けです。</p>
+<h3 id="Microsoft-Intune-Management-Extension-サービスの再起動"><a href="#Microsoft-Intune-Management-Extension-サービスの再起動" class="headerlink" title="Microsoft Intune Management Extension サービスの再起動"></a>Microsoft Intune Management Extension サービスの再起動</h3><p>IME は、サービスの起動タイミングで新しい Win32 アプリが存在しないかを Intune へ確認しに行きます。そのため、すぐに配布を始めたい場合は、サービスの再起動が有効な切り分けになります。</p>
+<p>管理者権限を持つユーザーであれば、スタート メニューから <code>services.msc</code> を起動し、<code>Microsoft Intune Management Extension</code> を右クリックして再起動できます。再起動後に <code>AppWorkload.log</code> に新しいログが出力され始めるかを確認してみてください。</p>
+<h3 id="Entra-ID-ユーザーで-Windows-上にログインする"><a href="#Entra-ID-ユーザーで-Windows-上にログインする" class="headerlink" title="Entra ID ユーザーで Windows 上にログインする"></a>Entra ID ユーザーで Windows 上にログインする</h3><p>これは、ユーザー グループに割り当てているアプリや、インストール コンテキストとして「ユーザー」を選択しているアプリの場合の確認ポイントです。</p>
+<p>Intune 上でユーザー グループに割り当てているアプリや、インストール コンテキストとしてユーザーを選択しているアプリは、<strong>そのユーザーがデバイス上にログインしていないと配布が行われません。</strong></p>
+<p>「割り当てているのに一向に配布が始まらない」という場合は、対象のユーザーで実際にログインできているかもあわせて確認してみましょう。</p>
+<h2 id="「これは-Intune？-それともアプリのインストーラー？」―-事象別の考え方"><a href="#「これは-Intune？-それともアプリのインストーラー？」―-事象別の考え方" class="headerlink" title="「これは Intune？ それともアプリのインストーラー？」― 事象別の考え方"></a>「これは Intune？ それともアプリのインストーラー？」― 事象別の考え方</h2><p>ここまでの内容を踏まえて、どのような事象がどちら側の調査対象になるのかを整理してみましょう。考え方はシンプルです。</p>
+<ul>
+<li><strong>アプリがデバイスに “届く” までに関すること</strong> → Intune の観点から確認</li>
+<li><strong>インストール コマンドが起動された “後” の動作に関すること</strong> → アプリのインストーラーの観点から確認</li>
+</ul>
+<h3 id="Intune-側に焦点を当てて確認するとよい事象"><a href="#Intune-側に焦点を当てて確認するとよい事象" class="headerlink" title="Intune 側に焦点を当てて確認するとよい事象"></a>Intune 側に焦点を当てて確認するとよい事象</h3><ul>
+<li>Win32 アプリのインストール処理や、検出規則による判定が行われている形跡がログから確認できない</li>
+<li>Intune 上では割り当てをしているにもかかわらず、なかなか配布が進まない</li>
+<li>Win32 アプリの実際の配布状況と、Intune 管理センター上のレポートに差異がある</li>
+</ul>
+<h3 id="アプリのインストーラーに焦点を当てて確認するとよい事象"><a href="#アプリのインストーラーに焦点を当てて確認するとよい事象" class="headerlink" title="アプリのインストーラーに焦点を当てて確認するとよい事象"></a>アプリのインストーラーに焦点を当てて確認するとよい事象</h3><ul>
+<li><code>lpExitCode</code> が想定している値ではない</li>
+<li><code>lpExitCode</code> は <code>0</code> であるにもかかわらず、検出規則が満たされず <code>0x87D1041C</code> (<code>-2016345060</code>) エラーが発生する</li>
+<li>Intune から配布した後に、配布したアプリが起動しない、または期待どおりに動作しない</li>
+</ul>
+<p>後者に該当する場合は、アプリのインストーラーが出力するログを確認し、必要に応じてアプリの提供元のサポート窓口へ相談してみると良いでしょう。インストーラーの内部の動作を最もよく把握しているのは提供元です。「Intune から配布した際に、終了コード <code>&lt;値&gt;</code> が返り、インストールが完了しなかった」といった形で、IME のログから読み取った事実をあわせてお伝えいただくと、スムーズにご相談いただけます。</p>
+<h2 id="おわりに"><a href="#おわりに" class="headerlink" title="おわりに"></a>おわりに</h2><p>今回は、Win32 アプリを配布した後のトラブルシューティングについて、”役割分担” という視点からご紹介しました。</p>
+<ul>
+<li>Intune (IME) の担当範囲は、アプリを配布し、インストール コマンドを <strong>起動するところまで</strong></li>
+<li>IME のログから分かるのは、<strong>プロセスを起動できたか</strong>・<strong>終了コードは何か</strong>・<strong>検出規則を満たしたか</strong> の 3 点</li>
+<li>終了コードが想定外の値になる理由や、インストール処理そのものの詳細は、<strong>アプリのインストーラーのログ</strong> から確認する</li>
+</ul>
+<p>「どこまでが Intune で、どこからがアプリなのか」。この線引きを意識しておくだけで、問題が起きたときに最初に見るべき場所がはっきりし、解決までの時間はぐっと短くなります。ぜひ日々の運用に取り入れてみてください。</p>
+<p>次回以降も、みなさまの運用に役立つ情報をお届けしていきます。最後までお読みいただき、ありがとうございました。</p>
+
+      
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li></ul>
+
+        
+        <a href="https://github.com/jpintune/blog/edit/master/articles/intune/20260818_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../20260803_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">グループ ポリシーに対応する Intune の設定を見つける方法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="">Intune のトラブル解決が早くなる。知っておきたい &#34;役割分担&#34; - Win32 アプリ編</a>
+          </li>
+        
+          <li>
+            <a href="../20260803_01/">グループ ポリシーに対応する Intune の設定を見つける方法</a>
+          </li>
+        
+          <li>
+            <a href="../20260731_03/">Android デバイスを Intune で管理する際に押さえておきたいポイント</a>
+          </li>
+        
+          <li>
+            <a href="../20260728_01/">意外と見落としがち？Intune で Win32 アプリを配布する前に確認しておきたいポイント</a>
+          </li>
+        
+          <li>
+            <a href="../20260722_02/">Intune のトラブル解決が早くなる。知っておきたい Windows との &#34;役割分担&#34; - 基本編</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <!-- <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li></ul>  -->
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/">Intune</a><span class="tag-list-count">5</span><ul></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/08/">2026 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/07/">2026 / 07</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="../../tags/Intune/" style="font-size: 10px;">Intune</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2026 Japan Microsoft Intune Support Team<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+<!-- hexo injector body_end start -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script>
+(function () {
+  var KEYS = /^(flowchart|graph|sequenceDiagram|classDiagram|stateDiagram(-v2)?|erDiagram|gantt|pie|journey|gitGraph|mindmap|timeline|quadrantChart|requirementDiagram|C4Context|xychart-beta|sankey-beta)\b/;
+  function render() {
+    var blocks = document.querySelectorAll('figure.highlight, pre > code');
+    var targets = [];
+    blocks.forEach(function (el) {
+      var fig = el.closest('figure.highlight') || el;
+      if (fig.dataset && fig.dataset.mermaidDone) return;
+      var codeCell = fig.querySelector('.code') || fig;
+      var lines = codeCell.querySelectorAll('.line');
+      var text = lines.length
+        ? Array.prototype.map.call(lines, function (s) { return s.textContent; }).join('\n')
+        : codeCell.textContent;
+      if (!KEYS.test(text.trim())) return;
+      var pre = document.createElement('pre');
+      pre.className = 'mermaid';
+      pre.textContent = text;
+      fig.parentNode.replaceChild(pre, fig);
+      targets.push(pre);
+    });
+    if (targets.length && window.mermaid) {
+      window.mermaid.initialize({ startOnLoad: false, securityLevel: 'loose', theme: 'default' });
+      window.mermaid.run({ nodes: targets });
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', render);
+  } else {
+    render();
+  }
+})();
+</script>
+<style>
+pre.mermaid { background: none; border: none; text-align: center; overflow-x: auto; }
+</style>
+<!-- hexo injector body_end end --></body>
+</html>
