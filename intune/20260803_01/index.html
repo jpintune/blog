@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://jpintune.github.io/blog/intune/20260803_01/image-12.png">
 <meta property="og:image" content="https://jpintune.github.io/blog/intune/20260803_01/image-13.png">
 <meta property="article:published_time" content="2026-08-02T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-08-21T04:21:17.825Z">
+<meta property="article:modified_time" content="2026-08-21T04:25:35.474Z">
 <meta property="article:author" content="Japan Microsoft Intune Support Team">
 <meta property="article:tag" content="Intune">
 <meta name="twitter:card" content="summary">
@@ -108,7 +108,7 @@
         
         <a href="https://github.com/jpintune/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+ca12dc60-2b83-5932-a786-738f33d0c85c%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5B%E3%82%B0%E3%83%AB%E3%83%BC%E3%83%97+%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%AB%E5%AF%BE%E5%BF%9C%E3%81%99%E3%82%8B+Intune+%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%8B%E6%96%B9%E6%B3%95%5D%28https%3A%2F%2Fjpintune.github.io%2Fblog%2Fintune%2F20260803_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fintune%2F20260803_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpintune%2Fblog%2Fblob%2Fmaster%2Farticles%2Fintune%2F20260803_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpintune.github.io/blog/intune/20260803_01/" data-id="cuidX3_mDAJCiflEX81EXK5ia" class="article-share-link">共有</a>
+        <a data-url="https://jpintune.github.io/blog/intune/20260803_01/" data-id="cuidiLULSyNoCEUuWRDVpOJYG" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
@@ -143,7 +143,7 @@
 <blockquote>
 <p>[コンピューターの構成] - [管理用テンプレート] - [Windows コンポーネント] - [配信の最適化] - [絶対最大キャッシュ サイズ (GB)]</p>
 </blockquote>
-<p><img src="/blog/intune/20260803_01/image-8.png" alt="alt text"></p>
+<p><img src="/blog/intune/20260803_01/image-8.png" alt="対象のグループ ポリシー設定のパス例"></p>
 <p>それでは、順を追って見ていきましょう。</p>
 <h2 id="ステップ-1-グループ-ポリシーの英語名を特定する"><a href="#ステップ-1-グループ-ポリシーの英語名を特定する" class="headerlink" title="ステップ 1. グループ ポリシーの英語名を特定する"></a>ステップ 1. グループ ポリシーの英語名を特定する</h2><p>まずは、対象となるグループ ポリシーの <strong>英語名</strong> を特定します。</p>
 <p>「なぜわざわざ英語名を調べるの？」と思われるかもしれませんが、これには理由があります。日本語の設定名は翻訳のブレがあり、Intune の設定カタログ上の日本語名と、グループ ポリシー上の日本語名が微妙に異なっていることが少なくありません。そのため、英語名を基準に探した方が、確実に対応する設定を見つけることができます。</p>
@@ -151,7 +151,7 @@
 <ul>
 <li>Group Policy Search (GPS)<br><a href="https://gpsearch.azurewebsites.net/">https://gpsearch.azurewebsites.net/</a></li>
 </ul>
-<p><img src="/blog/intune/20260803_01/image-9.png" alt="alt text"></p>
+<p><img src="/blog/intune/20260803_01/image-9.png" alt="Group Policy Search (GPS) でグループ ポリシーの英語名を確認する画面"></p>
 <p>今回の例では [Windows Components (Windows コンポーネント)] - [Delivery Optimization (配信の最適化)] のパスを辿っていくと、[絶対最大キャッシュ サイズ (GB)] に対応する英語名が <strong>Absolute Max Cache Size (in GB)</strong> であることが確認出来ます。</p>
 <h2 id="ステップ-2-英語名を元に対応する-CSP-を特定する"><a href="#ステップ-2-英語名を元に対応する-CSP-を特定する" class="headerlink" title="ステップ 2. 英語名を元に対応する CSP を特定する"></a>ステップ 2. 英語名を元に対応する CSP を特定する</h2><p>次に、特定した英語名を元に、対応する <strong>CSP (Configuration Service Provider)</strong> を探します。CSP とは、Windows OS に対して設定を反映するための仕組みで、Intune はこの CSP を通じて各種設定を配布しています。グループ ポリシーと Intune の設定を結びつける「橋渡し役」とイメージしていただくと分かりやすいかと思います。</p>
 <p>対応する CSP を探すには、<strong>「グループ ポリシーの英語名」と「CSP」</strong> をあわせて検索エンジンで検索してみてください。多くの場合、Microsoft の公式ドキュメントである Policy CSP のページが見つかります。</p>
@@ -159,19 +159,19 @@
 <ul>
 <li>Policy CSP - DeliveryOptimization &#x2F; DOAbsoluteMaxCacheSize<br><a href="https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-deliveryoptimization#doabsolutemaxcachesize">https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-deliveryoptimization#doabsolutemaxcachesize</a></li>
 </ul>
-<p><img src="/blog/intune/20260803_01/image-10.png" alt="alt text"></p>
+<p><img src="/blog/intune/20260803_01/image-10.png" alt="Policy CSP ページの Group policy mapping 欄"></p>
 <p>今回の例では、「絶対最大キャッシュ サイズ (GB)」に対応する CSP が <strong>DeliveryOptimization &#x2F; DOAbsoluteMaxCacheSize</strong> であることが分かります。</p>
 <h2 id="ステップ-3-CSP-を元に設定カタログ上で対応する設定を見つける"><a href="#ステップ-3-CSP-を元に設定カタログ上で対応する設定を見つける" class="headerlink" title="ステップ 3. CSP を元に設定カタログ上で対応する設定を見つける"></a>ステップ 3. CSP を元に設定カタログ上で対応する設定を見つける</h2><p>最後に、特定した CSP を元に、Intune の <strong>設定カタログ</strong> 上で対応する設定を見つけます。</p>
 <p>基本的には、<strong>CSP の名前がそのまま設定カタログ上の設定名として使われている</strong> ため、設定カタログ上でカテゴリとして “Delivery Optimization” を選択すると、目的の設定 “DO Absolute Max Cache Size” を見つけることができます。</p>
-<p><img src="/blog/intune/20260803_01/image-11.png" alt="alt text"></p>
+<p><img src="/blog/intune/20260803_01/image-11.png" alt="設定カタログで DO Absolute Max Cache Size を検索した画面"></p>
 <h3 id="同じ名前の設定が-2-つ表示される場合"><a href="#同じ名前の設定が-2-つ表示される場合" class="headerlink" title="同じ名前の設定が 2 つ表示される場合"></a>同じ名前の設定が 2 つ表示される場合</h3><p>なお、下記のように同じ設定が 2 つ表示されることがあります。これは、その設定を <strong>ユーザー単位</strong> で反映するか、<strong>デバイス単位</strong> で反映するかの違いによるものです。</p>
-<p><img src="/blog/intune/20260803_01/image-12.png" alt="alt text"></p>
+<p><img src="/blog/intune/20260803_01/image-12.png" alt="設定カタログで同名の設定が (User) 付きとなしで 2 つ表示される例"></p>
 <p>設定名の後ろに <strong>“(User)”</strong> と付いているものは、ユーザー単位で反映される設定です。グループ ポリシーを触ったことのある方であれば、<strong>「ユーザーの構成」と「コンピューターの構成」の違い</strong> と理解していただければ分かりやすいかと思います。「コンピューターの構成」配下のグループ ポリシーであれば、”(User)” の付いていないデバイス単位の設定を選択します。</p>
 <h2 id="対応する設定が見つからないときは"><a href="#対応する設定が見つからないときは" class="headerlink" title="対応する設定が見つからないときは"></a>対応する設定が見つからないときは</h2><p>上記の手順で多くの設定は見つけられますが、中には対応する設定がなかなか見つからないケースもあります。そのような場合に試していただきたいポイントを、いくつかご紹介します。</p>
 <h3 id="グループ-ポリシーの英語名で設定カタログを検索してみる"><a href="#グループ-ポリシーの英語名で設定カタログを検索してみる" class="headerlink" title="グループ ポリシーの英語名で設定カタログを検索してみる"></a>グループ ポリシーの英語名で設定カタログを検索してみる</h3><p>一部の設定は、CSP 名ではなく <strong>グループ ポリシーの英語名そのまま</strong> の名前で設定カタログ上に存在することがあります。CSP 名で見つからない場合は、ステップ 1 で特定した英語名で設定カタログを検索してみると、見つかることがあります。</p>
 <h3 id="古いグループ-ポリシーでないか確認してみる"><a href="#古いグループ-ポリシーでないか確認してみる" class="headerlink" title="古いグループ ポリシーでないか確認してみる"></a>古いグループ ポリシーでないか確認してみる</h3><p>グループ ポリシーには、過去のバージョンとの互換性を保つために、かなり古い設定が残されている場合があります。そうした古い設定は、CSP としては対応する設定が用意されていないこともあります。</p>
 <p>グループ ポリシーの <strong>「サポートされるバージョン」</strong> を確認し、そもそも現在ご利用の Windows のバージョンでサポートされている設定かどうかを確認してみてください。</p>
-<p><img src="/blog/intune/20260803_01/image-13.png" alt="alt text"></p>
+<p><img src="/blog/intune/20260803_01/image-13.png" alt="グループ ポリシーの「サポートされるバージョン」を確認する画面"></p>
 <h3 id="レジストリで代替できないか確認してみる"><a href="#レジストリで代替できないか確認してみる" class="headerlink" title="レジストリで代替できないか確認してみる"></a>レジストリで代替できないか確認してみる</h3><p>どうしても対応する設定が見つからない場合は、<strong>スクリプトを利用してグループ ポリシーに対応するレジストリ値を直接設定する</strong> ことで代替できる場合があります。</p>
 <p>グループ ポリシーが実際に書き込むレジストリ値は、ステップ 1 でご紹介した Group Policy Search (GPS) で確認することができます。ここで確認したレジストリ値を、Intune の PowerShell スクリプトや Win32 アプリなどを利用して直接設定することで、グループ ポリシーと同等の設定を実現できる場合があります。</p>
 <ul>
