@@ -20,24 +20,6 @@
   </url>
   
   <url>
-    <loc>https://jpintune.github.io/blog/intune/20260728_01/</loc>
-    
-    <lastmod>2026-08-21</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://jpintune.github.io/blog/intune/20260731_03/</loc>
-    
-    <lastmod>2026-08-21</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://jpintune.github.io/blog/intune/20260803_01/</loc>
     
     <lastmod>2026-08-21</lastmod>
@@ -48,6 +30,24 @@
   
   <url>
     <loc>https://jpintune.github.io/blog/intune/20260722_02/</loc>
+    
+    <lastmod>2026-08-21</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://jpintune.github.io/blog/intune/20260728_01/</loc>
+    
+    <lastmod>2026-08-21</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://jpintune.github.io/blog/intune/20260731_03/</loc>
     
     <lastmod>2026-08-21</lastmod>
     

@@ -13,15 +13,16 @@
 <meta property="og:site_name" content="Japan Microsoft Intune Support Team Blog">
 <meta property="og:description" content="みなさま、こんにちは。Intune サポート チームです。 Intune も年々進化を続けており、Windows Update に関連するポリシーもずいぶんと種類が増えてきました。「更新リング」「設定カタログ」「機能更新プログラム ポリシー」「品質更新プログラム ポリシー」…と管理センターに並ぶ選択肢を前にして、「結局、どのポリシーを使えばよいの？」 と迷われた経験はないでしょうか。 実はこれらの">
 <meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpintune.github.io/blog/intune/20260821_01/image-19.png">
 <meta property="og:image" content="https://jpintune.github.io/blog/intune/20260821_01/image-16.png">
 <meta property="og:image" content="https://jpintune.github.io/blog/intune/20260821_01/image-17.png">
 <meta property="og:image" content="https://jpintune.github.io/blog/intune/20260821_01/image-18.png">
 <meta property="article:published_time" content="2026-08-20T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-08-21T04:03:46.840Z">
+<meta property="article:modified_time" content="2026-08-21T04:10:20.705Z">
 <meta property="article:author" content="Japan Microsoft Intune Support Team">
 <meta property="article:tag" content="Intune">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jpintune.github.io/blog/intune/20260821_01/image-16.png">
+<meta name="twitter:image" content="https://jpintune.github.io/blog/intune/20260821_01/image-19.png">
   
     <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Intune Support Team Blog" type="application/atom+xml">
   
@@ -105,7 +106,7 @@
         
         <a href="https://github.com/jpintune/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+5f632044-aa96-5801-a903-f9e9e71174d4%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BIntune+%E3%81%A7+Windows+Update+%E3%82%92%E7%AE%A1%E7%90%86%E3%81%99%E3%82%8B%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%AE%E4%BD%BF%E3%81%84%E5%88%86%E3%81%91%5D%28https%3A%2F%2Fjpintune.github.io%2Fblog%2Fintune%2F20260821_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fintune%2F20260821_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpintune%2Fblog%2Fblob%2Fmaster%2Farticles%2Fintune%2F20260821_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpintune.github.io/blog/intune/20260821_01/" data-id="cuid5llk1NWWxELGego5ra76u" class="article-share-link">共有</a>
+        <a data-url="https://jpintune.github.io/blog/intune/20260821_01/" data-id="cuidpgTP8qLsjmsJ7hVnGm_bK" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
@@ -149,8 +150,7 @@
 <p>設定はデバイス上のレジストリに反映されるため、<strong>「意図した設定が本当にデバイスへ届いているか」を、デバイス上で直接確認できる</strong>のが大きな特徴です。</p>
 <h4 id="クラウド上の-Windows-Autopatch-によって管理される設定"><a href="#クラウド上の-Windows-Autopatch-によって管理される設定" class="headerlink" title="クラウド上の Windows Autopatch によって管理される設定"></a>クラウド上の Windows Autopatch によって管理される設定</h4><p>一方、こちらは従来の管理の仕組みとは少し毛色が異なります。特に、これまでオンプレミスでデバイスを管理されてきたお客様にとっては、最初は少し捉えにくいかもしれません。</p>
 <p>この仕組みでは、<strong>設定がデバイス上に直接反映されるわけではありません</strong>。Intune で作成したポリシーの内容は、まずクラウド上の別のサービスである <strong>Windows Autopatch</strong> (以前は Windows Update for Business deployment service と呼ばれていました) に反映されます。そして、デバイスが Windows Update に更新プログラムを問い合わせた際に、Windows Autopatch 側で保持している設定に沿って更新プログラムが提供される、という流れになります。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">flowchart TB</span><br><span class="line">    subgraph CLOUD[&quot; &quot;]</span><br><span class="line">        direction TB</span><br><span class="line">        INTUNE[&quot;☁️ Microsoft Intune&lt;br/&gt;ポリシーを作成・割り当て&quot;]</span><br><span class="line">        AUTOPATCH[&quot;☁️ Windows Autopatch&lt;br/&gt;（旧 Windows Update for Business&lt;br/&gt;deployment service）&lt;br/&gt;更新プログラムの提供可否を判断&quot;]</span><br><span class="line">        WU[&quot;☁️ Windows Update&lt;br/&gt;更新プログラムの配信基盤&quot;]</span><br><span class="line">        INTUNE -- &quot;設定を反映&quot; --&gt; AUTOPATCH</span><br><span class="line">        AUTOPATCH -- &quot;提供する更新プログラムを制御&quot; --&gt; WU</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph DEVICE[&quot;💻 デバイス上で動作&quot;]</span><br><span class="line">        WUCLIENT[&quot;🔶 Windows OS の機能&lt;br/&gt;（Windows Update クライアント）&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    WUCLIENT -- &quot;更新プログラムを問い合わせ&quot; --&gt; WU</span><br><span class="line"></span><br><span class="line">    style CLOUD fill:transparent,stroke:transparent</span><br><span class="line">    style DEVICE fill:#f3f3f3,stroke:#5f5f5f,stroke-width:2px</span><br><span class="line">    style INTUNE fill:#e6f2ff,stroke:#0078d4,stroke-width:2px</span><br><span class="line">    style AUTOPATCH fill:#e6f2ff,stroke:#0078d4,stroke-width:2px</span><br><span class="line">    style WU fill:#eaf7ea,stroke:#107c10,stroke-width:2px</span><br><span class="line">    style WUCLIENT fill:#eaf7ea,stroke:#107c10,stroke-width:2px</span><br></pre></td></tr></table></figure>
-
+<p><img src="/blog/intune/20260821_01/image-19.png" alt="alt text"></p>
 <p>ここで押さえておきたいのが、<strong>クラウド側での制御になるため、これまでのようにデバイス上のレジストリから設定の反映状況を確認できない場合が多い</strong>、という点です。「設定したはずなのに、デバイス上のレジストリに何も書かれていない」と驚かれることがありますが、こうした仕組みによるものですのでご安心ください。</p>
 <p>逆に言えば、<strong>従来どおりレジストリで反映状況を確実に確認したい</strong>というご要望がある場合には、後ほどご紹介するように、CSP によって管理する設定を選ぶ、という方針を取ることもできます。どちらが優れているかではなく、<strong>運用スタイルに合った方を選んでいただく</strong>のも一つの手法です。</p>
 <h5 id="補足-Windows-Autopatch-について"><a href="#補足-Windows-Autopatch-について" class="headerlink" title="補足: Windows Autopatch について"></a>補足: Windows Autopatch について</h5><p>本記事では Windows Autopatch そのものについては深くは触れません。ただ、Windows Autopatch も内部的には更新リングをはじめとする Intune の機能に依存している部分が多いため、Windows Autopatch をご利用のお客様にとっても、本記事の内容は参考にしていただけるかと思います。</p>
