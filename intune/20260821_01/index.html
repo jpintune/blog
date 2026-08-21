@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://jpintune.github.io/blog/intune/20260821_01/image-17.png">
 <meta property="og:image" content="https://jpintune.github.io/blog/intune/20260821_01/image-18.png">
 <meta property="article:published_time" content="2026-08-20T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-08-21T04:10:20.705Z">
+<meta property="article:modified_time" content="2026-08-21T04:21:17.829Z">
 <meta property="article:author" content="Japan Microsoft Intune Support Team">
 <meta property="article:tag" content="Intune">
 <meta name="twitter:card" content="summary">
@@ -106,7 +106,7 @@
         
         <a href="https://github.com/jpintune/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+5f632044-aa96-5801-a903-f9e9e71174d4%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BIntune+%E3%81%A7+Windows+Update+%E3%82%92%E7%AE%A1%E7%90%86%E3%81%99%E3%82%8B%E3%83%9D%E3%83%AA%E3%82%B7%E3%83%BC%E3%81%AE%E4%BD%BF%E3%81%84%E5%88%86%E3%81%91%5D%28https%3A%2F%2Fjpintune.github.io%2Fblog%2Fintune%2F20260821_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fintune%2F20260821_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpintune%2Fblog%2Fblob%2Fmaster%2Farticles%2Fintune%2F20260821_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
         
-        <a data-url="https://jpintune.github.io/blog/intune/20260821_01/" data-id="cuidpgTP8qLsjmsJ7hVnGm_bK" class="article-share-link">共有</a>
+        <a data-url="https://jpintune.github.io/blog/intune/20260821_01/" data-id="cuidNvax6gWcc88FOJaUzn8iN" class="article-share-link">共有</a>
       </div>
     
     <div class="article-entry" itemprop="articleBody">
@@ -150,7 +150,7 @@
 <p>設定はデバイス上のレジストリに反映されるため、<strong>「意図した設定が本当にデバイスへ届いているか」を、デバイス上で直接確認できる</strong>のが大きな特徴です。</p>
 <h4 id="クラウド上の-Windows-Autopatch-によって管理される設定"><a href="#クラウド上の-Windows-Autopatch-によって管理される設定" class="headerlink" title="クラウド上の Windows Autopatch によって管理される設定"></a>クラウド上の Windows Autopatch によって管理される設定</h4><p>一方、こちらは従来の管理の仕組みとは少し毛色が異なります。特に、これまでオンプレミスでデバイスを管理されてきたお客様にとっては、最初は少し捉えにくいかもしれません。</p>
 <p>この仕組みでは、<strong>設定がデバイス上に直接反映されるわけではありません</strong>。Intune で作成したポリシーの内容は、まずクラウド上の別のサービスである <strong>Windows Autopatch</strong> (以前は Windows Update for Business deployment service と呼ばれていました) に反映されます。そして、デバイスが Windows Update に更新プログラムを問い合わせた際に、Windows Autopatch 側で保持している設定に沿って更新プログラムが提供される、という流れになります。</p>
-<p><img src="/blog/intune/20260821_01/image-19.png" alt="alt text"></p>
+<p><img src="/blog/intune/20260821_01/image-19.png" alt="Windows Autopatch を介した更新プログラム配信の流れ"></p>
 <p>ここで押さえておきたいのが、<strong>クラウド側での制御になるため、これまでのようにデバイス上のレジストリから設定の反映状況を確認できない場合が多い</strong>、という点です。「設定したはずなのに、デバイス上のレジストリに何も書かれていない」と驚かれることがありますが、こうした仕組みによるものですのでご安心ください。</p>
 <p>逆に言えば、<strong>従来どおりレジストリで反映状況を確実に確認したい</strong>というご要望がある場合には、後ほどご紹介するように、CSP によって管理する設定を選ぶ、という方針を取ることもできます。どちらが優れているかではなく、<strong>運用スタイルに合った方を選んでいただく</strong>のも一つの手法です。</p>
 <h5 id="補足-Windows-Autopatch-について"><a href="#補足-Windows-Autopatch-について" class="headerlink" title="補足: Windows Autopatch について"></a>補足: Windows Autopatch について</h5><p>本記事では Windows Autopatch そのものについては深くは触れません。ただ、Windows Autopatch も内部的には更新リングをはじめとする Intune の機能に依存している部分が多いため、Windows Autopatch をご利用のお客様にとっても、本記事の内容は参考にしていただけるかと思います。</p>
@@ -171,12 +171,12 @@
 <ul>
 <li>チュートリアル: グループ ポリシーを使用して Windows Update クライアント ポリシーを構成する<br><a href="https://learn.microsoft.com/ja-jp/windows/deployment/update/waas-wufb-group-policy">https://learn.microsoft.com/ja-jp/windows/deployment/update/waas-wufb-group-policy</a></li>
 </ul>
-<p><img src="/blog/intune/20260821_01/image-16.png" alt="alt text"></p>
+<p><img src="/blog/intune/20260821_01/image-16.png" alt="Windows Update のリングの考え方を示す図"></p>
 <p>Windows 10 以降、OS の更新プログラムは累積形式で提供されるようになりました。そのため、<strong>個別の更新プログラムを一つひとつ選んで配信を制御する</strong>というより、<strong>デバイスを「リング」という単位にグループ化し、更新プログラムを適用するタイミングをずらしていく</strong>、という考え方が基本になります。</p>
 <p>たとえば、まずは検証用のリングで少数のデバイスに早めに適用して問題がないことを確認し、その後、一般ユーザー向けのリング、最後に業務影響の大きい重要な部門のリング、といった具合に段階的に展開していきます。こうすることで、万が一問題が生じた場合でも影響範囲を最小限に抑えつつ、全社的にはきちんと更新プログラムを適用していくことができます。</p>
 <p>Intune の更新リングも、こうした Windows Update の考え方に沿って構成を管理できるように用意されているポリシーです。ですので、<strong>まずは「どのようなリング構成にするか」を設計し、それを更新リングのポリシーとして表現していく</strong>、という進め方をしていただくと、無理なく運用に乗せていくことができます。</p>
 <h3 id="設定カタログ"><a href="#設定カタログ" class="headerlink" title="設定カタログ"></a>設定カタログ</h3><p><strong>設定カタログ</strong>では、更新リングのプロファイルには用意されていない CSP についても、個別に配信することができます。具体的には、設定カタログの <strong>[Windows Update for Business]</strong> 配下にある設定が、主な Windows Update 関連の設定となります。</p>
-<p><img src="/blog/intune/20260821_01/image-17.png" alt="alt text"></p>
+<p><img src="/blog/intune/20260821_01/image-17.png" alt="設定カタログの Windows Update for Business カテゴリの設定一覧"></p>
 <ul>
 <li>Intune の設定カタログを使用して設定を構成する<br><a href="https://learn.microsoft.com/ja-jp/intune/device-configuration/settings-catalog">https://learn.microsoft.com/ja-jp/intune/device-configuration/settings-catalog</a></li>
 </ul>
@@ -202,7 +202,7 @@
 <li><p>ポリシー CSP - Update &#x2F; ProductVersion<br><a href="https://learn.microsoft.com/ja-jp/windows/client-management/mdm/policy-csp-update#productversion">https://learn.microsoft.com/ja-jp/windows/client-management/mdm/policy-csp-update#productversion</a></p>
 </li>
 </ul>
-<p><img src="/blog/intune/20260821_01/image-18.png" alt="alt text"></p>
+<p><img src="/blog/intune/20260821_01/image-18.png" alt="設定カタログでターゲット リリース バージョンと製品バージョンを設定する画面"></p>
 <h3 id="品質更新プログラム-ポリシー"><a href="#品質更新プログラム-ポリシー" class="headerlink" title="品質更新プログラム ポリシー"></a>品質更新プログラム ポリシー</h3><p><strong>品質更新プログラム ポリシー</strong>は、<strong>ホットパッチ</strong>を有効にするためのポリシーです。</p>
 <p>ホットパッチは、再起動を伴わずに品質更新プログラムを適用できる仕組みで、ユーザーの再起動の頻度を減らしつつ、セキュリティ更新を適用していくことができます。名前から「品質更新プログラム全般を管理するポリシー」と受け取られることがありますが、<strong>用途はホットパッチの有効化</strong>ですので、その点はご注意ください。</p>
 <p>利用にあたっては、対象となる Windows のエディションやバージョン、プロセッサ アーキテクチャなどの前提条件がありますので、下記の公開情報をご確認のうえでご検討ください。</p>
