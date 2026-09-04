@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>回線の逼迫を防ぐために。Intune から Win32 アプリを配布するときのネットワーク負荷を抑えるコツ | Japan Microsoft Intune Support Team Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="みなさま、こんにちは。Intune サポート チームです。 Intune はもともとモバイル デバイスの管理 (MDM) を出発点としたサービスですが、近年ではこれまでオンプレミスの仕組みで管理されてきた Windows デバイスを、Intune へ移行して運用されるお客様がぐんと増えてきました。 そこで一度は考えておきたいのが、アプリのコンテンツがどこから、どのくらいの量、どのタイミングで流れて">
+<meta property="og:type" content="article">
+<meta property="og:title" content="回線の逼迫を防ぐために。Intune から Win32 アプリを配布するときのネットワーク負荷を抑えるコツ">
+<meta property="og:url" content="https://jpintune.github.io/blog/intune/20260904_01/index.html">
+<meta property="og:site_name" content="Japan Microsoft Intune Support Team Blog">
+<meta property="og:description" content="みなさま、こんにちは。Intune サポート チームです。 Intune はもともとモバイル デバイスの管理 (MDM) を出発点としたサービスですが、近年ではこれまでオンプレミスの仕組みで管理されてきた Windows デバイスを、Intune へ移行して運用されるお客様がぐんと増えてきました。 そこで一度は考えておきたいのが、アプリのコンテンツがどこから、どのくらいの量、どのタイミングで流れて">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://jpintune.github.io/blog/intune/20260904_01/image-27.png">
+<meta property="og:image" content="https://jpintune.github.io/blog/intune/20260904_01/image-28.png">
+<meta property="og:image" content="https://jpintune.github.io/blog/intune/20260904_01/image-26.png">
+<meta property="article:published_time" content="2026-09-03T15:00:00.000Z">
+<meta property="article:modified_time" content="2026-09-04T01:29:36.741Z">
+<meta property="article:author" content="Japan Microsoft Intune Support Team">
+<meta property="article:tag" content="Intune">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jpintune.github.io/blog/intune/20260904_01/image-27.png">
+  
+    <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Intune Support Team Blog" type="application/atom+xml">
+  
+
+  <link rel="icon" href="./favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<!-- hexo injector head_end start --><script>(function(){var r="/blog/";document.querySelectorAll("link[rel~=\"icon\"],link[rel=\"apple-touch-icon\"],link[rel=\"apple-touch-icon-precomposed\"],link[rel=\"mask-icon\"],link[rel=\"manifest\"]").forEach(function(l){var h=l.getAttribute("href");if(h&&h.indexOf("./")===0){l.setAttribute("href",r+h.slice(2));}});})();</script><style>#site-header-blog-wrapper{background-color:#484644;}</style><style>.article-github-issue-link,.article-github-edit-link{display:none !important;}</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <div id="ms-logo"></div>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+        <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../blog/atom.xml" title="RSSフィード"></a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.bing.com/search" method="get" accept-charset="UTF-8" name="bing-search" onsubmit="var f=this;if(f['q'].value){var searchUrl =  'https://www.bing.com/search?q=' +  encodeURIComponent(f['q'].value + ' site:' + f['sitesearch'].value) ;window.open(searchUrl, 'blank') };return false;" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="検索"><button type="submit" id="nav-search-btn" class="search-form-submit"></button><input type="hidden" name="sitesearch" value="https://jpintune.github.io/blog"></form>
+      </div>
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Intune Support Team Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフトの Microsoft Intune に関するサポート情報のブログです。</a>
+        </h2>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-intune/20260904_01" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      回線の逼迫を防ぐために。Intune から Win32 アプリを配布するときのネットワーク負荷を抑えるコツ
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="" class="article-date-single">
+  <time datetime="2026-09-03T15:00:00.000Z" itemprop="datePublished">2026-09-04</time>
+</a>
+        
+        
+        <a href="https://github.com/jpintune/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+6956ca4f-260e-514f-b6f8-87ecbb8f2cf3%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5B%E5%9B%9E%E7%B7%9A%E3%81%AE%E9%80%BC%E8%BF%AB%E3%82%92%E9%98%B2%E3%81%90%E3%81%9F%E3%82%81%E3%81%AB%E3%80%82Intune+%E3%81%8B%E3%82%89+Win32+%E3%82%A2%E3%83%97%E3%83%AA%E3%82%92%E9%85%8D%E5%B8%83%E3%81%99%E3%82%8B%E3%81%A8%E3%81%8D%E3%81%AE%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E8%B2%A0%E8%8D%B7%E3%82%92%E6%8A%91%E3%81%88%E3%82%8B%E3%82%B3%E3%83%84%5D%28https%3A%2F%2Fjpintune.github.io%2Fblog%2Fintune%2F20260904_01%2F%29%0A*+Content+Source%3A+%5Barticles%2Fintune%2F20260904_01.md%5D%28https%3A%2F%2Fgithub.com%2Fjpintune%2Fblog%2Fblob%2Fmaster%2Farticles%2Fintune%2F20260904_01.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        
+        <a data-url="https://jpintune.github.io/blog/intune/20260904_01/" data-id="cuidzy4_FgMpuKwNbayE6DaYr" class="article-share-link">共有</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>みなさま、こんにちは。Intune サポート チームです。</p>
+<p>Intune はもともとモバイル デバイスの管理 (MDM) を出発点としたサービスですが、近年ではこれまでオンプレミスの仕組みで管理されてきた Windows デバイスを、Intune へ移行して運用されるお客様がぐんと増えてきました。</p>
+<p>そこで一度は考えておきたいのが、<strong>アプリのコンテンツがどこから、どのくらいの量、どのタイミングで流れてくるのか</strong> という点です。オンプレミスの管理製品では、拠点ごとに配布サーバーを置き、そこからクライアントへ配布する構成が一般的でした。一方 Intune は、その名のとおりクラウド サービスです。数百台のデバイスに一斉にアプリを割り当てると、その分のコンテンツがインターネット回線を通ってダウンロードされることになります。</p>
+<p>「アプリを割り当てた直後から、拠点の回線が重くなってしまった」「大きなアプリを全社に配布したいが、業務への影響が心配」。こうしたお悩みは、事前にいくつかのポイントを押さえておくだけ軽くすることができます。</p>
+<p>そこで今回は、Intune から Win32 アプリを配布する際に、<strong>ネットワークへの負荷を抑えるための考え方と、具体的な設定</strong> をご紹介していきます。</p>
+<p>なお、Win32 アプリの配布そのものについては、下記の記事でもご紹介しています。あわせてご覧いただくと、より効果的に運用いただけます。</p>
+<ul>
+<li><p>意外と見落としがち？ Intune で Win32 アプリを配布する前に確認しておきたいポイント<br><a href="https://jpintune.github.io/blog/intune/20260728_01/">https://jpintune.github.io/blog/intune/20260728_01/</a></p>
+</li>
+<li><p>Intune のトラブル解決が早くなる。知っておきたい “役割分担” - Win32 アプリ編<br><a href="https://jpintune.github.io/blog/intune/20260818_01/">https://jpintune.github.io/blog/intune/20260818_01/</a></p>
+</li>
+</ul>
+<h2 id="はじめに-―-Win32-アプリの配信には「配信の最適化」が使えます"><a href="#はじめに-―-Win32-アプリの配信には「配信の最適化」が使えます" class="headerlink" title="はじめに ― Win32 アプリの配信には「配信の最適化」が使えます"></a>はじめに ― Win32 アプリの配信には「配信の最適化」が使えます</h2><p>具体的な設定に入る前に、ぜひ知っておいていただきたい、心強いポイントがあります。それは、<strong>Intune から配布する Win32 アプリのコンテンツのダウンロードには、Windows の「配信の最適化 (Delivery Optimization)」が使われている</strong> という点です。</p>
+<p>配信の最適化は、Windows Update や Microsoft 365 Apps の配信でも使われている、Windows に標準で備わっている仕組みです。同じ拠点にいるデバイス同士でコンテンツを分け合ったり (ピア共有)、使用する帯域に上限を設けたり、拠点内のキャッシュ サーバーから取得したりと、<strong>ネットワーク負荷を抑えるための機能がひととおり揃っています。</strong></p>
+<p>Intune から Win32 アプリを配布すると、デバイス上の Intune Management Extension (以下、IME) がコンテンツのダウンロードを依頼し、それを受けて配信の最適化が実際の取得を行います。つまり、<strong>Windows Update の配信で培ってきた配信の最適化のノウハウや設定を、そのまま Win32 アプリの配布にも活かせる</strong> ということです。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">flowchart TB</span><br><span class="line">    subgraph CLOUD[&quot; &quot;]</span><br><span class="line">        INTUNE[&quot;☁️ Microsoft Intune&lt;br/&gt;アプリの割り当て・配布の指示&quot;]</span><br><span class="line">        CDN[&quot;☁️ コンテンツ配信ネットワーク (CDN)&lt;br/&gt;Win32 アプリのコンテンツ&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph DEVICE[&quot;💻 デバイス上で連携して動作&quot;]</span><br><span class="line">        direction TB</span><br><span class="line">        IME[&quot;🔷 Intune Management Extension&lt;br/&gt;アプリの配布を管理&quot;]</span><br><span class="line">        DO[&quot;🔶 配信の最適化&lt;br/&gt;(Delivery Optimization)&lt;br/&gt;コンテンツの取得を担当&quot;]</span><br><span class="line">        IME == &quot;ダウンロードを依頼&quot; ==&gt; DO</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    INTUNE -- &quot;配布の指示&quot; --&gt; IME</span><br><span class="line">    DO -- &quot;コンテンツを取得&quot; --&gt; CDN</span><br><span class="line"></span><br><span class="line">    style CLOUD fill:transparent,stroke:transparent</span><br><span class="line">    style DEVICE fill:#f3f3f3,stroke:#5f5f5f,stroke-width:2px</span><br><span class="line">    style INTUNE fill:#e6f2ff,stroke:#0078d4,stroke-width:2px</span><br><span class="line">    style CDN fill:#eaf7ea,stroke:#107c10,stroke-width:2px</span><br><span class="line">    style IME fill:#e6f2ff,stroke:#0078d4,stroke-width:2px</span><br><span class="line">    style DO fill:#eaf7ea,stroke:#107c10,stroke-width:2px</span><br></pre></td></tr></table></figure>
+
+<p>このことが分かると、打てる手も自然と見えてきます。ネットワーク負荷への対策は、大きく次の 2 つの方向から考えていくことになります。</p>
+<ul>
+<li><strong>割り当ての設定</strong>: 「いつ」「どのデバイスに」ダウンロードさせるかを調整する</li>
+<li><strong>配信の最適化の設定</strong>: 「どこから」「どのくらいの帯域で」取得するかを調整する</li>
+</ul>
+<p>どちらも Intune 管理センターから設定できますので、順に見ていきましょう。</p>
+<ul>
+<li>Microsoft Intune での Win32 アプリの管理<br><a href="https://learn.microsoft.com/ja-jp/intune/app-management/deployment/win32">https://learn.microsoft.com/ja-jp/intune/app-management/deployment/win32</a></li>
+</ul>
+<h2 id="事前準備-―-ネットワーク管理者の方と相談しておく"><a href="#事前準備-―-ネットワーク管理者の方と相談しておく" class="headerlink" title="事前準備 ― ネットワーク管理者の方と相談しておく"></a>事前準備 ― ネットワーク管理者の方と相談しておく</h2><p>具体的な設定の前に、最も効果が大きく、そして見落とされがちなのがこのステップです。</p>
+<p>率直に申し上げると、Intune や Windows の設定だけでできることには限界があります。回線そのものの帯域や、拠点とインターネットの間にあるプロキシ・ファイアウォールの構成は、Intune からは変えられません。だからこそ、<strong>配布を始める前に、ネットワークを管理されている方と一度会話をしておく</strong> ことが、結果的にいちばんの近道になります。</p>
+<p>相談の際は、次のような情報を持っていくと話がスムーズです。</p>
+<ul>
+<li><strong>配布するアプリのサイズ</strong> </li>
+<li><strong>配布対象のデバイス台数</strong> と、その <strong>拠点ごとの内訳</strong></li>
+<li><strong>配布したいタイミング</strong> (業務時間内か、夜間か)</li>
+<li>拠点の <strong>回線の帯域</strong> と、通常時の使用状況</li>
+<li><strong>プロキシや VPN を経由するか</strong>、経由する場合はその構成</li>
+</ul>
+<p>ここで一度、ざっくりとで構いませんので総量を試算してみてください。たとえば 1 GB のアプリを 500 台へ配布する場合、単純計算で約 500 GB のトラフィックが発生します。これが同じ拠点に集中するのか、全国に分散するのかで、必要な対策はまったく変わってきます。</p>
+<p>この試算をお持ちいただくと、「その時間帯なら問題ない」「この拠点だけは分けてほしい」といった具体的なアドバイスをネットワーク管理者の方からいただけることも多く、後の設定検討がとても進めやすくなります。</p>
+<h2 id="割り当ての設定でできる工夫"><a href="#割り当ての設定でできる工夫" class="headerlink" title="割り当ての設定でできる工夫"></a>割り当ての設定でできる工夫</h2><p>まずは、アプリの割り当ての設定でできる工夫を見ていきます。</p>
+<h3 id="①-グループを分けて、段階的に割り当てる"><a href="#①-グループを分けて、段階的に割り当てる" class="headerlink" title="① グループを分けて、段階的に割り当てる"></a>① グループを分けて、段階的に割り当てる</h3><p>いちばんシンプルで、それでいて確実に効くのがこの方法です。</p>
+<p>「全ユーザー」「全デバイス」への割り当ては手軽ですが、<strong>その瞬間にすべてのデバイスが一斉にダウンロードを始める</strong> ことになります。まずは配布対象をグループに分け、段階的に広げていく形を検討してみてください。</p>
+<p>グループの分け方としては、たとえば次のような切り口があります。</p>
+<ul>
+<li><strong>拠点・オフィス単位で分ける</strong> … 同じ回線を共有しているデバイスをまとめて把握できるため、ネットワーク負荷の観点ではもっとも効果的です</li>
+<li><strong>部署・業務単位で分ける</strong> … 業務への影響が少ない部署から順に展開できます</li>
+<li><strong>パイロット → 本展開の 2 段階に分ける</strong> … まず数十台で検証してから全社展開へ進みます</li>
+</ul>
+<p>この方法には、ネットワーク負荷を分散できること以外にも、うれしい効果があります。<strong>万が一アプリのインストールに問題があった場合でも、影響範囲を最小限に抑えられる</strong> という点です。全社に配布した後で問題に気付くのと、パイロット グループの段階で気付けるのとでは、対応の負担がまったく違ってきます。</p>
+<p>なお、デバイスのグループ分けには、Microsoft Entra ID の動的グループや、Intune の割り当てフィルターも活用できます。</p>
+<ul>
+<li><p>グループを追加して Microsoft Intune のユーザーとデバイスを整理する<br><a href="https://learn.microsoft.com/ja-jp/intune/fundamentals/tenant-administration/add-groups">https://learn.microsoft.com/ja-jp/intune/fundamentals/tenant-administration/add-groups</a></p>
+</li>
+<li><p>Microsoft Intune でアプリ、ポリシー、プロファイルを割り当てるときにフィルターを使用する<br><a href="https://learn.microsoft.com/ja-jp/intune/fundamentals/filters/overview">https://learn.microsoft.com/ja-jp/intune/fundamentals/filters/overview</a></p>
+</li>
+</ul>
+<h3 id="②-割り当ての「可用性」と「インストール期限」を活用する"><a href="#②-割り当ての「可用性」と「インストール期限」を活用する" class="headerlink" title="② 割り当ての「可用性」と「インストール期限」を活用する"></a>② 割り当ての「可用性」と「インストール期限」を活用する</h3><p>グループを分けたら、次は <strong>タイミング</strong> です。ここで活躍するのが、割り当て時に設定できる「アプリの可用性」と「インストール期限」です。</p>
+<p><img src="/blog/intune/20260904_01/image-27.png" alt="Intune の割り当て画面で「必須」の可用性とインストールの期限が「直ちに」に設定されている例"></p>
+<p>この 2 つの設定を理解するうえで大切なのが、<strong>「必須」として割り当てた場合、コンテンツのダウンロードは “可用性” の時刻に始まる</strong> という動作です。</p>
+<ul>
+<li><strong>可用性 (Availability)</strong> … この時刻に IME がコンテンツのダウンロードを開始し、デバイス上にキャッシュします</li>
+<li><strong>インストール期限 (Installation deadline)</strong> … この時刻にインストールが実行されます</li>
+</ul>
+<p>つまり、可用性を夜間や休日に設定しておくことで、常時起動しているようなデバイスであれば <strong>重いダウンロードは業務時間外に済ませておき、インストールだけを任意のタイミングで行う</strong>、という運用ができるわけです。「業務時間中に回線が重くなる」というお悩みには、まさにこの設定がぴったりです。</p>
+<p>さらに、①のグループ分けと組み合わせるとより効果的です。グループごとに可用性の日時を 1 日ずつ、あるいは数時間ずつずらしておけば、ダウンロードの山が自然に平準化され、特定の時間帯にトラフィックが集中することを避けられます。</p>
+<p>一方、「利用可能」として割り当てた場合は動作が少し異なります。この場合の可用性の時刻は <strong>ポータル サイトにアプリが表示され始めるタイミング</strong> を指し、コンテンツのダウンロードはユーザーがポータル サイトからインストールを要求した時点で行われます。ユーザーの操作に依存する分、トラフィックは自然に分散されやすいという特徴があります。</p>
+<p>設定は、アプリの割り当てを追加する際に表示される編集画面から行えます。</p>
+<p><code>[アプリ] - [すべてのアプリ] - [&lt;対象のアプリ&gt;] - [プロパティ] - [割り当て]</code></p>
+<p>なお、指定した時刻にダウンロードが始まるのは、当然ながら <strong>デバイスが起動していて、ネットワークに接続されている場合</strong> です。夜間に設定される場合は、対象のデバイスが電源オフやスリープになっていないか、あわせてご確認ください。</p>
+<ul>
+<li>Microsoft Intune での Win32 アプリの管理 (Win32 アプリの可用性と通知の設定)<br><a href="https://learn.microsoft.com/ja-jp/intune/app-management/deployment/win32">https://learn.microsoft.com/ja-jp/intune/app-management/deployment/win32</a></li>
+</ul>
+<h3 id="③-割り当ての「配信の最適化の優先度」を確認する"><a href="#③-割り当ての「配信の最適化の優先度」を確認する" class="headerlink" title="③ 割り当ての「配信の最適化の優先度」を確認する"></a>③ 割り当ての「配信の最適化の優先度」を確認する</h3><p>もう一つ、割り当ての画面で見ておきたいのが <code>[アプリの設定]</code> にある <strong>配信の最適化の優先度</strong> です。</p>
+<p><img src="/blog/intune/20260904_01/image-28.png" alt="Intune の割り当て画面で配信の最適化の優先度が「バックグラウンドでのコンテンツ ダウンロード」に設定されている例"></p>
+<p>ここでは、コンテンツをバックグラウンドとフォアグラウンドのどちらのモードでダウンロードするかを、割り当てごとに選択できます。</p>
+<ul>
+<li><strong>バックグラウンドでダウンロード</strong> (既定) … 急いでいない配信向けのモードです</li>
+<li><strong>フォアグラウンドでダウンロード</strong> … ユーザーが待っている前提のモードです</li>
+</ul>
+<p>配信の最適化では、<strong>帯域の上限や、ピア・キャッシュ サーバーを待つ時間といった設定が、バックグラウンド用とフォアグラウンド用にそれぞれ分かれて用意されています。</strong> ここでどちらのモードを選ぶかによって、そのダウンロードにどちらの設定が適用されるかが決まる、というのがこの項目の役割です。</p>
+<p>急いでインストールする必要がない必須アプリであれば、バックグラウンドを選んでおくことで、後述の帯域の設定を業務通信に配慮した値にしておけます。逆に、ユーザーがポータル サイトから要求してその場で待っているようなアプリでは、フォアグラウンドのほうが体感は良くなります。<strong>「ユーザーが待っているか、待っていないか」</strong> を基準に選んでいただくと、迷わず決められます。</p>
+<h2 id="配信の最適化の設定でできる工夫"><a href="#配信の最適化の設定でできる工夫" class="headerlink" title="配信の最適化の設定でできる工夫"></a>配信の最適化の設定でできる工夫</h2><p>ここからが、冒頭でご紹介した配信の最適化の出番です。<strong>「どこから取得するか」「どのくらいの帯域を使うか」は、この機能の設定で細かく調整でき、しかもその設定は Intune からそのまま配布できます。</strong></p>
+<p>配信の最適化は、コンテンツを次のような複数のソースから並行して取得できるように作られています。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">flowchart TB</span><br><span class="line">    subgraph CLOUD[&quot; &quot;]</span><br><span class="line">        CDN[&quot;☁️ コンテンツ配信ネットワーク (CDN)&lt;br/&gt;いつでも利用できる取得元&quot;]</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    subgraph LAN[&quot;🏢 拠点内のネットワーク&quot;]</span><br><span class="line">        direction TB</span><br><span class="line">        PEER[&quot;💻 ほかのデバイス (ピア)&lt;br/&gt;ダウンロード済みのコンテンツを保持&quot;]</span><br><span class="line">        MCC[&quot;🟢 Microsoft Connected Cache&lt;br/&gt;（配置している場合のみ）&quot;]</span><br><span class="line">        DEV[&quot;💻 配布対象のデバイス&lt;br/&gt;🔶 配信の最適化&quot;]</span><br><span class="line">        PEER == &quot;ピア共有&quot; ==&gt; DEV</span><br><span class="line">        MCC -. &quot;拠点内のキャッシュから&quot; .-&gt; DEV</span><br><span class="line">    end</span><br><span class="line"></span><br><span class="line">    CDN -- &quot;インターネット経由で取得&quot; --&gt; DEV</span><br><span class="line"></span><br><span class="line">    style CLOUD fill:transparent,stroke:transparent</span><br><span class="line">    style LAN fill:#f3f3f3,stroke:#5f5f5f,stroke-width:2px</span><br><span class="line">    style CDN fill:#e6f2ff,stroke:#0078d4,stroke-width:2px</span><br><span class="line">    style PEER fill:#eaf7ea,stroke:#107c10,stroke-width:2px</span><br><span class="line">    style MCC fill:#ffffff,stroke:#107c10,stroke-width:2px,stroke-dasharray: 4 4</span><br><span class="line">    style DEV fill:#eaf7ea,stroke:#107c10,stroke-width:2px</span><br></pre></td></tr></table></figure>
+
+<p>うれしいことに、<strong>この機能は既定で有効になっています。</strong> Windows の既定のダウンロード モードは「同一 NAT 配下でのピア共有」となっており、同じ拠点にいるデバイス同士でコンテンツを分け合う動作が、特に設定をしなくても働くようになっています。</p>
+<p>とはいえ、環境によっては既定のままでは十分に効果が出ないこともあります。ここからは、Intune から調整できる代表的なポイントをご紹介します。</p>
+<p>設定は、Intune 管理センターの <strong>設定カタログ</strong> から構成できます。</p>
+<p><code>[デバイス] - [デバイスの管理] - [構成] - [作成] - [新しいポリシー]</code> - プラットフォーム: <code>Windows 10 以降</code> - プロファイルの種類: <code>設定カタログ</code></p>
+<p>ポリシーの <code>[構成設定]</code> で <code>[設定の追加]</code> を選び、<code>配信の最適化</code> の配下を確認すると、構成できる設定の一覧が表示されます。各設定の情報アイコン ⓘ からは説明を確認でき、<code>[詳細情報]</code> のリンクからその設定の公開情報を直接開けるのも便利なところです。</p>
+<p><img src="/blog/intune/20260904_01/image-26.png" alt="Intune の設定カタログでポリシーを作成し、「配信の最適化」カテゴリの設定一覧を表示した例"></p>
+<p>なお、<code>[テンプレート]</code> にも <code>[配信の最適化]</code> が用意されていますが、こちらも設定カタログと同じ設定形式へ置き換わっています。これから新しく作成される場合は、ほかの設定とまとめて管理しやすい設定カタログをご利用いただくのがおすすめです。</p>
+<ul>
+<li><p>Microsoft Intune で設定カタログを使用してポリシーを作成する<br><a href="https://learn.microsoft.com/ja-jp/intune/device-configuration/settings-catalog">https://learn.microsoft.com/ja-jp/intune/device-configuration/settings-catalog</a></p>
+</li>
+<li><p>Microsoft Intune での Windows 配信の最適化設定<br><a href="https://learn.microsoft.com/ja-jp/intune/device-configuration/templates/configure-delivery-optimization-windows">https://learn.microsoft.com/ja-jp/intune/device-configuration/templates/configure-delivery-optimization-windows</a></p>
+</li>
+</ul>
+<h3 id="調整できる主なポイント"><a href="#調整できる主なポイント" class="headerlink" title="調整できる主なポイント"></a>調整できる主なポイント</h3><p>配信の最適化には多くの設定がありますが、ネットワーク負荷という観点でよく検討されるのは、次のようなものです (括弧内は CSP 名)。</p>
+<ul>
+<li><p><strong>ピア共有の範囲を広げる &#x2F; 狭める</strong></p>
+<ul>
+<li>ダウンロード モード (DODownloadMode)</li>
+<li>グループ ID とそのソース (DOGroupId &#x2F; DOGroupIdSource)</li>
+<li>ピアの選択を制限する条件 (DORestrictPeerSelectionBy)</li>
+</ul>
+</li>
+<li><p><strong>使用する帯域そのものを抑える</strong></p>
+<ul>
+<li>最大ダウンロード帯域幅の絶対値 (DOMaxBackgroundDownloadBandwidth &#x2F; DOMaxForegroundDownloadBandwidth) と割合 (DOPercentageMaxBackgroundBandwidth &#x2F; DOPercentageMaxForegroundBandwidth)</li>
+<li>帯域幅を制限する時間帯 (DOSetHoursToLimitBackgroundDownloadBandwidth &#x2F; DOSetHoursToLimitForegroundDownloadBandwidth)</li>
+</ul>
+</li>
+<li><p><strong>ピアから取得できる機会を増やす</strong></p>
+<ul>
+<li>キャッシュの最大有効期間 (DOMaxCacheAge) ・ 最大サイズ (DOMaxCacheSize &#x2F; DOAbsoluteMaxCacheSize)</li>
+<li>ピア キャッシュの最小ファイル サイズ (DOMinFileSizeToCache)</li>
+</ul>
+</li>
+<li><p><strong>ピアやキャッシュ サーバーを探す時間を確保する</strong></p>
+<ul>
+<li>HTTP からのダウンロードの遅延 (DODelayBackgroundDownloadFromHttp &#x2F; DODelayForegroundDownloadFromHttp)</li>
+<li>キャッシュ サーバーへのフォールバックの遅延 (DODelayCacheServerFallbackBackground &#x2F; DODelayCacheServerFallbackForeground)</li>
+</ul>
+</li>
+<li><p><strong>拠点内のキャッシュ サーバーを使う</strong></p>
+<ul>
+<li>キャッシュ サーバーのホスト名 (DOCacheHost)</li>
+<li>そのソース (DOCacheHostSource)</li>
+</ul>
+</li>
+</ul>
+<p>このうち <strong>帯域に関する設定と、ピア・キャッシュ サーバーを待つ時間の設定は、バックグラウンド用とフォアグラウンド用がそれぞれ別の設定として用意されています。</strong> 設定の一覧で <code>バックグラウンド</code> <code>フォアグラウンド</code> という言葉が並んでいるのはこのためです。先ほどの割り当ての「配信の最適化の優先度」とセットで、<strong>どちらのモードで配信するアプリなのかを踏まえて、必要な側 (あるいは両方) を構成する</strong> ようにしてください。</p>
+<p>ひとつ例を挙げると、先ほどの既定のダウンロード モード (同一 NAT 配下でのピア共有) では、<strong>同じ拠点であっても、インターネットへの出口 (パブリック IP アドレス) が分かれている環境では、デバイス同士がピアとして認識されない</strong> ことがあります。このようなケースでは、グループ ID を使ったダウンロード モードが選択肢になります。</p>
+<p>どの設定をどう組み合わせるとよいかは、拠点のネットワーク構成やデバイスの台数によって変わってきます。Windows の公開情報には、<strong>ネットワーク トポロジーや組織の規模ごとの考え方と、推奨値の一覧</strong> がまとめられていますので、具体的な値を検討される際は、まずはこちらをご覧いただくのが近道です。ネットワーク管理者の方と相談される際の材料としてもご活用いただけます。</p>
+<ul>
+<li><p>Windows の配信の最適化を構成する (設定の考え方と推奨値)<br><a href="https://learn.microsoft.com/ja-jp/windows/deployment/do/delivery-optimization-configure">https://learn.microsoft.com/ja-jp/windows/deployment/do/delivery-optimization-configure</a></p>
+</li>
+<li><p>配信の最適化リファレンス (各設定の詳細と既定値)<br><a href="https://learn.microsoft.com/ja-jp/windows/deployment/do/waas-delivery-optimization-reference">https://learn.microsoft.com/ja-jp/windows/deployment/do/waas-delivery-optimization-reference</a></p>
+</li>
+</ul>
+<p>なお、<strong>配信の最適化そのものの動作 (ピアとして選ばれる条件や、帯域制御の実際の挙動など) は Windows OS の機能によるもの</strong> です。そのため、配信の最適化自体の動作を掘り下げる場合は、Windows の観点での調査が必要となりますので、ご注意ください。</p>
+<h3 id="拠点内にキャッシュを置く-―-Microsoft-Connected-Cache"><a href="#拠点内にキャッシュを置く-―-Microsoft-Connected-Cache" class="headerlink" title="拠点内にキャッシュを置く ― Microsoft Connected Cache"></a>拠点内にキャッシュを置く ― Microsoft Connected Cache</h3><p>ピア共有だけでは足りない、あるいは「もっと確実に拠点内で配信を完結させたい」という場合の選択肢が、<strong>Microsoft Connected Cache</strong> です。拠点内に置いたキャッシュ ノードが一度取得したコンテンツを保持し、2 台目以降のデバイスへは拠点内から配信する、という仕組みです。ピア共有との併用もできます。</p>
+<p>Intune で管理しているデバイスから利用する場合は、配信の最適化の <strong>キャッシュ サーバーのホスト名 (DOCacheHost)</strong> の設定でキャッシュ ノードを指定します。この設定も、先ほどの設定カタログのポリシーから配布できます。キャッシュ ノードが利用できないときは CDN へフォールバックするため、「キャッシュ ノードが止まったらアプリが配布できなくなる」という心配は不要です。</p>
+<p>小規模な拠点であれば Windows 11 のクライアント デバイスへ、大規模な拠点であればサーバーへと、規模に応じて展開できます。すでに Configuration Manager をご利用の場合は、既存の配布ポイント上で有効化する形も選べます。</p>
+<ul>
+<li><p>Microsoft Connected Cache for Enterprise and Education の概要<br><a href="https://learn.microsoft.com/ja-jp/windows/deployment/do/mcc-ent-edu-overview">https://learn.microsoft.com/ja-jp/windows/deployment/do/mcc-ent-edu-overview</a></p>
+</li>
+<li><p>Configuration Manager での Microsoft Connected Cache<br><a href="https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/hierarchy/microsoft-connected-cache">https://learn.microsoft.com/ja-jp/intune/configmgr/core/plan-design/hierarchy/microsoft-connected-cache</a></p>
+</li>
+</ul>
+<h2 id="おわりに"><a href="#おわりに" class="headerlink" title="おわりに"></a>おわりに</h2><p>今回は、Intune から Win32 アプリを配布する際のネットワーク負荷を抑える方法について、割り当ての設定と配信の最適化の両面からご紹介しました。最後に、要点をまとめておきます。</p>
+<ul>
+<li>Win32 アプリのコンテンツのダウンロードには <strong>Windows の配信の最適化</strong> が使われており、その機能をそのまま活用できる</li>
+<li><strong>割り当ての設定</strong> では、グループを分けて段階的に割り当て、<strong>可用性の時刻をずらす</strong> ことでダウンロードのタイミングを分散できる</li>
+<li><strong>配信の最適化の設定</strong> では、<strong>ダウンロード モード・帯域幅・キャッシュ</strong> によって「どこから」「どのくらいの帯域で」取得するかを制御できる (帯域の上限は既定では設定されていないため、抑えたい場合は明示的な構成が必要)</li>
+<li>拠点内での配信を確実にしたい場合は、<strong>Microsoft Connected Cache</strong> も選択肢になる</li>
+<li>そして何より、<strong>配布を始める前にネットワーク管理者の方と相談しておく</strong> こと</li>
+</ul>
+<p>大きなアプリの一斉配布は、ちょっと身構えてしまう作業かもしれません。ですが、「いつ」「どのデバイスが」「どこから」コンテンツを取得するのかを整理して考えれば、打てる手は意外とたくさんあります。ぜひ、次の配布計画に取り入れてみてください。</p>
+<p>次回以降も、みなさまの運用に役立つ情報をお届けしていきます。最後までお読みいただき、ありがとうございました。</p>
+
+      
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li></ul>
+
+        
+        <a href="https://github.com/jpintune/blog/edit/master/articles/intune/20260904_01.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../20260831_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">Intune のトラブル解決が早くなる。知っておきたい iOS/iPadOS との &#34;役割分担&#34; - 基本編</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="">回線の逼迫を防ぐために。Intune から Win32 アプリを配布するときのネットワーク負荷を抑えるコツ</a>
+          </li>
+        
+          <li>
+            <a href="../20260831_01/">Intune のトラブル解決が早くなる。知っておきたい iOS/iPadOS との &#34;役割分担&#34; - 基本編</a>
+          </li>
+        
+          <li>
+            <a href="../20260821_01/">Intune で Windows Update を管理するポリシーの使い分け</a>
+          </li>
+        
+          <li>
+            <a href="../20260818_01/">Intune のトラブル解決が早くなる。知っておきたい &#34;役割分担&#34; - Win32 アプリ編</a>
+          </li>
+        
+          <li>
+            <a href="../20260803_01/">グループ ポリシーに対応する Intune の設定を見つける方法</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <!-- <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li></ul>  -->
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/">Intune</a><span class="tag-list-count">8</span><ul></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/09/">2026 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/08/">2026 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/07/">2026 / 07</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="../../tags/Intune/" style="font-size: 10px;">Intune</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2026 Japan Microsoft Intune Support Team<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+<!-- hexo injector body_end start -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script>
+(function () {
+  var KEYS = /^(flowchart|graph|sequenceDiagram|classDiagram|stateDiagram(-v2)?|erDiagram|gantt|pie|journey|gitGraph|mindmap|timeline|quadrantChart|requirementDiagram|C4Context|xychart-beta|sankey-beta)\b/;
+  function render() {
+    var blocks = document.querySelectorAll('figure.highlight, pre > code');
+    var targets = [];
+    blocks.forEach(function (el) {
+      var fig = el.closest('figure.highlight') || el;
+      if (fig.dataset && fig.dataset.mermaidDone) return;
+      var codeCell = fig.querySelector('.code') || fig;
+      var lines = codeCell.querySelectorAll('.line');
+      var text = lines.length
+        ? Array.prototype.map.call(lines, function (s) { return s.textContent; }).join('\n')
+        : codeCell.textContent;
+      if (!KEYS.test(text.trim())) return;
+      var pre = document.createElement('pre');
+      pre.className = 'mermaid';
+      pre.textContent = text;
+      fig.parentNode.replaceChild(pre, fig);
+      targets.push(pre);
+    });
+    if (targets.length && window.mermaid) {
+      window.mermaid.initialize({ startOnLoad: false, securityLevel: 'loose', theme: 'default' });
+      window.mermaid.run({ nodes: targets });
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', render);
+  } else {
+    render();
+  }
+})();
+</script>
+<style>
+pre.mermaid { background: none; border: none; text-align: center; overflow-x: auto; }
+</style>
+<!-- hexo injector body_end end --></body>
+</html>
