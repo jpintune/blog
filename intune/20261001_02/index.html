@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hybrid Entra Join 環境で Intune 登録が行われないとき ― エラー コード別のトラブルシューティング | Japan Microsoft Intune Support Team Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="みなさま、こんにちは。Intune サポート チームです。 前回は、Hybrid Entra Join (Microsoft Entra ハイブリッド参加) 環境でグループ ポリシーによる自動登録がうまくいかないときに、「どこを、どの順番で確認するか」 を 3 つのステップに整理してご紹介しました。  Hybrid Entra Join 環境で Intune 登録が行われないときの確認ポイントht">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hybrid Entra Join 環境で Intune 登録が行われないとき ― エラー コード別のトラブルシューティング">
+<meta property="og:url" content="https://jpintune.github.io/blog/intune/20261001_02/index.html">
+<meta property="og:site_name" content="Japan Microsoft Intune Support Team Blog">
+<meta property="og:description" content="みなさま、こんにちは。Intune サポート チームです。 前回は、Hybrid Entra Join (Microsoft Entra ハイブリッド参加) 環境でグループ ポリシーによる自動登録がうまくいかないときに、「どこを、どの順番で確認するか」 を 3 つのステップに整理してご紹介しました。  Hybrid Entra Join 環境で Intune 登録が行われないときの確認ポイントht">
+<meta property="og:locale" content="ja_JP">
+<meta property="article:published_time" content="2026-09-30T15:00:00.000Z">
+<meta property="article:modified_time" content="2026-10-01T02:30:43.275Z">
+<meta property="article:author" content="Japan Microsoft Intune Support Team">
+<meta property="article:tag" content="Intune">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="../../blog/atom.xml" title="Japan Microsoft Intune Support Team Blog" type="application/atom+xml">
+  
+
+  <link rel="icon" href="./favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="../../css/style.css">
+
+<!-- hexo injector head_end start --><script>(function(){var r="/blog/";document.querySelectorAll("link[rel~=\"icon\"],link[rel=\"apple-touch-icon\"],link[rel=\"apple-touch-icon-precomposed\"],link[rel=\"mask-icon\"],link[rel=\"manifest\"]").forEach(function(l){var h=l.getAttribute("href");if(h&&h.indexOf("./")===0){l.setAttribute("href",r+h.slice(2));}});})();</script><style>#site-header-blog-wrapper{background-color:#484644;}</style><style>.article-github-issue-link,.article-github-edit-link{display:none !important;}</style><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="site-header-logo"></div>
+  <div id="site-header-blog-wrapper"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        <div id="ms-logo"></div>
+        
+          <a class="main-nav-link" href="../../index.html">Home</a>
+        
+          <a class="main-nav-link" href="../../archives">Archives</a>
+        
+        <a class="main-nav-link" href="https://cssjpn.github.io/">サポート情報</a>
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="../../blog/atom.xml" title="RSSフィード"></a>
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//www.bing.com/search" method="get" accept-charset="UTF-8" name="bing-search" onsubmit="var f=this;if(f['q'].value){var searchUrl =  'https://www.bing.com/search?q=' +  encodeURIComponent(f['q'].value + ' site:' + f['sitesearch'].value) ;window.open(searchUrl, 'blank') };return false;" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="検索"><button type="submit" id="nav-search-btn" class="search-form-submit"></button><input type="hidden" name="sitesearch" value="https://jpintune.github.io/blog"></form>
+      </div>
+    </div>
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="../../index.html" id="logo">Japan Microsoft Intune Support Team Blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="../../index.html" id="subtitle">日本マイクロソフトの Microsoft Intune に関するサポート情報のブログです。</a>
+        </h2>
+      
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-intune/20261001_02" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+    
+      <header class="article-header-single">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Hybrid Entra Join 環境で Intune 登録が行われないとき ― エラー コード別のトラブルシューティング
+    </h1>
+  
+
+      </header>
+      <div class="article-share">
+        Last Update: 
+        <a href="" class="article-date-single">
+  <time datetime="2026-09-30T15:00:00.000Z" itemprop="datePublished">2026-10-01</time>
+</a>
+        
+        
+        <a href="https://github.com/jpintune/blog/issues/new?title=&body=%0A%0A---%0A%0A%23%23%23%23+Document+Details%0A%0A%E2%9A%A0+*Do+not+edit+this+section.%0A%0A*+ID%3A+83079004-ce6b-5937-8b66-071d46a8c9ca%0A*+%E5%AF%BE%E8%B1%A1%E8%A8%98%E4%BA%8B%3A+%5BHybrid+Entra+Join+%E7%92%B0%E5%A2%83%E3%81%A7+Intune+%E7%99%BB%E9%8C%B2%E3%81%8C%E8%A1%8C%E3%82%8F%E3%82%8C%E3%81%AA%E3%81%84%E3%81%A8%E3%81%8D+%E2%80%95+%E3%82%A8%E3%83%A9%E3%83%BC+%E3%82%B3%E3%83%BC%E3%83%89%E5%88%A5%E3%81%AE%E3%83%88%E3%83%A9%E3%83%96%E3%83%AB%E3%82%B7%E3%83%A5%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0%5D%28https%3A%2F%2Fjpintune.github.io%2Fblog%2Fintune%2F20261001_02%2F%29%0A*+Content+Source%3A+%5Barticles%2Fintune%2F20261001_02.md%5D%28https%3A%2F%2Fgithub.com%2Fjpintune%2Fblog%2Fblob%2Fmaster%2Farticles%2Fintune%2F20261001_02.md%29%0A*+Author%3A+" class="article-github-issue-link" target="_blank" rel="noopener noreferrer">feedback</a>
+        
+        <a data-url="https://jpintune.github.io/blog/intune/20261001_02/" data-id="cuidttTzc4TEpWl97Nsph1zS2" class="article-share-link">共有</a>
+      </div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>みなさま、こんにちは。Intune サポート チームです。</p>
+<p>前回は、Hybrid Entra Join (Microsoft Entra ハイブリッド参加) 環境でグループ ポリシーによる自動登録がうまくいかないときに、<strong>「どこを、どの順番で確認するか」</strong> を 3 つのステップに整理してご紹介しました。</p>
+<ul>
+<li>Hybrid Entra Join 環境で Intune 登録が行われないときの確認ポイント<br><a href="https://jpintune.github.io/blog/intune/20261001_01/">https://jpintune.github.io/blog/intune/20261001_01/</a></li>
+</ul>
+<p>おさらいすると、この構成で登録が動くには <strong>① Hybrid Entra Join の完了</strong> と <strong>② グループ ポリシーの適用</strong> の 2 つがそろう必要があり、その結果は <strong>③ 自動登録タスク</strong> の実行を経て、最終的に次のイベント ログに現れます。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[アプリケーションとサービス ログ] - [Microsoft] - [Windows]</span><br><span class="line">  - [DeviceManagement-Enterprise-Diagnostics-Provider] - [Enrollment]</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>イベント ID</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>75</td>
+<td>自動登録に成功</td>
+</tr>
+<tr>
+<td>76</td>
+<td>自動登録に失敗。<strong>末尾のカッコ内のエラー コードが原因特定の最大の手がかり</strong></td>
+</tr>
+</tbody></table>
+<p>今回はその続きとして、<strong>イベント ID 76 で得られたエラー コードから原因を絞り込み、対処するまで</strong> をご紹介します。「エラー コードは取れたものの、そこから先をどう調べればよいか分からない」というときに、お手元でご活用いただければ幸いです。</p>
+<p>なお、<strong>イベント ID 75 も 76 もまったく記録されない</strong> というケースもあります。こちらも本記事で扱いますので、あわせてご確認ください。</p>
+<h2 id="エラー-コードから原因を絞り込む"><a href="#エラー-コードから原因を絞り込む" class="headerlink" title="エラー コードから原因を絞り込む"></a>エラー コードから原因を絞り込む</h2><p>ここからは、イベント ID 76 で得られた結果に応じて確認していく内容です。<strong>順番に実施するものではなく、症状に応じて該当する項目をご覧ください。</strong></p>
+<p>主だったエラーについて下記にまとめました。まずは次の早見表から、お手元で確認できた症状に該当する行をお探しください。</p>
+<table>
+<thead>
+<tr>
+<th>症状 &#x2F; エラー コード</th>
+<th>内部名</th>
+<th>原因と次に確認すること</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>0x80180014</code></td>
+<td>MENROLL_E_DEVICENOTSUPPORTED</td>
+<td>登録の制限でブロックされている。<strong>Intune 管理センター</strong> - <code>[デバイス] - [登録] - [Windows] - [デバイス プラットフォームの制限]</code> で登録が制限されるような設定が行われていないかを確認</td>
+</tr>
+<tr>
+<td><code>0x80180018</code></td>
+<td>MENROLL_E_USERLICENSE</td>
+<td>Intune ライセンスが未割り当て。<strong>Microsoft 365 管理センター</strong> で対象ユーザーへの割り当てを確認</td>
+</tr>
+<tr>
+<td><code>0x8018002A</code></td>
+<td>MENROLL_E_USER_CANCELED</td>
+<td>サイレントなトークン取得が完了できなかった → <strong>症状 ①</strong></td>
+</tr>
+<tr>
+<td><strong>イベント ID 75 も 76 も記録されていない</strong> (タスクが作成されない場合も含む)</td>
+<td>―</td>
+<td>過去の登録情報の残骸 → <strong>症状 ②</strong></td>
+</tr>
+<tr>
+<td><code>0x8018000A</code></td>
+<td>MENROLL_E_DEVICE_ALREADY_ENROLLED</td>
+<td>デバイスが既に登録済みと判定されている → <strong>症状 ②</strong></td>
+</tr>
+<tr>
+<td><code>0x80180026</code></td>
+<td>MENROLL_E_DEVICE_MANAGEMENT_BLOCKED</td>
+<td>外部管理フラグなどで登録がブロックされている → <strong>症状 ③</strong></td>
+</tr>
+<tr>
+<td><code>0x83750005</code> (<strong>イベント ID 56</strong> も記録される)</td>
+<td>WEB_E_UNEXPECTED_CONTENT</td>
+<td>構成の検証に使う <code>ValidNodePaths</code> が欠損・破損している → <strong>症状 ④</strong></td>
+</tr>
+<tr>
+<td><code>0x80190190</code> (メッセージは <code>Bad request (400).</code>)</td>
+<td>HTTP_E_STATUS_BAD_REQUEST</td>
+<td>過去の登録処理のフラグが残っている → <strong>症状 ⑤</strong></td>
+</tr>
+</tbody></table>
+<p><strong><code>0x80180014</code> &#x2F; <code>0x80180018</code> は、テナント側の設定不備がそのまま現れたもの</strong> です。「デバイス側は正しく動いているが、テナント側で弾かれている」状態ですので、表に記載の管理センターをご確認ください。</p>
+<p>その他にも一般的なエラーについて、下記の公開情報で紹介をしておりますので、上記に該当するものがない場合、こちらも参考にしてみてください。</p>
+<ul>
+<li>Intune での Windows デバイスの登録エラーのトラブルシューティング<br><a href="https://learn.microsoft.com/ja-jp/troubleshoot/mem/intune/device-enrollment/troubleshoot-windows-enrollment-errors">https://learn.microsoft.com/ja-jp/troubleshoot/mem/intune/device-enrollment/troubleshoot-windows-enrollment-errors</a></li>
+</ul>
+<h2 id="症状-①：エラー-コード-0x8018002A-―-多要素認証-MFA-の要求"><a href="#症状-①：エラー-コード-0x8018002A-―-多要素認証-MFA-の要求" class="headerlink" title="症状 ①：エラー コード 0x8018002A ― 多要素認証 (MFA) の要求"></a>症状 ①：エラー コード <code>0x8018002A</code> ― 多要素認証 (MFA) の要求</h2><p>イベント ID 76 のエラー コードが <strong><code>0x8018002A</code></strong> だった場合、まず疑っていただきたいのが <strong>多要素認証 (MFA) の要求</strong> です。条件付きアクセス (Conditional Access) によるものと、ユーザー単位で設定する従来型のものと、どちらでも発生します。</p>
+<p>Hybrid Entra Join 環境の自動登録がうまくいかない原因として、実際によく遭遇するパターンです。</p>
+<h3 id="なぜ-MFA-が問題になるのか"><a href="#なぜ-MFA-が問題になるのか" class="headerlink" title="なぜ MFA が問題になるのか"></a>なぜ MFA が問題になるのか</h3><p>グループ ポリシーによる自動登録は、<strong>PRT (Primary Refresh Token) を使ってサイレントに (ユーザーに何も聞かずに) トークンを取得</strong> して処理を進めます。このとき、対象ユーザーに対して MFA が要求されていると、<strong>追加の認証操作が必要になるため、サイレントなトークン取得を完了できません。</strong></p>
+<p>その結果、デバイス上には「管理者による変更が必要です」といった趣旨のトースト通知が表示され、ユーザーがそれに気づかず放置されるとタイムアウトし、最終的に <strong><code>0x8018002A</code> (<code>MENROLL_E_USER_CANCELED</code>)</strong> というエラーで失敗します。</p>
+<p>エラー名に “USER_CANCELED” と入っているため「ユーザーが操作をキャンセルした」と読めてしまうのですが、実際にはユーザーが意図的にキャンセルしたとは限らない、という点が切り分けを難しくしています。</p>
+<h3 id="見分け方のヒント"><a href="#見分け方のヒント" class="headerlink" title="見分け方のヒント"></a>見分け方のヒント</h3><p>この事象には、次のような分かりやすい特徴があります。</p>
+<ul>
+<li>失敗するデバイスで、イベント ID 76 のエラー コードが <code>0x8018002A</code> になっている</li>
+<li>デバイス上にサインインを促すトースト通知が表示された形跡がある</li>
+</ul>
+<p><strong>決め手になるのが、Microsoft Entra ID 側のログとの突き合わせ</strong> です。次のログをあわせてご確認ください。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[アプリケーションとサービス ログ] - [Microsoft] - [Windows]</span><br><span class="line">  - [AAD] - [Operational]</span><br></pre></td></tr></table></figure>
+
+<p>Intune 登録が失敗したタイミングで、次のようなエラーが記録されていれば、MFA の要求が原因であることがほぼ確定します。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">エラー: 0xCAA2000C 要求にはユーザーの操作が必要です。</span><br><span class="line">コード: interaction_required</span><br><span class="line">説明: AADSTS50076: 管理者によって行われた構成の変更、または新しい場所に移動したために、</span><br><span class="line">      多要素認証を使用してアクセスする必要があります。</span><br></pre></td></tr></table></figure>
+
+<p><code>interaction_required</code> (ユーザーの操作が必要) というコードが、<strong>「サイレントに処理を完了できなかった」</strong> という状況をそのまま表しています。デバイス側の <code>0x8018002A</code> と、この <code>AADSTS50076</code> が同じタイミングで記録されていれば、まず間違いありません。</p>
+<p>「特定のユーザーだけ登録できない」という状況であれば、<strong>ユーザーに適用されている条件付きアクセス ポリシーの差</strong> を確認してみてください。確認の際は、Microsoft Entra 管理センターのサインイン ログで、対象ユーザーの認証が MFA 要求によって中断されていないかをご確認いただくのが確実です。</p>
+<p>この症状については、下記の公開情報でも紹介をしています。</p>
+<ul>
+<li>共同管理のトラブルシューティング: 既存の Configuration Manager マネージド デバイスを Intune に自動登録する<br><a href="https://learn.microsoft.com/ja-jp/troubleshoot/mem/intune/comanage-configmgr/troubleshoot-co-management-auto-enrolling#microsoft-entra-hybrid-joined-devices-fail-to-enroll-and-generate-error-0x8018002a">https://learn.microsoft.com/ja-jp/troubleshoot/mem/intune/comanage-configmgr/troubleshoot-co-management-auto-enrolling#microsoft-entra-hybrid-joined-devices-fail-to-enroll-and-generate-error-0x8018002a</a></li>
+</ul>
+<blockquote>
+<p><strong>💡 共同管理向けの公開情報ですが、原因は同じです</strong><br>上記は Configuration Manager との共同管理環境を対象とした情報ですが、<strong>「PRT を使ったサイレントな登録が MFA 要求で中断される」という原因そのものは、グループ ポリシーによる自動登録でも共通</strong> です。記載されている現象・エラー コード・回避策は、本記事の構成でもそのまま参考にしていただけます。</p>
+</blockquote>
+<h2 id="症状-②：イベント-ID-75-76-が記録されない-―-登録をブロックする「レジストリの残骸」"><a href="#症状-②：イベント-ID-75-76-が記録されない-―-登録をブロックする「レジストリの残骸」" class="headerlink" title="症状 ②：イベント ID 75 &#x2F; 76 が記録されない ― 登録をブロックする「レジストリの残骸」"></a>症状 ②：イベント ID 75 &#x2F; 76 が記録されない ― 登録をブロックする「レジストリの残骸」</h2><p>「グループ ポリシーは適用されている」「なのにイベント ID 75 も 76 も記録されず、何も起こらない」。この、いちばんもどかしいパターンの正体が <strong>過去の MDM 登録情報の残骸</strong> であることが少なくありません。</p>
+<p>一見すると「エラーすら出ていない」ように見えますが、<strong>実際には内部でエラーが発生しています。</strong> ただしそれがイベント ID 75 &#x2F; 76 には現れないため、「何も起きていない」と判断してしまいがちです。</p>
+<h3 id="なぜ-75-76-が記録されないのか"><a href="#なぜ-75-76-が記録されないのか" class="headerlink" title="なぜ 75 &#x2F; 76 が記録されないのか"></a>なぜ 75 &#x2F; 76 が記録されないのか</h3><p>Windows は自動登録を実行する前に「このデバイスは既に MDM に登録済みか？」を確認します。ここで <strong>既に登録済みと判定されると、その時点で処理を打ち切ります</strong>。</p>
+<p>このとき重要なのが、<strong>打ち切りが「エラー コードを返して即座に抜ける」形で行われる</strong> という点です。その結果、<strong>イベント ID 75 &#x2F; 76 を書き出す処理まで到達しません</strong>。「エラーが起きていないから何も出ない」のではなく、<strong>エラー自体は発生しているが、75 &#x2F; 76 には現れない</strong> というのが実態です。</p>
+<p>具体的には、次のエラー コードが返されています。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2149056522 (0x8018000A)  =  デバイスが既に MDM に登録済み</span><br></pre></td></tr></table></figure>
+
+<p>この判定に使われるのが <code>HKLM\SOFTWARE\Microsoft\Enrollments</code> 配下のレジストリです。通常、登録解除時にこれらのエントリは削除されますが、<strong>何らかの理由でキーが残ってしまうことがあります</strong>。過去に別の MDM 製品をご利用だった場合や、登録解除が正常に完了しなかった場合などが該当します。</p>
+<h3 id="確認は「レジストリを直接見る」のが確実です"><a href="#確認は「レジストリを直接見る」のが確実です" class="headerlink" title="確認は「レジストリを直接見る」のが確実です"></a>確認は「レジストリを直接見る」のが確実です</h3><p>この事象に該当するかどうかは、<strong>判定に使われているレジストリそのものを確認するのが最短</strong> です。後述の「登録情報の『残骸』を確認する」で、具体的な確認方法をご紹介します。</p>
+<p>そのうえで、<strong>エラー コードが実際に出ていることを裏付けたい場合</strong> は、タスク スケジューラーの <strong><code>前回の実行結果</code></strong> 列をご確認ください。タスクが作成されている場合、ここに <code>2149056522 (0x8018000A) </code> と表示されます。<strong>追加の設定なしで確認できます。</strong></p>
+<p>なお、この判定が起きるとタスク自体が削除される場合もあるため、<strong>「一度は動いた形跡があるのにタスクが消えている」</strong> という状態になることがあります。</p>
+<p>また、<strong>グループ ポリシーが適用された時点で既に残骸があると、そもそも登録タスクが作成されない場合があります。</strong> この場合はタスク スケジューラー側に手がかりが残りませんので、<strong>タスクの有無にかかわらず、レジストリをご確認ください。</strong></p>
+<h3 id="登録情報の「残骸」を確認する"><a href="#登録情報の「残骸」を確認する" class="headerlink" title="登録情報の「残骸」を確認する"></a>登録情報の「残骸」を確認する</h3><p><code>HKLM\SOFTWARE\Microsoft\Enrollments</code> 配下には GUID 名のキーが複数並んでいることが多く、どれが現在有効な登録で、どれが残骸なのか判断に迷うところです。</p>
+<p>見分ける鍵は <strong><code>DiscoveryServiceFullURL</code> という値の有無</strong> です。この値を持つキーは、実際に MDM サービスと通信するための情報を保持している「生きている登録」を示します。</p>
+<p>次の PowerShell コマンドで、<code>DiscoveryServiceFullURL</code> を持つ Enrollment ID を抽出できます。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Get-ChildItem</span> HKLM:\Software\Microsoft\Enrollments |</span><br><span class="line">    <span class="built_in">ForEach-Object</span> &#123; <span class="built_in">Get-ItemProperty</span> <span class="variable">$_</span>.PSPath &#125; |</span><br><span class="line">    <span class="built_in">Where-Object</span> &#123; <span class="variable">$_</span>.DiscoveryServiceFullURL &#125; |</span><br><span class="line">    <span class="built_in">ForEach-Object</span> &#123; <span class="variable">$_</span>.PSChildName &#125;</span><br></pre></td></tr></table></figure>
+
+<p>実行結果の例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">17ABFAA0-BE06-422E-AB1C-DBDCCBA8D4B6</span><br></pre></td></tr></table></figure>
+
+<p>このコマンドで GUID が出力された場合、<strong>Windows はそのデバイスを「MDM に登録済み」と認識している</strong> ということです。Intune 管理センターに該当のデバイスが存在しないにもかかわらず GUID が出力される場合、<strong>それが自動登録をブロックしている残骸である可能性があります。</strong></p>
+<h3 id="特に確認したい「ダミーの登録情報」"><a href="#特に確認したい「ダミーの登録情報」" class="headerlink" title="特に確認したい「ダミーの登録情報」"></a>特に確認したい「ダミーの登録情報」</h3><p>残骸のなかでも特徴的なのが、<code>FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF</code> という、すべて F で構成された GUID のキーです。</p>
+<p>このキーは自然に発生したものではなく、<strong>ドメインに参加していないデバイスに対して一部のポリシーを適用させる目的で、意図的に構成されることがある</strong> ものです。Windows からは「MDM に登録済み」と認識されるため、当然ながら Intune への自動登録もスキップされてしまいます。</p>
+<blockquote>
+<p><strong>⚠️ 削除する前に必ずご確認ください</strong><br>このキーは、<strong>過去に何らかの意図をもって構成された可能性があります</strong>。削除するとそれまで適用されていた設定が効かなくなる場合がありますので、<strong>削除の前に、そのような構成を行っていないか社内の運用担当の方にご確認ください。</strong></p>
+</blockquote>
+<h3 id="残骸を削除する場合-―-公開されている手順をご利用ください"><a href="#残骸を削除する場合-―-公開されている手順をご利用ください" class="headerlink" title="残骸を削除する場合 ― 公開されている手順をご利用ください"></a>残骸を削除する場合 ― 公開されている手順をご利用ください</h3><p>意図的な構成でないことが確認でき、残骸として削除する場合は、<strong>Azure &amp; Identity サポート チームが公開している次の記事の手順をご利用ください。</strong></p>
+<ul>
+<li>Microsoft Entra ハイブリッド参加デバイスを再構成する (Japan Azure Identity Support Blog)<br><a href="https://jpazureid.github.io/blog/azure-active-directory/haadj-re-registration/">https://jpazureid.github.io/blog/azure-active-directory/haadj-re-registration/</a></li>
+</ul>
+<p>この記事の <strong>「2. 事前準備: Intune の登録解除」</strong> に、<strong>削除対象のレジストリを PowerShell でまとめて処理する手順</strong> が掲載されています。前述の <code>DiscoveryServiceFullURL</code> で Enrollment ID を特定するコマンドから、関連するレジストリ (<code>Enrollments</code> &#x2F; <code>EnterpriseResourceManager</code> &#x2F; <code>PolicyManager</code> &#x2F; <code>Provisioning\OMADM</code> など) の削除、さらに <strong>登録タスクの削除</strong> までが一連の流れとして整理されています。</p>
+<p>手作業でレジストリ エディターから 1 つずつ削除するよりも、<strong>確実で、削除漏れも起きにくい</strong> 手順です。<strong>残骸の削除だけが目的であれば、この「2.」の手順のみを実施いただければ十分です。</strong></p>
+<blockquote>
+<p><strong>⚠️ 作業前に必ずレジストリのバックアップを取得してください。</strong><br>レジストリの編集は、誤るとシステムが正常に動作しなくなるおそれがあります。まずは 1 台のデバイスで動作を確認したうえで、展開されることをおすすめします。</p>
+</blockquote>
+<p>削除後にデバイスを再起動し、あらためて <code>gpupdate /force</code> を実行すると、自動登録タスクが起動するようになります。</p>
+<blockquote>
+<p><strong>💡 Hybrid Entra Join 自体の再構成が必要な場合も</strong><br>上記の記事は本来、<strong>Hybrid Entra Join (MEHJ) をデバイス上で再構成するための手順</strong> です。前編のステップ ① で <code>AzureAdJoined</code> や <code>AzureAdPrt</code> に問題が見つかっていた場合など、<strong>登録の土台からやり直したいケースでは、記事の手順を最後まで通して実施</strong> いただくことで解決できることがあります。</p>
+</blockquote>
+<p>なお、残骸が広範に残っている場合や、削除後も改善しない場合は、<strong>デバイスを初期化して再展開するほうが結果的に確実で早い</strong> ケースもあります。対象デバイスの台数や重要度に応じて、ご判断ください。</p>
+<h2 id="症状-③：エラー-コード-0x80180026-―-「外部管理」フラグが残っている"><a href="#症状-③：エラー-コード-0x80180026-―-「外部管理」フラグが残っている" class="headerlink" title="症状 ③：エラー コード 0x80180026 ― 「外部管理」フラグが残っている"></a>症状 ③：エラー コード <code>0x80180026</code> ― 「外部管理」フラグが残っている</h2><p>症状 ② と同じく <strong>レジストリが登録をブロックしている</strong> パターンですが、こちらは <strong>イベント ID 76 にエラー コードが記録される</strong> 点が異なります。</p>
+<p>イベント ID 76 のエラー コードが <strong><code>0x80180026</code> (<code>MENROLL_E_DEVICE_MANAGEMENT_BLOCKED</code>)</strong> だった場合、Windows が <strong>「このデバイスは別の仕組みで管理されている」と判断している</strong> 可能性があります。</p>
+<h3 id="確認するレジストリ"><a href="#確認するレジストリ" class="headerlink" title="確認するレジストリ"></a>確認するレジストリ</h3><p>Windows は登録処理の前に「そもそも MDM 登録が許可されているか」を確認しており、次の <strong>2 つの値のどちらかが <code>0 以外</code></strong> だと、その時点で登録を拒否します。</p>
+<table>
+<thead>
+<tr>
+<th>キー</th>
+<th>値</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>HKLM\SOFTWARE\Microsoft\Enrollments</code></td>
+<td><code>ExternallyManaged</code></td>
+<td>デバイスが<strong>外部の仕組みで管理されている</strong>とマークされている</td>
+</tr>
+<tr>
+<td><code>HKLM\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\MDM</code></td>
+<td><code>DisableRegistration</code></td>
+<td>ポリシーで MDM 登録そのものが無効化されている</td>
+</tr>
+</tbody></table>
+<p>いずれも <strong>値が存在しない、または <code>0</code></strong> であることが正常な状態です。</p>
+<h3 id="なぜ-ExternallyManaged-が残るのか"><a href="#なぜ-ExternallyManaged-が残るのか" class="headerlink" title="なぜ ExternallyManaged が残るのか"></a>なぜ <code>ExternallyManaged</code> が残るのか</h3><p>この値は、<strong>サード パーティ製の MDM やデバイス管理エージェントが「このデバイスは自分が管理している」と宣言するために設定する</strong> ものです。Windows 側にはこの値を設定するための API が用意されており、外部の管理製品から呼び出せるようになっています。</p>
+<p>そのため、<strong>過去に別の管理製品を導入していたデバイス</strong> で、アンインストール時にこの値が戻されないまま残ってしまう、というケースが起こり得ます。症状 ② の「登録情報の残骸」と発生要因はよく似ています。</p>
+<h3 id="対処"><a href="#対処" class="headerlink" title="対処"></a>対処</h3><p>意図的に設定されたものでないことを確認したうえで、<strong>値を <code>0</code> に変更する (または値自体を削除する)</strong> ことで登録が可能になります。</p>
+<blockquote>
+<p><strong>⚠️ 削除前に「本当に不要か」をご確認ください</strong><br>現在も稼働中のサード パーティ製 MDM がこの値を設定している場合、削除するとその製品の動作に影響する可能性があります。<strong>その管理製品を既に利用していないこと</strong> を確認したうえで実施してください。判断がつかない場合は、当該製品の提供元へご確認いただくことをおすすめします。</p>
+</blockquote>
+<p>変更後に <code>gpupdate /force</code> を実行すると、確実に登録タスクの実行を試行することが出来ます。</p>
+<h2 id="症状-④：エラー-コード-0x83750005-―-ValidNodePaths-の欠損・破損"><a href="#症状-④：エラー-コード-0x83750005-―-ValidNodePaths-の欠損・破損" class="headerlink" title="症状 ④：エラー コード 0x83750005 ― ValidNodePaths の欠損・破損"></a>症状 ④：エラー コード <code>0x83750005</code> ― <code>ValidNodePaths</code> の欠損・破損</h2><p>こちらもレジストリに起因する問題で、<code>HKLM\SOFTWARE\Microsoft\Enrollments\ValidNodePaths</code> 配下のレジストリが欠損していたり、破損している場合に発生します。</p>
+<p>このキーの配下には <code>NodePath1</code>、<code>NodePath2</code>… という値が並んでおり、それぞれに <code>certificatestore</code>、<code>application</code>、<code>registry</code> といった <strong>構成項目の名前</strong> が格納されています。</p>
+<p>ここの構成項目の情報が欠損していたり、破損していると Windows は「想定外の内容が含まれている」と判断し、<strong><code>0x83750005</code> (<code>WEB_E_UNEXPECTED_CONTENT</code>)</strong> エラーで登録処理を中止してしまいます。</p>
+<h3 id="該当するイベント-ログ"><a href="#該当するイベント-ログ" class="headerlink" title="該当するイベント ログ"></a>該当するイベント ログ</h3><p>このケースでは、イベント ID 76 に加えて <strong>イベント ID 56</strong> が記録されます。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[イベント ID 56]</span><br><span class="line">MDM Enroll: Failed to parse server provisioning XML. Result: (CertificateStore:0x83750005).</span><br><span class="line"></span><br><span class="line">[イベント ID 76]</span><br><span class="line">Auto MDM Enroll: Device Credential (0x0), Failed (Unexpected content.) (0x83750005)</span><br></pre></td></tr></table></figure>
+
+<h3 id="確認方法"><a href="#確認方法" class="headerlink" title="確認方法"></a>確認方法</h3><p><strong>OS ビルド番号や更新プログラムの適用状況が同じ正常なデバイス</strong> と、症状が発生しているデバイスの <code>HKLM\SOFTWARE\Microsoft\Enrollments\ValidNodePaths</code> 配下を比較して、不足している値がないかを確認してください。</p>
+<p><strong>キー自体が存在しない</strong>、または <strong>値の数が明らかに少ない</strong> 場合は、この事象に該当する可能性があります。</p>
+<h3 id="対処-―-正常なデバイスから移植する"><a href="#対処-―-正常なデバイスから移植する" class="headerlink" title="対処 ― 正常なデバイスから移植する"></a>対処 ― 正常なデバイスから移植する</h3><p>このレジストリは、比較元としたデバイスからエクスポートして取り込むことで復旧できます。</p>
+<ol>
+<li>正常に Intune 登録できているデバイスで、上記のキーをエクスポートする</li>
+<li>出力した <code>.reg</code> ファイルを対象デバイスにコピーして取り込む</li>
+<li><code>gpupdate /force</code> を実行し、登録が進むことを確認する</li>
+</ol>
+<blockquote>
+<p><strong>⚠️ エクスポート元のデバイスは慎重にお選びください</strong><br>この値の内容は <strong>OS のビルドによって異なる可能性があります</strong>。新しい機能が追加されると項目も増えていくため、<strong>異なるビルドから持ち込むと、今度は別の構成項目が弾かれる</strong> という事態になりかねません。エクスポート元は、必ず対象デバイスと <strong>OS ビルド番号や更新プログラムの適用状況をそろえて</strong> ください。</p>
+</blockquote>
+<p>なお、このレジストリが失われている場合、<strong>他のレジストリもあわせて破損している可能性</strong> があります。移植しても改善しない場合や、複数の箇所に異常が見られる場合は、<strong>OS の再インストール (リセットまたはクリーン インストール) をご検討ください。</strong></p>
+<h3 id="どのようなときに起こるのか"><a href="#どのようなときに起こるのか" class="headerlink" title="どのようなときに起こるのか"></a>どのようなときに起こるのか</h3><p>このレジストリは、通常の運用で失われるものではありません。実際にご相談いただくのは、<strong>カスタム イメージを使って展開されたデバイス</strong> や、<strong>デバイスのリセット・再イメージングの過程で処理が中断したデバイス</strong> といったケースが中心です。</p>
+<p>同じイメージから展開したデバイスで同様の事象が複数台発生している場合は、<strong>イメージそのものに起因していないか</strong> をあわせてご確認いただくとよいでしょう。</p>
+<h2 id="症状-⑤：エラー-コード-0x80190190-―-過去の登録のフラグが残っている"><a href="#症状-⑤：エラー-コード-0x80190190-―-過去の登録のフラグが残っている" class="headerlink" title="症状 ⑤：エラー コード 0x80190190 ― 過去の登録のフラグが残っている"></a>症状 ⑤：エラー コード <code>0x80190190</code> ― 過去の登録のフラグが残っている</h2><p>イベント ID 76 に <strong><code>Bad request (400).</code></strong> というメッセージが記録されている場合 (エラー コードは <strong><code>0x80190190</code></strong>) に疑っていただきたいのが、<strong>過去の登録処理で使われたフラグの消し忘れ</strong> です。</p>
+<p>これも症状 ②・③ と同じ「レジストリの残骸」の一種ですが、<strong>残っているのが登録情報そのものではなく、登録処理の途中経過を示すフラグ</strong> である点が異なります。</p>
+<h3 id="該当するイベント-ログ-1"><a href="#該当するイベント-ログ-1" class="headerlink" title="該当するイベント ログ"></a>該当するイベント ログ</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Auto MDM Enroll: Device Credential (0x0), Failed (Bad request (400).)</span><br></pre></td></tr></table></figure>
+
+<h3 id="確認するレジストリ-1"><a href="#確認するレジストリ-1" class="headerlink" title="確認するレジストリ"></a>確認するレジストリ</h3><p>次の値が <strong><code>2</code></strong> になっていないかをご確認ください。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">キー : HKLM\SOFTWARE\Microsoft\Enrollments</span><br><span class="line">値   : MmpcEnrollmentFlag</span><br></pre></td></tr></table></figure>
+
+<p><strong>値が存在しない、または <code>0</code></strong> であれば正常です。</p>
+<p>この値は、Intune への登録処理の途中経過を示すために使われるもので、<strong>本来は処理の完了時に <code>0</code> に戻される</strong> 想定になっています。</p>
+<p>ところが、サーバー側のエラーなどで処理が途中で終わってしまうと、<strong><code>2</code> のまま残ってしまう</strong> ことがあります。その結果、通常の Intune 登録として処理されるはずのリクエストが不正な状態となってしまい、<strong>サーバーから「不正なリクエスト (400)」として拒否される</strong> という流れになります。</p>
+<p>過去に Intune 登録していたデバイスを登録解除し、あらためて Hybrid Entra Join や自動登録を試みた、といったケースで発生することがあります。</p>
+<h3 id="対処-1"><a href="#対処-1" class="headerlink" title="対処"></a>対処</h3><p>値を <strong><code>0</code> に変更する (または値自体を削除する)</strong> ことで登録が可能になります。変更後に <code>gpupdate /force</code> を実行すると、次回のタスク実行時に登録が試行されます。</p>
+<h2 id="ログの採取-―-いざというときのために"><a href="#ログの採取-―-いざというときのために" class="headerlink" title="ログの採取 ― いざというときのために"></a>ログの採取 ― いざというときのために</h2><p>ご自身での切り分けが難しい場合や、サポートへお問い合わせいただく場合に備えて、次の情報をあわせてご採取いただけると、調査をスムーズに進められます。</p>
+<ul>
+<li><code>dsregcmd /status</code> の出力 (<strong>事象が発生しているユーザーのコンテキストで実行</strong>。Device State &#x2F; SSO State に加え、Tenant Details の <code>MdmUrl</code> も含まれます)</li>
+<li><strong>TSS</strong> で採取した診断ログ (次の手順をご参照ください)</li>
+</ul>
+<h3 id="TSS-で診断ログをまとめて採取する"><a href="#TSS-で診断ログをまとめて採取する" class="headerlink" title="TSS で診断ログをまとめて採取する"></a>TSS で診断ログをまとめて採取する</h3><p>TSS (TroubleShootingScript) は、マイクロソフトが提供している診断情報の採取ツールです。本記事でご紹介したイベント ログやレジストリのほか、前編でご紹介した情報も含めて、<strong>調査に必要な情報をまとめて取得できます。</strong></p>
+<p>対象デバイスに管理者権限を持つアカウントでサインインし、次の手順で実行してください。</p>
+<p><strong>1. TSS を入手して配置する</strong></p>
+<p>下記から <code>TSS.zip</code> をダウンロードし、任意の場所に展開します。以降の手順は、C ドライブ直下 (<code>C:\TSS</code>) に展開した場合の例です。</p>
+<ul>
+<li>TSS のダウンロード<br><a href="https://aka.ms/getTSS">https://aka.ms/getTSS</a></li>
+</ul>
+<p><strong>2. PowerShell を管理者として実行し、ファイルのブロックを解除する</strong></p>
+<p>インターネットから入手したファイルはブロックされた状態のため、次のコマンドで解除します。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Get-ChildItem</span> <span class="literal">-Recurse</span> <span class="literal">-Path</span> C:\TSS\*.ps* | <span class="built_in">Unblock-File</span> <span class="literal">-Confirm</span>:<span class="variable">$false</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>3. スクリプトの実行ポリシーを設定する</strong></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Set-ExecutionPolicy</span> <span class="literal">-Scope</span> <span class="keyword">Process</span> <span class="literal">-ExecutionPolicy</span> RemoteSigned <span class="literal">-Force</span></span><br></pre></td></tr></table></figure>
+
+<p><code>-Scope Process</code> を指定しているため、<strong>変更の影響は現在の PowerShell セッションのみ</strong> です。ウィンドウを閉じれば元の設定に戻ります。</p>
+<p><strong>4. 情報の採取を開始する</strong></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> C:\TSS</span><br><span class="line">.\TSS.ps1 <span class="literal">-CollectLog</span> ITN_Report</span><br></pre></td></tr></table></figure>
+
+<p>使用許諾 (Microsoft Diagnostic Tools End User License Agreement) が表示された場合は、内容をご確認のうえ <code>[Accept]</code> をクリックしてください。</p>
+<p><strong>5. 出力されたファイルを確認する</strong></p>
+<p>採取が完了すると、<code>C:\MS_DATA</code> 配下に <code>TSS_&lt;コンピューター名&gt;_YYMMDD-hhmmss</code> から始まる名前の zip ファイルが出力されます。</p>
+<p>「正常に登録できているデバイス」と「登録できないデバイス」の両方から同じ情報をご採取いただけると、差分から原因を絞り込みやすくなります。可能であれば、ぜひ両方の情報をご用意ください。</p>
+<h2 id="おわりに"><a href="#おわりに" class="headerlink" title="おわりに"></a>おわりに</h2><p>今回は、Hybrid Entra Join 環境で Intune 登録が失敗したときに、<strong>エラー コードから原因を特定して対処する方法</strong>をご紹介しました。あらためて要点を整理します。</p>
+<ul>
+<li><strong>特定のユーザーだけ失敗する</strong>場合は、<strong>MFA の要求</strong> (<code>0x8018002A</code>) を疑う。条件付きアクセスだけでなく、<strong>従来型のユーザーごとの MFA が <code>強制 (Enforced)</code></strong> になっているケースもある。<code>AAD</code> の <code>Operational</code> ログに <code>AADSTS50076</code> が出ていれば確定。よく遭遇するパターン</li>
+<li><strong>イベント ID 75 &#x2F; 76 が出ない</strong> ときは、<code>HKLM\SOFTWARE\Microsoft\Enrollments</code> 配下の <strong>登録情報の残骸</strong> を疑う。「エラーが出ていない」のではなく <code>2149056522</code> (<code>0x8018000A</code> &#x3D; 既に登録済み) が返っており、75 &#x2F; 76 に到達していないだけ。<strong>レジストリを直接確認するのが最短</strong>で、タスクの <code>前回の実行結果</code> 列でも裏付けが取れる</li>
+<li><strong>イベント ID 76 が <code>0x80180026</code></strong> のときは、<code>Enrollments</code> の <strong><code>ExternallyManaged</code></strong> と MDM ポリシーの <strong><code>DisableRegistration</code></strong> を確認する。過去に導入したサード パーティ製 MDM のフラグが残っていることがある</li>
+<li><strong>イベント ID 76 が <code>0x83750005</code></strong> (またはイベント ID 56) のときは、<strong><code>Enrollments\ValidNodePaths</code></strong> の欠損・破損を疑う。<strong>OS ビルドがそろった</strong>正常なデバイスからレジストリを移植して復旧する</li>
+<li><strong>イベント ID 76 が <code>Bad request (400).</code> (<code>0x80190190</code>)</strong> のときは、<code>Enrollments</code> の <strong><code>MmpcEnrollmentFlag</code></strong> が <code>2</code> のまま残っていないかを確認する。</li>
+<li>残骸の削除は、<strong>意図的な構成でないことを確認し、バックアップを取得したうえで</strong>慎重に実施する。<strong>手順は Azure &amp; Identity サポート チームの公開ブログ (Microsoft Entra ハイブリッド参加デバイスを再構成する) をご利用いただくのが確実</strong></li>
+</ul>
+<p>前編とあわせてご覧いただくと、<strong>「① と ②、欠けているのはどちらか」を切り分け、③ で得られたエラー コードから原因までたどり着く</strong> という一連の流れになります。</p>
+<ul>
+<li>Hybrid Entra Join 環境で Intune 登録が行われないときの確認ポイント<br><a href="https://jpintune.github.io/blog/intune/20261001_01/">https://jpintune.github.io/blog/intune/20261001_01/</a></li>
+</ul>
+<p>この構成のトラブルシューティングは、一見すると手がかりが少なく難しく感じられるかもしれません。しかし「そろうべき条件のうち、欠けているのはどれか」という視点で見ていけば、確認すべき場所は自ずと絞り込まれていきます。ぜひ、本記事をお手元のチェックリストとしてご活用ください。</p>
+<p>次回以降も、皆さまの運用に役立つ情報をお届けしていきます。最後までお読みいただき、ありがとうございました。</p>
+
+      
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li></ul>
+
+        
+        <a href="https://github.com/jpintune/blog/edit/master/articles/intune/20261001_02.md" class="article-github-edit-link" target="_blank" rel="noopener noreferrer">GitHub で編集</a>
+        
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="../20261001_01/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前の記事</strong>
+      <div class="article-nav-title">Hybrid Entra Join 環境で Intune 登録が行われないときの確認ポイント</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最近の投稿</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="">Hybrid Entra Join 環境で Intune 登録が行われないとき ― エラー コード別のトラブルシューティング</a>
+          </li>
+        
+          <li>
+            <a href="../20261001_01/">Hybrid Entra Join 環境で Intune 登録が行われないときの確認ポイント</a>
+          </li>
+        
+          <li>
+            <a href="../20260904_01/">回線の逼迫を防ぐために。Intune から Win32 アプリを配布するときのネットワーク負荷を抑えるコツ</a>
+          </li>
+        
+          <li>
+            <a href="../20260831_01/">Intune のトラブル解決が早くなる。知っておきたい iOS/iPadOS との &#34;役割分担&#34; - 基本編</a>
+          </li>
+        
+          <li>
+            <a href="../20260821_01/">Intune で Windows Update を管理するポリシーの使い分け</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグ</h3>
+    <div class="widget">
+      <!-- <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/" rel="tag">Intune</a></li></ul>  -->
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="../../tags/Intune/">Intune</a><span class="tag-list-count">10</span><ul></ul></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">アーカイブ</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/10/">2026 / 10</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/09/">2026 / 09</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/08/">2026 / 08</a></li><li class="archive-list-item"><a class="archive-list-link" href="../../archives/2026/07/">2026 / 07</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">タグクラウド</h3>
+    <div class="widget tagcloud">
+      <a href="../../tags/Intune/" style="font-size: 10px;">Intune</a>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2026 Japan Microsoft Intune Support Team<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="../../index.html" class="mobile-nav-link">Home</a>
+  
+    <a href="../../archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+<script src="../../js/script.js"></script>
+
+
+
+
+  </div>
+<!-- hexo injector body_end start -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script>
+(function () {
+  var KEYS = /^(flowchart|graph|sequenceDiagram|classDiagram|stateDiagram(-v2)?|erDiagram|gantt|pie|journey|gitGraph|mindmap|timeline|quadrantChart|requirementDiagram|C4Context|xychart-beta|sankey-beta)\b/;
+  function render() {
+    var blocks = document.querySelectorAll('figure.highlight, pre > code');
+    var targets = [];
+    blocks.forEach(function (el) {
+      var fig = el.closest('figure.highlight') || el;
+      if (fig.dataset && fig.dataset.mermaidDone) return;
+      var codeCell = fig.querySelector('.code') || fig;
+      var lines = codeCell.querySelectorAll('.line');
+      var text = lines.length
+        ? Array.prototype.map.call(lines, function (s) { return s.textContent; }).join('\n')
+        : codeCell.textContent;
+      if (!KEYS.test(text.trim())) return;
+      var pre = document.createElement('pre');
+      pre.className = 'mermaid';
+      pre.textContent = text;
+      fig.parentNode.replaceChild(pre, fig);
+      targets.push(pre);
+    });
+    if (targets.length && window.mermaid) {
+      window.mermaid.initialize({ startOnLoad: false, securityLevel: 'loose', theme: 'default' });
+      window.mermaid.run({ nodes: targets });
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', render);
+  } else {
+    render();
+  }
+})();
+</script>
+<style>
+pre.mermaid { background: none; border: none; text-align: center; overflow-x: auto; }
+</style>
+<!-- hexo injector body_end end --></body>
+</html>
