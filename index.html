@@ -78,13 +78,13 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-intune/20261001_02" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-intune/20261006_01" class="article article-type-post" itemscope itemprop="blogPost">
 
   <div class="article-inner">
     <!-- post date -->
     <div class="article-meta">
-      <a href="intune/20261001_02/" class="article-date">
-  <time datetime="2026-09-30T15:00:00.000Z" itemprop="datePublished">2026-10-01</time>
+      <a href="intune/20261006_01/" class="article-date">
+  <time datetime="2026-10-05T15:00:00.000Z" itemprop="datePublished">2026-10-06</time>
 </a>
       
     </div>
@@ -96,7 +96,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="intune/20261001_02/">Hybrid Entra Join 環境で Intune 登録が行われないとき ― エラー コード別のトラブルシューティング</a>
+      <a class="article-title" href="intune/20261006_01/">大規模な Intune 環境で管理者の権限を適切に分ける。ロール・スコープ タグ・スコープ グループ・複数管理者承認の使いどころ</a>
     </h1>
   
 
@@ -107,20 +107,18 @@
     <div class="article-entry" itemprop="articleBody">
       
         みなさま、こんにちは。Intune サポート チームです。
-前回は、Hybrid Entra Join (Microsoft Entra ハイブリッド参加) 環境でグループ ポリシーによる自動登録がうまくいかないときに、「どこを、どの順番で確認するか」 を 3 つのステップに整理してご紹介しました。
-
-Hybrid Entra Join 環境で Intune 登録が行われないときの確認ポイントhttps://jpintune.github.io/blog/intune/20261001_01/
-
-おさらいすると、この構成で登録が動くには ① Hybrid Entra Join の完了 と ② グループ ポリシーの適用 の 2 つがそろう必要があり、その結果は ③ 自動登録タスク の実行を経て、最終的に次のイベント ログに現れます。
-12[アプリケーションとサービス ログ] - [Micro...
+Intune は近年、大規模なお客様にもご利用いただく機会が増えてきました。複数の関連会社や複数の拠点の管理者が、1 つの Intune テナントを共同で管理するような環境も、めずらしくありません。
+このような環境でよくいただくのが、「管理者が、別の拠点のデバイスまで操作出来てしまうのが心配」「関連会社の管理者には、自社のポリシーだけを見せたい」「他の管理者が勝手に設定変更を行えないようにしたい」といったご相談です。
+大規模な環境でどのように権限を振り分けるのが正解か、というのは組織の体制や運用方針によっても変わってくるため、一概に答えがあるわけではありません。ただ、Intune にはこうした「権限の分け方」を支える機能がいくつか用意されており、それぞれの役割を押さえておくと、ご自身の環境に合った設計を考えやすくなります。
+そこで...
         <p class="article-readmore">
-          <a href="intune/20261001_02/">Read more</a>
+          <a href="intune/20261006_01/">Read more</a>
         </p>
       
     </div>
 
     <footer class="article-footer">
-      <!--a data-url="https://jpintune.github.io/blog/intune/20261001_02/" data-id="cuidttTzc4TEpWl97Nsph1zS2" class="article-share-link">共有</a-->
+      <!--a data-url="https://jpintune.github.io/blog/intune/20261006_01/" data-id="cuidtKPfyjHtRfH8zLWi3GSAo" class="article-share-link">共有</a-->
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Intune/" rel="tag">Intune</a></li></ul>
@@ -170,7 +168,61 @@ Hybrid Entra Join 環境で Intune 登録が行われないときの確認ポイ
     </div>
 
     <footer class="article-footer">
-      <!--a data-url="https://jpintune.github.io/blog/intune/20261001_01/" data-id="cuidcki-ocHeVYlLMV8ErcljW" class="article-share-link">共有</a-->
+      <!--a data-url="https://jpintune.github.io/blog/intune/20261001_01/" data-id="cuidTjhauHVma0kaLcpt2kUsR" class="article-share-link">共有</a-->
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Intune/" rel="tag">Intune</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-intune/20261001_02" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <div class="article-inner">
+    <!-- post date -->
+    <div class="article-meta">
+      <a href="intune/20261001_02/" class="article-date">
+  <time datetime="2026-09-30T15:00:00.000Z" itemprop="datePublished">2026-10-01</time>
+</a>
+      
+    </div>
+
+    
+    <!-- post title -->
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="intune/20261001_02/">Hybrid Entra Join 環境で Intune 登録が行われないとき ― エラー コード別のトラブルシューティング</a>
+    </h1>
+  
+
+      </header>
+    
+
+    <!-- post caption -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        みなさま、こんにちは。Intune サポート チームです。
+前回は、Hybrid Entra Join (Microsoft Entra ハイブリッド参加) 環境でグループ ポリシーによる自動登録がうまくいかないときに、「どこを、どの順番で確認するか」 を 3 つのステップに整理してご紹介しました。
+
+Hybrid Entra Join 環境で Intune 登録が行われないときの確認ポイントhttps://jpintune.github.io/blog/intune/20261001_01/
+
+おさらいすると、この構成で登録が動くには ① Hybrid Entra Join の完了 と ② グループ ポリシーの適用 の 2 つがそろう必要があり、その結果は ③ 自動登録タスク の実行を経て、最終的に次のイベント ログに現れます。
+12[アプリケーションとサービス ログ] - [Micro...
+        <p class="article-readmore">
+          <a href="intune/20261001_02/">Read more</a>
+        </p>
+      
+    </div>
+
+    <footer class="article-footer">
+      <!--a data-url="https://jpintune.github.io/blog/intune/20261001_02/" data-id="cuidLAls8FnAgXsn9AF_zqJx-" class="article-share-link">共有</a-->
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Intune/" rel="tag">Intune</a></li></ul>
@@ -221,7 +273,7 @@ Intune はもともとモバイル デバイスの管理 (MDM) を出発点と�
     </div>
 
     <footer class="article-footer">
-      <!--a data-url="https://jpintune.github.io/blog/intune/20260904_01/" data-id="cuid71YCw0UTUyW_vz-_4aDBy" class="article-share-link">共有</a-->
+      <!--a data-url="https://jpintune.github.io/blog/intune/20260904_01/" data-id="cuidKN1gQSyPoj8bu23JbptDp" class="article-share-link">共有</a-->
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Intune/" rel="tag">Intune</a></li></ul>
@@ -272,7 +324,7 @@ Intune はもともとモバイル デバイスの管理 (MDM) を出発点と�
     </div>
 
     <footer class="article-footer">
-      <!--a data-url="https://jpintune.github.io/blog/intune/20260831_01/" data-id="cuidWzNRwGUOLxr2j_3nXPfX-" class="article-share-link">共有</a-->
+      <!--a data-url="https://jpintune.github.io/blog/intune/20260831_01/" data-id="cuidDbBCiGu1wRZ9IcZq-qCgx" class="article-share-link">共有</a-->
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Intune/" rel="tag">Intune</a></li></ul>
@@ -323,7 +375,7 @@ Intune も年々進化を続けており、Windows Update に関連するポリ�
     </div>
 
     <footer class="article-footer">
-      <!--a data-url="https://jpintune.github.io/blog/intune/20260821_01/" data-id="cuidT8DAFQsmAJRw1p_fvFypg" class="article-share-link">共有</a-->
+      <!--a data-url="https://jpintune.github.io/blog/intune/20260821_01/" data-id="cuids9pIzrXIAx64HXqWDCnas" class="article-share-link">共有</a-->
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Intune/" rel="tag">Intune</a></li></ul>
@@ -377,7 +429,7 @@ Intune も年々進化を続けており、Windows Update に関連するポリ�
     </div>
 
     <footer class="article-footer">
-      <!--a data-url="https://jpintune.github.io/blog/intune/20260818_01/" data-id="cuid2r2MFXPLChfUJ3rwnW4J3" class="article-share-link">共有</a-->
+      <!--a data-url="https://jpintune.github.io/blog/intune/20260818_01/" data-id="cuidstnM6Kz8cF4v1ow3qzXN-" class="article-share-link">共有</a-->
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Intune/" rel="tag">Intune</a></li></ul>
@@ -428,7 +480,7 @@ Intune も年々進化を続けており、Windows Update に関連するポリ�
     </div>
 
     <footer class="article-footer">
-      <!--a data-url="https://jpintune.github.io/blog/intune/20260803_01/" data-id="cuidMhsFjD_75K--BH5vF2jL-" class="article-share-link">共有</a-->
+      <!--a data-url="https://jpintune.github.io/blog/intune/20260803_01/" data-id="cuidd2wDqV495Ic801xSZurSs" class="article-share-link">共有</a-->
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Intune/" rel="tag">Intune</a></li></ul>
@@ -479,7 +531,7 @@ Intune も年々進化を続けており、Windows Update に関連するポリ�
     </div>
 
     <footer class="article-footer">
-      <!--a data-url="https://jpintune.github.io/blog/intune/20260731_03/" data-id="cuid5cFIIyCPMOFDLgzkhuMba" class="article-share-link">共有</a-->
+      <!--a data-url="https://jpintune.github.io/blog/intune/20260731_03/" data-id="cuid0rW-20FiHOz_Y5lCf8Vzo" class="article-share-link">共有</a-->
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Intune/" rel="tag">Intune</a></li></ul>
@@ -530,58 +582,7 @@ Intune を使うことで、社内の業務アプリや作成したスクリプ�
     </div>
 
     <footer class="article-footer">
-      <!--a data-url="https://jpintune.github.io/blog/intune/20260728_01/" data-id="cuidscIKwzcFsdo2rVs-qTBuA" class="article-share-link">共有</a-->
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Intune/" rel="tag">Intune</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-intune/20260722_02" class="article article-type-post" itemscope itemprop="blogPost">
-
-  <div class="article-inner">
-    <!-- post date -->
-    <div class="article-meta">
-      <a href="intune/20260722_02/" class="article-date">
-  <time datetime="2026-07-21T15:00:00.000Z" itemprop="datePublished">2026-07-22</time>
-</a>
-      
-    </div>
-
-    
-    <!-- post title -->
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="intune/20260722_02/">Intune のトラブル解決が早くなる。知っておきたい Windows との &#34;役割分担&#34; - 基本編</a>
-    </h1>
-  
-
-      </header>
-    
-
-    <!-- post caption -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        みなさま、こんにちは。Intune サポート チームです。
-日々 Intune を活用してデバイス管理を進めていただき、ありがとうございます。今回は、Intune を運用されている皆さまにぜひ知っておいていただきたい「Intune と Windows の役割分担」についてご紹介します。
-一見すると地味なテーマに思えるかもしれませんが、この “境界” を理解しておくと、いざ問題が起きたときに「どこを確認すればよいか」がすぐに分かるようになり、原因の特定や解決までの時間を大きく短縮できます。運用のストレスを減らし、より快適に Intune をお使いいただくための第一歩として、ぜひ最後までお読みください。
-はじめに ― なぜ「切り分け」が大切なのかIntune の様々な機能は、その裏側で Windows OS が持つ多彩な機能を利用して動作しています。そのため、何か想定通りに動かない事象が起きた...
-        <p class="article-readmore">
-          <a href="intune/20260722_02/">Read more</a>
-        </p>
-      
-    </div>
-
-    <footer class="article-footer">
-      <!--a data-url="https://jpintune.github.io/blog/intune/20260722_02/" data-id="cuid0KBYhaSncxwSfEb2BxRl-" class="article-share-link">共有</a-->
+      <!--a data-url="https://jpintune.github.io/blog/intune/20260728_01/" data-id="cuidm34yTKZDJRHxuXk-t6bB0" class="article-share-link">共有</a-->
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="tags/Intune/" rel="tag">Intune</a></li></ul>
@@ -594,6 +595,11 @@ Intune を使うことで、社内の業務アプリや作成したスクリプ�
 
   
 
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="page/2/">2</a><a class="extend next" rel="next" href="page/2/">次へ &raquo;</a>
+  </nav>
 </section>
         
           <aside id="sidebar">
@@ -605,11 +611,15 @@ Intune を使うことで、社内の業務アプリや作成したスクリプ�
       <ul>
         
           <li>
-            <a href="intune/20261001_02/">Hybrid Entra Join 環境で Intune 登録が行われないとき ― エラー コード別のトラブルシューティング</a>
+            <a href="intune/20261006_01/">大規模な Intune 環境で管理者の権限を適切に分ける。ロール・スコープ タグ・スコープ グループ・複数管理者承認の使いどころ</a>
           </li>
         
           <li>
             <a href="intune/20261001_01/">Hybrid Entra Join 環境で Intune 登録が行われないときの確認ポイント</a>
+          </li>
+        
+          <li>
+            <a href="intune/20261001_02/">Hybrid Entra Join 環境で Intune 登録が行われないとき ― エラー コード別のトラブルシューティング</a>
           </li>
         
           <li>
@@ -618,10 +628,6 @@ Intune を使うことで、社内の業務アプリや作成したスクリプ�
         
           <li>
             <a href="intune/20260831_01/">Intune のトラブル解決が早くなる。知っておきたい iOS/iPadOS との &#34;役割分担&#34; - 基本編</a>
-          </li>
-        
-          <li>
-            <a href="intune/20260821_01/">Intune で Windows Update を管理するポリシーの使い分け</a>
           </li>
         
       </ul>
@@ -634,7 +640,7 @@ Intune を使うことで、社内の業務アプリや作成したスクリプ�
     <h3 class="widget-title">タグ</h3>
     <div class="widget">
       <!-- <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="tags/Intune/" rel="tag">Intune</a></li></ul>  -->
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="tags/Intune/">Intune</a><span class="tag-list-count">10</span><ul></ul></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="tags/Intune/">Intune</a><span class="tag-list-count">11</span><ul></ul></li></ul>
     </div>
   </div>
 
