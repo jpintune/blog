@@ -11,3 +11,6 @@ https://jpintune.github.io/blog/intune/20260803_01/
 https://jpintune.github.io/blog/intune/20260722_02/
 https://jpintune.github.io/blog
 https://jpintune.github.io/blog/tags/Intune/
+https://jpintune.github.io/blog/tags/Windows/
+https://jpintune.github.io/blog/tags/Android/
+https://jpintune.github.io/blog/tags/ios-ipados/
