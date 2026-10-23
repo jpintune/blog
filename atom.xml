@@ -10,7 +10,26 @@
   <rights>All rights reserved 2026, Japan Microsoft Intune Support Team</rights>
   <subtitle>日本マイクロソフトの Microsoft Intune に関するサポート情報のブログです。</subtitle>
   <title>Japan Microsoft Intune Support Team Blog</title>
-  <updated>2026-10-22T05:36:20.879Z</updated>
+  <updated>2026-10-23T00:42:05.688Z</updated>
+  <entry>
+    <author>
+      <name>Japan Microsoft Intune Support Team</name>
+    </author>
+    <category term="Intune" scheme="https://jpintune.github.io/blog/tags/Intune/"/>
+    <category term="Android" scheme="https://jpintune.github.io/blog/tags/Android/"/>
+    <content>
+      <![CDATA[<p>みなさま、こんにちは。Intune サポート チームです。</p><p>Android デバイスの管理を始める際に、最初に迷われるポイントが「登録方法の選択」です。Android には登録方法が複数あり、さらに Google 社独自の用語 (仕事用プロファイル、フル マネージド 等々) も登場するため、「自社の運用にはどの方法が合うのか」が分かりにくいという声をよくいただきます。</p><p>本記事では、Intune で利用できる Android の登録方法を、<strong>個人所有 (BYOD) のデバイス</strong> と <strong>企業所有のデバイス</strong> に分けて整理し、それぞれどのようなケースで利用する方法なのかをご紹介します。あわせて、企業所有のデバイスで、iOS の ADE や Windows の Autopilot のようにキッティングを効率化する方法についてもご紹介します。</p><p>なお、Android 固有の仕様については、下記の記事でも紹介していますので、あわせて参考にしてみてください。</p><ul><li>Android デバイスを Intune で管理する際に押さえておきたいポイント | Japan Microsoft Intune Support Team Blog<br><a href="https://jpintune.github.io/blog/intune/20260731_03/">https://jpintune.github.io/blog/intune/20260731_03/</a></li></ul><hr><h2 id="登録方法の全体像"><a href="#登録方法の全体像" class="headerlink" title="登録方法の全体像"></a>登録方法の全体像</h2><p>Intune で Android デバイスを管理する登録方法は、大きく下表のとおりです。</p><table><thead><tr><th>所有形態</th><th>登録方法</th><th>略称</th><th>主な用途</th></tr></thead><tbody><tr><td>個人所有</td><td>Android Enterprise 個人所有の仕事用プロファイル</td><td>BYOD</td><td>個人所有のスマートフォンで会社のメールやアプリを利用する</td></tr><tr><td>企業所有</td><td>Android Enterprise フル マネージド</td><td>COBO</td><td>社給のスマートフォンを 1 人 1 台で業務専用として利用する</td></tr><tr><td>企業所有</td><td>Android Enterprise 会社所有の仕事用プロファイル</td><td>COPE</td><td>社給のスマートフォンで業務と個人利用の領域を分けて利用する</td></tr><tr><td>企業所有</td><td>Android Enterprise 専用デバイス</td><td>COSU</td><td>キオスク端末など、特定の用途に特化した端末として利用する</td></tr><tr><td>企業所有</td><td>Android Open Source Project (AOSP)</td><td>-</td><td>Android Enterprise に対応していない特殊なデバイス (AR&#x2F;VR デバイス等) を管理する</td></tr><tr><td>個人所有 &#x2F; 企業所有</td><td>Android デバイス管理者 (非推奨)</td><td>DA</td><td>Google モバイル サービス (GMS) が利用できないデバイス等</td></tr></tbody></table><p>まずは、<strong>「個人所有か、企業所有か」</strong> で絞り込み、次に「そのデバイスをどのような使い方で運用したいか」で選んでいただくと整理しやすくなります。</p><ul><li>Android デバイスの登録に関する公開情報 (登録ガイド)<br><a href="https://learn.microsoft.com/ja-jp/intune/intune-service/fundamentals/deployment-guide-enrollment-android">https://learn.microsoft.com/ja-jp/intune/intune-service/fundamentals/deployment-guide-enrollment-android</a></li></ul><hr><h2 id="個人所有のデバイスの登録-BYOD"><a href="#個人所有のデバイスの登録-BYOD" class="headerlink" title="個人所有のデバイスの登録 (BYOD)"></a>個人所有のデバイスの登録 (BYOD)</h2><h3 id="Android-Enterprise-個人所有の仕事用プロファイル"><a href="#Android-Enterprise-個人所有の仕事用プロファイル" class="headerlink" title="Android Enterprise 個人所有の仕事用プロファイル"></a>Android Enterprise 個人所有の仕事用プロファイル</h3><p>基本的に BYOD の Android を Intune に登録する場合には、この登録方法を利用していただくことになります。デバイス上に会社用の領域 (仕事用プロファイル) が作成され、会社のデータやアプリは仕事用プロファイルの中で管理されます。個人用の領域は Intune から管理されないため、ユーザーのプライバシーが保たれます。</p><p><img src="/blog/intune/20261023_01/android-byod.png" alt="Android Enterprise 個人所有の仕事用プロファイル (BYOD)"></p><p>なお、個人所有の仕事用プロファイルは、Intune が Google 社の Android Management API を利用する方式への移行を進めており、新しいデバイスでは Web ベースの登録フローが利用されるようになります。詳細については、下記の公開情報もあわせてご確認ください。</p><ul><li>仕事用プロファイルで個人所有のデバイスに Android Management API を使用する<br><a href="https://learn.microsoft.com/ja-jp/intune/device-enrollment/android/android-management-api-overview">https://learn.microsoft.com/ja-jp/intune/device-enrollment/android/android-management-api-overview</a></li></ul><h4 id="特定のデバイスのみの登録を許可できる？"><a href="#特定のデバイスのみの登録を許可できる？" class="headerlink" title="特定のデバイスのみの登録を許可できる？"></a>特定のデバイスのみの登録を許可できる？</h4><p>運用によっては、BYOD のデバイスであっても、事前に社内で申請を行ったデバイスのみ登録を許可したいというご要望もあると思います。</p><p>Android 11 以前では、iOS 等と同様に、下記の公開情報の方法で企業向けデバイスの識別子としてシリアル番号や IMEI を事前に Intune に登録しておくことで、BYOD のデバイスであっても企業所有のデバイスとして認識させることができていました。しかし、<strong>Android 12 以降のバージョンでは、Google 社のセキュリティの強化に伴い、この方法は利用できなくなっています。</strong></p><ul><li>デバイスの企業所有としての識別<br><a href="https://learn.microsoft.com/ja-jp/intune/device-enrollment/add-corporate-identifiers">https://learn.microsoft.com/ja-jp/intune/device-enrollment/add-corporate-identifiers</a></li></ul><p>Android 12 以降のバージョンでも、事前にユーザーから申請があったデバイスのみを利用させたい場合は、登録自体をブロックすることはできません。そのため、次のように「登録はできるが、社内リソースにはアクセスさせない」という構成を取ることをご検討ください。</p><ol><li>ユーザーから申請があったデバイスのみ、手動でグループに追加し、そのグループにコンプライアンス ポリシーを割り当てる (デバイスは登録後にグループへ追加するため、追加されるまでは一時的に非準拠となります)</li><li>コンプライアンス ポリシーが割り当てられていないデバイスは「非準拠」として扱われるよう、テナント全体の設定 (<strong>コンプライアンス ポリシーが割り当てられていないデバイスをマークする</strong>) を <strong>非準拠</strong> に構成する</li><li>条件付きアクセスで「準拠しているデバイス」を要求する</li></ol><p>この構成により、申請なしで登録されたデバイスは非準拠となり、条件付きアクセスによってブロックされるため、社内のリソースにはアクセスできなくなります。</p><h3 id="非推奨-Android-デバイス管理者登録"><a href="#非推奨-Android-デバイス管理者登録" class="headerlink" title="非推奨 : Android デバイス管理者登録"></a>非推奨 : Android デバイス管理者登録</h3><p>この方法は古い登録方法であり、現在は基本的に利用しない非推奨の登録方法です。<strong>Google モバイル サービス (GMS) が利用できるデバイスでは、既にサポートされていない登録方法となっています。</strong> ただし、GMS が利用できない国や、GMS に対応していないデバイスでは、引き続きこの方法を利用して Intune から管理することが可能です。</p><p>日本国内でご利用いただく場合には、特に問題になることはありませんが、グローバルにデバイスを展開する場合には、一部の国で Android Enterprise や GMS の利用が制限されている可能性があります。Android Enterprise を利用できる国については、下記の Google 社の公開情報で紹介されていますので、参考にしてみてください。</p><ul><li>Android Enterprise を利用できる国 (Google 社の公開情報)<br><a href="https://support.google.com/work/android/answer/6270910">https://support.google.com/work/android/answer/6270910</a></li></ul><p>また、一般的に販売されている Android であれば、通常は Android Enterprise や GMS に対応していますが、Android をベースに独自のカスタマイズが行われている OS を搭載した機種では、Android Enterprise や GMS が利用できない可能性があります。対応状況の確認が必要な場合は、端末の開発元に確認するのが確実です。</p><hr><h2 id="企業所有のデバイスの登録"><a href="#企業所有のデバイスの登録" class="headerlink" title="企業所有のデバイスの登録"></a>企業所有のデバイスの登録</h2><p>企業所有のデバイスを登録する方法は、デバイスの使い方によって下記から選択します。いずれの方法も、<strong>デバイスの初期状態 (工場出荷時の状態) から登録を開始する必要があります。</strong> すでに利用中のデバイスを登録する場合は、工場出荷時の状態にリセットする必要がある点にご注意ください。</p><h3 id="Android-Enterprise-フル-マネージド-COBO"><a href="#Android-Enterprise-フル-マネージド-COBO" class="headerlink" title="Android Enterprise フル マネージド (COBO)"></a>Android Enterprise フル マネージド (COBO)</h3><p>一般的に Android の社給デバイスを各ユーザーに配って、スマートフォンとして利用させたい場合は、この登録方法がイメージに近いと思います。デバイス全体が会社の管理下に置かれ、1 人のユーザーが業務専用で利用する形となります。個人用の領域は存在しないため、Intune でデバイス全体を管理できます。</p><p><img src="/blog/intune/20261023_01/android-cobo.png" alt="フル マネージド デバイス (COBO)"></p><h3 id="Android-Enterprise-の会社所有の仕事用プロファイル-COPE"><a href="#Android-Enterprise-の会社所有の仕事用プロファイル-COPE" class="headerlink" title="Android Enterprise の会社所有の仕事用プロファイル (COPE)"></a>Android Enterprise の会社所有の仕事用プロファイル (COPE)</h3><p>この登録方法は、あまり利用されることが多くない方法ですが、企業所有の端末として管理しつつ、端末上で個人利用のための領域も確保するような方法となります。ユーザーの利用イメージ自体は、前述の「Android Enterprise 個人所有の仕事用プロファイル」に近い形となります。</p><p><img src="/blog/intune/20261023_01/android-cope.png" alt="仕事用プロファイルがある会社所有デバイス (COPE)"></p><h3 id="Android-Enterprise-専用デバイス-COSU"><a href="#Android-Enterprise-専用デバイス-COSU" class="headerlink" title="Android Enterprise 専用デバイス (COSU)"></a>Android Enterprise 専用デバイス (COSU)</h3><p>この登録方法は、キオスク端末等、特定の用途や業務に特化した端末を管理する場合に利用します。特定のユーザーには紐づかず、在庫管理、バーコードのスキャン、チケットの印刷など、共有で利用するデバイスに適しています。</p><p><img src="/blog/intune/20261023_01/android-cosu.png" alt="専用デバイス (COSU)"></p><h3 id="Android-Open-Source-Project-AOSP"><a href="#Android-Open-Source-Project-AOSP" class="headerlink" title="Android Open Source Project (AOSP)"></a>Android Open Source Project (AOSP)</h3><p>AOSP は、Android Enterprise に対応していない特殊なデバイス (AR&#x2F;VR デバイス等) を管理する場合に利用する登録方法です。具体的に登録可能なデバイスの一覧については、下記で紹介していますので、参考としてください。</p><p><img src="/blog/intune/20261023_01/android-aosp.png" alt="Android Open Source Project (AOSP)"></p><ul><li>Android オープン ソース プロジェクトでサポートされているデバイス<br><a href="https://learn.microsoft.com/ja-jp/intune/fundamentals/aosp-supported-devices">https://learn.microsoft.com/ja-jp/intune/fundamentals/aosp-supported-devices</a></li></ul><h3 id="どの登録方法を選べばよい？"><a href="#どの登録方法を選べばよい？" class="headerlink" title="どの登録方法を選べばよい？"></a>どの登録方法を選べばよい？</h3><p>企業所有のデバイスについては、下記を目安にご検討ください。</p><table><thead><tr><th>デバイスの使い方</th><th>一般的な登録方法</th></tr></thead><tbody><tr><td>1 人 1 台、業務専用で利用する</td><td>フル マネージド (COBO)</td></tr><tr><td>1 人 1 台、業務と個人利用を 1 台で両立させる</td><td>会社所有の仕事用プロファイル (COPE)</td></tr><tr><td>ユーザーに紐づかない共有端末、キオスク端末</td><td>専用デバイス (COSU)</td></tr><tr><td>AR&#x2F;VR デバイスなど、Android Enterprise 非対応のデバイス</td><td>AOSP</td></tr></tbody></table><p>なお、BYOD のデバイスを企業所有の登録方法で登録することや、企業所有のデバイスを BYOD の登録方法で登録することは一般的ではありません。デバイスの所有形態に合った登録方法を選択してください。</p><hr><h2 id="キッティング方法"><a href="#キッティング方法" class="headerlink" title="キッティング方法"></a>キッティング方法</h2><p>すでに iOS (ADE) や Windows (Autopilot) を管理しているお客様の中には、Android でも同じように、デバイスを開封して電源を入れるだけで自動的に Intune へ登録される仕組みや、管理者の手間を減らす仕組みを利用したいというご要望があるかと思います。</p><p>Android の企業所有のデバイスには、下記のようなキッティング方法が用意されています。</p><h3 id="ゼロタッチ"><a href="#ゼロタッチ" class="headerlink" title="ゼロタッチ"></a>ゼロタッチ</h3><p>Google 社のゼロタッチ登録を利用すると、デバイスを初めて起動したときに、自動的に Intune への登録が開始されるようになります。iOS の ADE や Windows の Autopilot に近い仕組みとなります。次の登録方法で利用できます。</p><ul><li>Android Enterprise フル マネージド (COBO)</li><li>Android Enterprise の会社所有の仕事用プロファイル (COPE)</li><li>Android Enterprise 専用デバイス (COSU)</li></ul><p>ゼロタッチ登録を利用するには、<strong>ゼロタッチ登録に対応したデバイスを、Google 社が認定したゼロタッチの販売店から購入する</strong>必要があります。そのため、すでに購入済みのデバイスや、販売店以外から購入したデバイスでは利用できません。購入先や必要な準備については、下記の公開情報を参考にしてください。</p><ul><li>Android Enterprise 専用、フル マネージド、または仕事用プロファイルを備えた会社所有のデバイスを登録する<br><a href="https://learn.microsoft.com/ja-jp/intune/device-enrollment/android/ref-corporate-methods">https://learn.microsoft.com/ja-jp/intune/device-enrollment/android/ref-corporate-methods</a></li></ul><p>Samsung 製のデバイスであれば、Samsung 社の Knox Mobile Enrollment (KME) を利用して、同様にデバイスの登録を自動化することも可能です。</p><ul><li>Samsung の Knox Mobile Enrollment を使用して Android デバイスを自動的に登録する<br><a href="https://learn.microsoft.com/ja-jp/intune/device-enrollment/android/setup-samsung-knox-mobile">https://learn.microsoft.com/ja-jp/intune/device-enrollment/android/setup-samsung-knox-mobile</a></li></ul><h3 id="QR-コード-トークンによる登録"><a href="#QR-コード-トークンによる登録" class="headerlink" title="QR コード &#x2F; トークンによる登録"></a>QR コード &#x2F; トークンによる登録</h3><p>ゼロタッチ登録が利用できないデバイスでは、デバイスを工場出荷時の状態にしたうえで、初期セットアップ画面で QR コードをスキャンする、またはトークンを入力することで、Intune に登録できます。管理者が事前にデバイスの登録を行ってからユーザーに配布することも、ユーザーが自分で登録することも可能です。</p><p>なお、Android 11 以降の Android Enterprise の会社所有の仕事用プロファイル (COPE) では、トークンの手動入力による登録はサポートされていません。この場合は、QR コードのスキャンで登録してください。</p><h3 id="デバイスのステージング"><a href="#デバイスのステージング" class="headerlink" title="デバイスのステージング"></a>デバイスのステージング</h3><p>ゼロタッチを利用できない環境でも、管理者や委託先のベンダーが事前にデバイスの準備を行い、ユーザーが行う操作を最小限に抑えたいという場合には、デバイスのステージングを利用できます。ステージング用のトークンを使うことで、次のような流れで登録を行います。</p><ol><li>管理者が、Intune 管理センターでステージング用のトークンを含む登録プロファイルを作成する</li><li>管理者またはベンダーが、デバイスでトークンの QR コードをスキャン (またはトークンを入力。ただし、Android 11 以降の COPE ではトークンの手動入力は不可) し、セットアップ ウィザードを完了させる。この時点では、デバイスはユーザーに紐づいていない</li><li>デバイスの電源を切り、ユーザーに配布する</li><li>ユーザーは、デバイスの電源を入れて Microsoft Intune アプリに職場または学校アカウントでサインインするだけで、登録が完了する</li></ol><p>デバイスのステージングは、次の登録方法で利用できます。</p><ul><li>Android Enterprise フル マネージド (COBO)</li><li>Android Enterprise の会社所有の仕事用プロファイル (COPE)</li></ul><p>専用デバイス (COSU) では利用できませんので、ご注意ください。</p><ul><li>デバイスのステージングの概要<br><a href="https://learn.microsoft.com/ja-jp/intune/device-enrollment/android/device-staging">https://learn.microsoft.com/ja-jp/intune/device-enrollment/android/device-staging</a></li></ul><h3 id="キッティング方法の比較"><a href="#キッティング方法の比較" class="headerlink" title="キッティング方法の比較"></a>キッティング方法の比較</h3><table><thead><tr><th>キッティング方法</th><th>COBO</th><th>COPE</th><th>COSU</th><th>特徴</th></tr></thead><tbody><tr><td>ゼロタッチ</td><td>○</td><td>○</td><td>○</td><td>対応デバイスを認定販売店から購入する必要がある。電源を入れるだけで登録が開始される</td></tr><tr><td>デバイスのステージング</td><td>○</td><td>○</td><td>-</td><td>管理者やベンダーが事前に準備し、ユーザーはサインインするだけで登録できる</td></tr><tr><td>QR コード &#x2F; トークン</td><td>○</td><td>○</td><td>○</td><td>特別な購入手続きが不要。初期セットアップ時に QR コードのスキャンやトークンの入力が必要 (Android 11 以降の COPE ではトークンの手動入力は不可)</td></tr></tbody></table><hr><h2 id="まとめ"><a href="#まとめ" class="headerlink" title="まとめ"></a>まとめ</h2><ul><li>Android の登録方法は、まず <strong>「個人所有か、企業所有か」</strong> で絞り込み、次に利用イメージで選択する</li><li>BYOD は <strong>Android Enterprise 個人所有の仕事用プロファイル</strong> を利用する。Android 12 以降は、企業向けデバイスの識別子を使って登録を制限することはできない</li><li>Android デバイス管理者は非推奨であり、GMS が利用できるデバイスではサポートされていない</li><li>企業所有は、利用形態に合わせて <strong>COBO &#x2F; COPE &#x2F; COSU &#x2F; AOSP</strong> から選択する</li><li>キッティングを効率化したい場合は、<strong>ゼロタッチ</strong> や <strong>デバイスのステージング</strong> の利用を検討する。ゼロタッチは認定販売店からの購入が必要となるため、デバイスの調達方法とあわせて検討する</li></ul><p>登録方法を決めた後の運用で押さえておきたい Android 固有の仕様については、下記の記事もあわせてご確認ください。</p><ul><li>Android デバイスを Intune で管理する際に押さえておきたいポイント | Japan Microsoft Intune Support Team Blog<br><a href="https://jpintune.github.io/blog/intune/20260731_03/">https://jpintune.github.io/blog/intune/20260731_03/</a></li></ul><p>本記事が、Android デバイスの管理を始める際の参考となれば幸いです。</p>]]>
+    </content>
+    <id>https://jpintune.github.io/blog/intune/20261023_01/</id>
+    <link href="https://jpintune.github.io/blog/intune/20261023_01/"/>
+    <published>2026-10-22T15:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p>みなさま、こんにちは。Intune サポート チームです。</p>
+<p>Android デバイスの管理を始める際に、最初に迷われるポイントが「登録方法の選択」です。Android には登録方法が複数あり、さらに Google 社独自の用語 (仕事用プロファイル、フル マネ]]>
+    </summary>
+    <title>Intune で Android デバイスを管理する時の登録方法の選び方</title>
+    <updated>2026-10-23T00:42:05.688Z</updated>
+  </entry>
   <entry>
     <author>
       <name>Japan Microsoft Intune Support Team</name>
@@ -27,7 +46,7 @@
 <p>Intune は近年、大規模なお客様にもご利用いただく機会が増えてきました。複数の関連会社や複数の拠点の管理者が、1 つの Intune テナントを共同で管理するような環境も、めずらしくありません。<]]>
     </summary>
     <title>大規模な Intune 環境で管理者の権限を適切に分ける。ロール・スコープ タグ・スコープ グループ・複数管理者承認の使いどころ</title>
-    <updated>2026-10-22T05:36:20.879Z</updated>
+    <updated>2026-10-23T00:42:05.687Z</updated>
   </entry>
   <entry>
     <author>
@@ -46,7 +65,7 @@
 <p>オンプレミスの Active Directory で長く運用してきた Windows デバイスを、Intune でも管理していきたい。そんなときに多くのお客様が選ばれるのが、<strong>Hybri]]>
     </summary>
     <title>Hybrid Entra Join 環境で Intune 登録が行われないときの確認ポイント</title>
-    <updated>2026-10-22T05:36:20.879Z</updated>
+    <updated>2026-10-23T00:42:05.687Z</updated>
   </entry>
   <entry>
     <author>
@@ -65,7 +84,7 @@
 <p>前回は、Hybrid Entra Join (Microsoft Entra ハイブリッド参加) 環境でグループ ポリシーによる自動登録がうまくいかないときに、<strong>「どこを、どの順番で確認]]>
     </summary>
     <title>Hybrid Entra Join 環境で Intune 登録が行われないとき ― エラー コード別のトラブルシューティング</title>
-    <updated>2026-10-22T05:36:20.879Z</updated>
+    <updated>2026-10-23T00:42:05.687Z</updated>
   </entry>
   <entry>
     <author>
@@ -84,7 +103,7 @@
 <p>Intune はもともとモバイル デバイスの管理 (MDM) を出発点としたサービスですが、近年ではこれまでオンプレミスの仕組みで管理されてきた Windows デバイスを、Intune へ移行して運]]>
     </summary>
     <title>回線の逼迫を防ぐために。Intune から Win32 アプリを配布するときのネットワーク負荷を抑えるコツ</title>
-    <updated>2026-10-22T05:36:20.878Z</updated>
+    <updated>2026-10-23T00:42:05.685Z</updated>
   </entry>
   <entry>
     <author>
@@ -103,7 +122,7 @@
 <p>日々 Intune を活用してデバイス管理を進めていただき、ありがとうございます。今回は、以前ご紹介した「Intune と Windows の役割分担」の iOS&#x2F;iPadOS 版として、I]]>
     </summary>
     <title>Intune のトラブル解決が早くなる。知っておきたい iOS/iPadOS との &quot;役割分担&quot; - 基本編</title>
-    <updated>2026-10-22T05:36:20.876Z</updated>
+    <updated>2026-10-23T00:42:05.683Z</updated>
   </entry>
   <entry>
     <author>
@@ -122,7 +141,7 @@
 <p>Intune も年々進化を続けており、Windows Update に関連するポリシーもずいぶんと種類が増えてきました。「更新リング」「設定カタログ」「機能更新プログラム ポリシー」「品質更新プログラ]]>
     </summary>
     <title>Intune で Windows Update を管理するポリシーの使い分け</title>
-    <updated>2026-10-22T05:36:20.875Z</updated>
+    <updated>2026-10-23T00:42:05.682Z</updated>
   </entry>
   <entry>
     <author>
@@ -141,7 +160,7 @@
 <p>以前の記事では、Intune と Windows の “役割分担” という視点から、設定 (CSP) の配布を例にトラブルシューティングの基本的な考え方をご紹介しました。今回はその Win32 アプリ]]>
     </summary>
     <title>Intune のトラブル解決が早くなる。知っておきたい &quot;役割分担&quot; - Win32 アプリ編</title>
-    <updated>2026-10-22T05:36:20.874Z</updated>
+    <updated>2026-10-23T00:42:05.680Z</updated>
   </entry>
   <entry>
     <author>
@@ -160,7 +179,7 @@
 <p>オンプレミスの Active Directory を、これまで利用されてきた多くのお客様がまず直面されるのが「グループ ポリシー (GPO) での設定項目を、Intune ではどう設定すればよいのか？]]>
     </summary>
     <title>グループ ポリシーに対応する Intune の設定を見つける方法</title>
-    <updated>2026-10-22T05:36:20.872Z</updated>
+    <updated>2026-10-23T00:42:05.677Z</updated>
   </entry>
   <entry>
     <author>
@@ -179,7 +198,7 @@
 <p>これらのポイントを事前にご理解]]>
     </summary>
     <title>Android デバイスを Intune で管理する際に押さえておきたいポイント</title>
-    <updated>2026-10-22T05:36:20.872Z</updated>
+    <updated>2026-10-23T00:42:05.677Z</updated>
   </entry>
   <entry>
     <author>
@@ -198,7 +217,7 @@
 <p>Intune を使うことで、社内の業務アプリや作成したスクリプト等を Win32 アプリとして、各デバイスへ配信することが出来ます。一方で、いざ配布を始めてみると「手元では問題なくインストールできたの]]>
     </summary>
     <title>意外と見落としがち？Intune で Win32 アプリを配布する前に確認しておきたいポイント</title>
-    <updated>2026-10-22T05:36:20.872Z</updated>
+    <updated>2026-10-23T00:42:05.677Z</updated>
   </entry>
   <entry>
     <author>
@@ -217,6 +236,6 @@
 <p>日々 Intune を活用してデバイス管理を進めていただき、ありがとうございます。今回は、Intune を運用されている皆さまにぜひ知っておいていただきたい「Intune と Windows の役割分]]>
     </summary>
     <title>Intune のトラブル解決が早くなる。知っておきたい Windows との &quot;役割分担&quot; - 基本編</title>
-    <updated>2026-10-22T05:36:20.871Z</updated>
+    <updated>2026-10-23T00:42:05.676Z</updated>
   </entry>
 </feed>
